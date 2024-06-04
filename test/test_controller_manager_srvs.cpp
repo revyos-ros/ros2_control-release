@@ -461,6 +461,8 @@ TEST_F(TestControllerManagerSrvs, unload_controller_srv)
 
   result = call_service_and_wait(*client, request, srv_executor, true);
   ASSERT_TRUE(result->ok);
+  EXPECT_EQ(
+    lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED, test_controller->get_state().id());
   EXPECT_EQ(0u, cm_->get_loaded_controllers().size());
 }
 
@@ -472,6 +474,9 @@ TEST_F(TestControllerManagerSrvs, configure_controller_srv)
   rclcpp::Client<controller_manager_msgs::srv::ConfigureController>::SharedPtr client =
     srv_node->create_client<controller_manager_msgs::srv::ConfigureController>(
       "test_controller_manager/configure_controller");
+  rclcpp::Client<controller_manager_msgs::srv::UnloadController>::SharedPtr unload_client =
+    srv_node->create_client<controller_manager_msgs::srv::UnloadController>(
+      "test_controller_manager/unload_controller");
 
   auto request = std::make_shared<controller_manager_msgs::srv::ConfigureController::Request>();
   request->name = test_controller::TEST_CONTROLLER_NAME;
@@ -490,6 +495,15 @@ TEST_F(TestControllerManagerSrvs, configure_controller_srv)
   EXPECT_EQ(
     lifecycle_msgs::msg::State::PRIMARY_STATE_INACTIVE,
     cm_->get_loaded_controllers()[0].c->get_state().id());
+  EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_INACTIVE, test_controller->get_state().id());
+
+  // now unload the controller and check the state
+  auto unload_request = std::make_shared<controller_manager_msgs::srv::UnloadController::Request>();
+  unload_request->name = test_controller::TEST_CONTROLLER_NAME;
+  ASSERT_TRUE(call_service_and_wait(*unload_client, unload_request, srv_executor, true)->ok);
+  EXPECT_EQ(
+    lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED, test_controller->get_state().id());
+  EXPECT_EQ(0u, cm_->get_loaded_controllers().size());
 }
 
 TEST_F(TestControllerManagerSrvs, list_sorted_chained_controllers)
@@ -780,8 +794,7 @@ TEST_F(TestControllerManagerSrvs, list_sorted_complex_chained_controllers)
   auto get_ctrl_pos = [result](const std::string & controller_name) -> int64_t
   {
     auto it = std::find_if(
-      result->controller.begin(), result->controller.end(),
-      [controller_name](auto itf)
+      result->controller.begin(), result->controller.end(), [controller_name](auto itf)
       { return (itf.name.find(controller_name) != std::string::npos); });
     return std::distance(result->controller.begin(), it);
   };
@@ -992,8 +1005,7 @@ TEST_F(TestControllerManagerSrvs, list_sorted_independent_chained_controllers)
   auto get_ctrl_pos = [result](const std::string & controller_name) -> int64_t
   {
     auto it = std::find_if(
-      result->controller.begin(), result->controller.end(),
-      [controller_name](auto itf)
+      result->controller.begin(), result->controller.end(), [controller_name](auto itf)
       { return (itf.name.find(controller_name) != std::string::npos); });
     return std::distance(result->controller.begin(), it);
   };
@@ -1269,8 +1281,7 @@ TEST_F(TestControllerManagerSrvs, list_large_number_of_controllers_with_chains)
   auto get_ctrl_pos = [result](const std::string & controller_name) -> int64_t
   {
     auto it = std::find_if(
-      result->controller.begin(), result->controller.end(),
-      [controller_name](auto itf)
+      result->controller.begin(), result->controller.end(), [controller_name](auto itf)
       { return (itf.name.find(controller_name) != std::string::npos); });
     return std::distance(result->controller.begin(), it);
   };
@@ -1494,8 +1505,7 @@ TEST_F(TestControllerManagerSrvs, list_sorted_large_chained_controller_tree)
   auto get_ctrl_pos = [result](const std::string & controller_name) -> int64_t
   {
     auto it = std::find_if(
-      result->controller.begin(), result->controller.end(),
-      [controller_name](auto itf)
+      result->controller.begin(), result->controller.end(), [controller_name](auto itf)
       { return (itf.name.find(controller_name) != std::string::npos); });
     return std::distance(result->controller.begin(), it);
   };
