@@ -21,10 +21,7 @@ TEST_F(ChainableControllerInterfaceTest, default_returns)
   TestableChainableControllerInterface controller;
 
   // initialize, create node
-  const auto node_options = controller.define_custom_node_options();
-  ASSERT_EQ(
-    controller.init(TEST_CONTROLLER_NAME, "", 50.0, "", node_options),
-    controller_interface::return_type::OK);
+  ASSERT_EQ(controller.init(TEST_CONTROLLER_NAME), controller_interface::return_type::OK);
   ASSERT_NO_THROW(controller.get_node());
 
   EXPECT_TRUE(controller.is_chainable());
@@ -36,10 +33,7 @@ TEST_F(ChainableControllerInterfaceTest, export_reference_interfaces)
   TestableChainableControllerInterface controller;
 
   // initialize, create node
-  const auto node_options = controller.define_custom_node_options();
-  ASSERT_EQ(
-    controller.init(TEST_CONTROLLER_NAME, "", 50.0, "", node_options),
-    controller_interface::return_type::OK);
+  ASSERT_EQ(controller.init(TEST_CONTROLLER_NAME), controller_interface::return_type::OK);
   ASSERT_NO_THROW(controller.get_node());
 
   auto reference_interfaces = controller.export_reference_interfaces();
@@ -56,10 +50,7 @@ TEST_F(ChainableControllerInterfaceTest, reference_interfaces_storage_not_correc
   TestableChainableControllerInterface controller;
 
   // initialize, create node
-  const auto node_options = controller.define_custom_node_options();
-  ASSERT_EQ(
-    controller.init(TEST_CONTROLLER_NAME, "", 50.0, "", node_options),
-    controller_interface::return_type::OK);
+  ASSERT_EQ(controller.init(TEST_CONTROLLER_NAME), controller_interface::return_type::OK);
   ASSERT_NO_THROW(controller.get_node());
 
   // expect empty return because storage is not resized
@@ -73,10 +64,7 @@ TEST_F(ChainableControllerInterfaceTest, reference_interfaces_prefix_is_not_node
   TestableChainableControllerInterface controller;
 
   // initialize, create node
-  const auto node_options = controller.define_custom_node_options();
-  ASSERT_EQ(
-    controller.init(TEST_CONTROLLER_NAME, "", 50.0, "", node_options),
-    controller_interface::return_type::OK);
+  ASSERT_EQ(controller.init(TEST_CONTROLLER_NAME), controller_interface::return_type::OK);
   ASSERT_NO_THROW(controller.get_node());
 
   controller.set_name_prefix_of_reference_interfaces("some_not_correct_interface_prefix");
@@ -91,10 +79,7 @@ TEST_F(ChainableControllerInterfaceTest, setting_chained_mode)
   TestableChainableControllerInterface controller;
 
   // initialize, create node
-  const auto node_options = controller.define_custom_node_options();
-  ASSERT_EQ(
-    controller.init(TEST_CONTROLLER_NAME, "", 50.0, "", node_options),
-    controller_interface::return_type::OK);
+  ASSERT_EQ(controller.init(TEST_CONTROLLER_NAME), controller_interface::return_type::OK);
   ASSERT_NO_THROW(controller.get_node());
 
   auto reference_interfaces = controller.export_reference_interfaces();
@@ -141,10 +126,7 @@ TEST_F(ChainableControllerInterfaceTest, test_update_logic)
   TestableChainableControllerInterface controller;
 
   // initialize, create node
-  const auto node_options = controller.define_custom_node_options();
-  ASSERT_EQ(
-    controller.init(TEST_CONTROLLER_NAME, "", 50.0, "", node_options),
-    controller_interface::return_type::OK);
+  ASSERT_EQ(controller.init(TEST_CONTROLLER_NAME), controller_interface::return_type::OK);
   ASSERT_NO_THROW(controller.get_node());
 
   EXPECT_FALSE(controller.is_in_chained_mode());

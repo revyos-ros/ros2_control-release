@@ -1,4 +1,4 @@
-// Copyright 2024 PAL Robotics S.L.
+// Copyright 2020 PAL Robotics S.L.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,10 +13,11 @@
 // limitations under the License.
 
 /// \author Adolfo Rodriguez Tsouroukdissian
-#include "joint_limits/joint_limits_urdf.hpp"
-#include "gtest/gtest.h"
 
-using std::string;
+#include <gtest/gtest.h>
+#include <string>
+
+#include <joint_limits_interface/joint_limits_urdf.hpp>
 
 class JointLimitsUrdfTest : public ::testing::Test
 {
@@ -52,14 +53,14 @@ TEST_F(JointLimitsUrdfTest, GetJointLimits)
 {
   // Unset URDF joint
   {
-    joint_limits::JointLimits limits;
+    joint_limits_interface::JointLimits limits;
     urdf::JointSharedPtr urdf_joint_bad;
     EXPECT_FALSE(getJointLimits(urdf_joint_bad, limits));
   }
 
   // Unset URDF limits
   {
-    joint_limits::JointLimits limits;
+    joint_limits_interface::JointLimits limits;
     urdf::JointSharedPtr urdf_joint_bad(new urdf::Joint);
     EXPECT_FALSE(getJointLimits(urdf_joint_bad, limits));
   }
@@ -68,7 +69,7 @@ TEST_F(JointLimitsUrdfTest, GetJointLimits)
   {
     urdf_joint->type = urdf::Joint::CONTINUOUS;
 
-    joint_limits::JointLimits limits;
+    joint_limits_interface::JointLimits limits;
     EXPECT_TRUE(getJointLimits(urdf_joint, limits));
 
     // Position
@@ -91,7 +92,7 @@ TEST_F(JointLimitsUrdfTest, GetJointLimits)
   {
     urdf_joint->type = urdf::Joint::REVOLUTE;
 
-    joint_limits::JointLimits limits;
+    joint_limits_interface::JointLimits limits;
     EXPECT_TRUE(getJointLimits(urdf_joint, limits));
 
     // Position
@@ -116,7 +117,7 @@ TEST_F(JointLimitsUrdfTest, GetJointLimits)
   {
     urdf_joint->type = urdf::Joint::PRISMATIC;
 
-    joint_limits::JointLimits limits;
+    joint_limits_interface::JointLimits limits;
     EXPECT_TRUE(getJointLimits(urdf_joint, limits));
 
     // Position
@@ -142,21 +143,21 @@ TEST_F(JointLimitsUrdfTest, GetSoftJointLimits)
 {
   // Unset URDF joint
   {
-    joint_limits::SoftJointLimits soft_limits;
+    joint_limits_interface::SoftJointLimits soft_limits;
     urdf::JointSharedPtr urdf_joint_bad;
     EXPECT_FALSE(getSoftJointLimits(urdf_joint_bad, soft_limits));
   }
 
   // Unset URDF limits
   {
-    joint_limits::SoftJointLimits soft_limits;
+    joint_limits_interface::SoftJointLimits soft_limits;
     urdf::JointSharedPtr urdf_joint_bad(new urdf::Joint);
     EXPECT_FALSE(getSoftJointLimits(urdf_joint_bad, soft_limits));
   }
 
   // Valid URDF joint
   {
-    joint_limits::SoftJointLimits soft_limits;
+    joint_limits_interface::SoftJointLimits soft_limits;
     EXPECT_TRUE(getSoftJointLimits(urdf_joint, soft_limits));
 
     // Soft limits

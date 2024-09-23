@@ -20,6 +20,7 @@
 #include <vector>
 
 #include "hardware_interface/loaned_state_interface.hpp"
+#include "lifecycle_msgs/msg/state.hpp"
 #include "ros2_control_test_assets/descriptions.hpp"
 
 const auto hardware_resources_command_modes =
@@ -366,21 +367,21 @@ TEST_F(
   EXPECT_EQ(claimed_actuator_position_state_->get_value(), 0.0);
 
   // When TestActuatorHardware is INACTIVE expect OK
-  EXPECT_FALSE(rm_->prepare_command_mode_switch(legal_keys_actuator, legal_keys_actuator));
+  EXPECT_TRUE(rm_->prepare_command_mode_switch(legal_keys_actuator, legal_keys_actuator));
   EXPECT_EQ(claimed_system_acceleration_state_->get_value(), 0.0);
   EXPECT_EQ(claimed_actuator_position_state_->get_value(), 0.0);
   EXPECT_TRUE(rm_->perform_command_mode_switch(legal_keys_actuator, legal_keys_actuator));
   EXPECT_EQ(claimed_system_acceleration_state_->get_value(), 0.0);
   EXPECT_EQ(claimed_actuator_position_state_->get_value(), 0.0);
 
-  EXPECT_FALSE(rm_->prepare_command_mode_switch(legal_keys_actuator, empty_keys));
+  EXPECT_TRUE(rm_->prepare_command_mode_switch(legal_keys_actuator, empty_keys));
   EXPECT_EQ(claimed_system_acceleration_state_->get_value(), 0.0);
   EXPECT_EQ(claimed_actuator_position_state_->get_value(), 0.0);
   EXPECT_TRUE(rm_->perform_command_mode_switch(legal_keys_actuator, empty_keys));
   EXPECT_EQ(claimed_system_acceleration_state_->get_value(), 0.0);
   EXPECT_EQ(claimed_actuator_position_state_->get_value(), 0.0);
 
-  EXPECT_FALSE(rm_->prepare_command_mode_switch(empty_keys, legal_keys_actuator));
+  EXPECT_TRUE(rm_->prepare_command_mode_switch(empty_keys, legal_keys_actuator));
   EXPECT_EQ(claimed_system_acceleration_state_->get_value(), 0.0);
   EXPECT_EQ(claimed_actuator_position_state_->get_value(), 0.0);
   EXPECT_TRUE(rm_->perform_command_mode_switch(empty_keys, legal_keys_actuator));

@@ -19,12 +19,14 @@ import sys
 import warnings
 
 from controller_manager import switch_controllers, unload_controller
+from controller_manager.controller_manager_services import ServiceNotFoundError
 
 import rclpy
 from rclpy.node import Node
 
 
 def main(args=None):
+
     rclpy.init(args=args)
     parser = argparse.ArgumentParser()
     parser.add_argument("controller_names", help="Name of the controller", nargs="+")
@@ -57,6 +59,11 @@ def main(args=None):
             node.get_logger().info("Unloaded controller")
 
         return 0
+    except KeyboardInterrupt:
+        pass
+    except ServiceNotFoundError as err:
+        node.get_logger().fatal(str(err))
+        return 1
     finally:
         rclpy.shutdown()
 

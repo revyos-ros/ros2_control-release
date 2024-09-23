@@ -86,8 +86,7 @@ public:
     }
   }
 
-  controller_interface::return_type update_reference_from_subscribers(
-    const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/) override
+  controller_interface::return_type update_reference_from_subscribers() override
   {
     if (reference_interface_value_ == INTERFACE_VALUE_SUBSCRIBER_ERROR)
     {

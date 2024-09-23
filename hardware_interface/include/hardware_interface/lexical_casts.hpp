@@ -16,12 +16,9 @@
 #define HARDWARE_INTERFACE__LEXICAL_CASTS_HPP_
 
 #include <locale>
-#include <optional>
 #include <sstream>
 #include <stdexcept>
 #include <string>
-
-#include "hardware_interface/visibility_control.h"
 
 namespace hardware_interface
 {
@@ -31,10 +28,8 @@ namespace hardware_interface
  * from
  https://github.com/ros-planning/srdfdom/blob/ad17b8d25812f752c397a6011cec64aeff090c46/src/model.cpp#L53
 */
-HARDWARE_INTERFACE_PUBLIC
 double stod(const std::string & s);
 
-HARDWARE_INTERFACE_PUBLIC
 bool parse_bool(const std::string & bool_string);
 
 }  // namespace hardware_interface

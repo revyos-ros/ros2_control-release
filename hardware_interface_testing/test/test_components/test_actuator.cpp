@@ -16,7 +16,6 @@
 #include <vector>
 
 #include "hardware_interface/actuator_interface.hpp"
-#include "ros2_control_test_assets/test_hardware_interface_constants.hpp"
 
 using hardware_interface::ActuatorInterface;
 using hardware_interface::CommandInterface;
@@ -38,11 +37,9 @@ class TestActuator : public ActuatorInterface
      * // can only control one joint
      * if (info_.joints.size() != 1) {return CallbackReturn::ERROR;}
      * // can only control in position
-     * if (info_.joints[0].command_interfaces.size() != 1) {return
-     * CallbackReturn::ERROR;}
+     * if (info_.joints[0].command_interfaces.size() != 1) {return CallbackReturn::ERROR;}
      * // can only give feedback state for position and velocity
-     * if (info_.joints[0].state_interfaces.size() != 2) {return
-     * CallbackReturn::ERROR;}
+     * if (info_.joints[0].state_interfaces.size() != 2) {return CallbackReturn::ERROR;}
      */
 
     return CallbackReturn::SUCCESS;
@@ -95,23 +92,16 @@ class TestActuator : public ActuatorInterface
   return_type read(const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/) override
   {
     // simulate error on read
-    if (velocity_command_ == test_constants::READ_FAIL_VALUE)
+    if (velocity_command_ == 28282828.0)
     {
-      // reset value to get out from error on the next call - simplifies CM
-      // tests
+      // reset value to get out from error on the next call - simplifies CM tests
       velocity_command_ = 0.0;
       return return_type::ERROR;
     }
-    // simulate deactivate on read
-    if (velocity_command_ == test_constants::READ_DEACTIVATE_VALUE)
-    {
-      return return_type::DEACTIVATE;
-    }
-    // The next line is for the testing purposes. We need value to be changed to
-    // be sure that the feedback from hardware to controllers in the chain is
-    // working as it should. This makes value checks clearer and confirms there
-    // is no "state = command" line or some other mixture of interfaces
-    // somewhere in the test stack.
+    // The next line is for the testing purposes. We need value to be changed to be sure that
+    // the feedback from hardware to controllers in the chain is working as it should.
+    // This makes value checks clearer and confirms there is no "state = command" line or some
+    // other mixture of interfaces somewhere in the test stack.
     velocity_state_ = velocity_command_ / 2;
     return return_type::OK;
   }
@@ -119,17 +109,11 @@ class TestActuator : public ActuatorInterface
   return_type write(const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/) override
   {
     // simulate error on write
-    if (velocity_command_ == test_constants::WRITE_FAIL_VALUE)
+    if (velocity_command_ == 23232323.0)
     {
-      // reset value to get out from error on the next call - simplifies CM
-      // tests
+      // reset value to get out from error on the next call - simplifies CM tests
       velocity_command_ = 0.0;
       return return_type::ERROR;
-    }
-    // simulate deactivate on write
-    if (velocity_command_ == test_constants::WRITE_DEACTIVATE_VALUE)
-    {
-      return return_type::DEACTIVATE;
     }
     return return_type::OK;
   }
@@ -141,7 +125,7 @@ private:
   double max_velocity_command_ = 0.0;
 };
 
-class TestUninitializableActuator : public TestActuator
+class TestUnitilizableActuator : public TestActuator
 {
   CallbackReturn on_init(const hardware_interface::HardwareInfo & info) override
   {
@@ -152,4 +136,4 @@ class TestUninitializableActuator : public TestActuator
 
 #include "pluginlib/class_list_macros.hpp"  // NOLINT
 PLUGINLIB_EXPORT_CLASS(TestActuator, hardware_interface::ActuatorInterface)
-PLUGINLIB_EXPORT_CLASS(TestUninitializableActuator, hardware_interface::ActuatorInterface)
+PLUGINLIB_EXPORT_CLASS(TestUnitilizableActuator, hardware_interface::ActuatorInterface)
