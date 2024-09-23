@@ -821,6 +821,7 @@ controller_interface::return_type ControllerManager::configure_controller(
 
 void ControllerManager::clear_requests()
 {
+  switch_params_.do_switch = false;
   deactivate_request_.clear();
   activate_request_.clear();
   // Set these interfaces as unavailable when clearing requests to avoid leaving them in available
@@ -840,7 +841,8 @@ controller_interface::return_type ControllerManager::switch_controller(
   const std::vector<std::string> & deactivate_controllers, int strictness, bool activate_asap,
   const rclcpp::Duration & timeout)
 {
-  switch_params_ = SwitchParams();
+  // reset the switch param internal variables
+  switch_params_.reset();
 
   if (!deactivate_request_.empty() || !activate_request_.empty())
   {
@@ -971,7 +973,7 @@ controller_interface::return_type ControllerManager::switch_controller(
     {
       RCLCPP_WARN(
         get_logger(),
-        "Controller with name '%s' is not inactive so its following"
+        "Controller with name '%s' is not inactive so its following "
         "controllers do not have to be checked, because it cannot be activated.",
         controller_it->info.name.c_str());
       ret = controller_interface::return_type::ERROR;
@@ -1201,19 +1203,27 @@ controller_interface::return_type ControllerManager::switch_controller(
   // start the atomic controller switching
   switch_params_.strictness = strictness;
   switch_params_.activate_asap = activate_asap;
-  switch_params_.init_time = rclcpp::Clock().now();
-  switch_params_.timeout = timeout;
+  if (timeout == rclcpp::Duration{0, 0})
+  {
+    RCLCPP_INFO_ONCE(get_logger(), "Switch controller timeout is set to 0, using default 1s!");
+    switch_params_.timeout = std::chrono::nanoseconds(1'000'000'000);
+  }
+  else
+  {
+    switch_params_.timeout = timeout.to_chrono<std::chrono::nanoseconds>();
+  }
   switch_params_.do_switch = true;
-
   // wait until switch is finished
   RCLCPP_DEBUG(get_logger(), "Requested atomic controller switch from realtime loop");
-  while (rclcpp::ok() && switch_params_.do_switch)
+  std::unique_lock<std::mutex> switch_params_guard(switch_params_.mutex, std::defer_lock);
+  if (!switch_params_.cv.wait_for(
+        switch_params_guard, switch_params_.timeout, [this] { return !switch_params_.do_switch; }))
   {
-    if (!rclcpp::ok())
-    {
-      return controller_interface::return_type::ERROR;
-    }
-    std::this_thread::sleep_for(std::chrono::microseconds(100));
+    RCLCPP_ERROR(
+      get_logger(), "Switch controller timed out after %f seconds!",
+      static_cast<double>(switch_params_.timeout.count()) / 1e9);
+    clear_requests();
+    return controller_interface::return_type::ERROR;
   }
 
   // copy the controllers spec from the used to the unused list
@@ -1306,6 +1316,12 @@ controller_interface::ControllerInterfaceBaseSharedPtr ControllerManager::add_co
 
 void ControllerManager::manage_switch()
 {
+  std::unique_lock<std::mutex> guard(switch_params_.mutex, std::try_to_lock);
+  if (!guard.owns_lock())
+  {
+    RCLCPP_DEBUG(get_logger(), "Unable to lock switch mutex. Retrying in next cycle.");
+    return;
+  }
   // Ask hardware interfaces to change mode
   if (!resource_manager_->perform_command_mode_switch(
         activate_command_interface_request_, deactivate_command_interface_request_))
@@ -1330,6 +1346,9 @@ void ControllerManager::manage_switch()
   }
 
   // TODO(destogl): move here "do_switch = false"
+
+  switch_params_.do_switch = false;
+  switch_params_.cv.notify_all();
 }
 
 void ControllerManager::deactivate_controllers()
@@ -2495,7 +2514,7 @@ bool ControllerManager::controller_sorting(
     }
 
     // If the ctrl_a's state interface is the one exported by the ctrl_b then ctrl_b should be
-    // infront of ctrl_a
+    // in front of ctrl_a
     // TODO(saikishor): deal with the state interface chaining in the sorting algorithm
     auto state_it = std::find_if(
       state_itfs.begin(), state_itfs.end(),
