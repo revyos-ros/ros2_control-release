@@ -2,6 +2,37 @@
 Changelog for package controller_interface
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+4.17.0 (2024-09-11)
+-------------------
+* Rename `get_state` and `set_state` Functions to `get/set_lifecylce_state` (variant support) (`#1683 <https://github.com/ros-controls/ros2_control/issues/1683>`_)
+* Contributors: Manuel Muth
+
+4.16.1 (2024-08-24)
+-------------------
+
+4.16.0 (2024-08-22)
+-------------------
+* Fix params_file typo in spawner and update release notes for use_global_arguments (`#1701 <https://github.com/ros-controls/ros2_control/issues/1701>`_)
+* Avoid using the global arguments for internal controller nodes (`#1694 <https://github.com/ros-controls/ros2_control/issues/1694>`_)
+* Contributors: Sai Kishor Kothakota
+
+4.15.0 (2024-08-05)
+-------------------
+
+4.14.0 (2024-07-23)
+-------------------
+* Unused header cleanup (`#1627 <https://github.com/ros-controls/ros2_control/issues/1627>`_)
+* move critical variables to the private context (`#1623 <https://github.com/ros-controls/ros2_control/issues/1623>`_)
+* Contributors: Henry Moore, Sai Kishor Kothakota
+
+4.13.0 (2024-07-08)
+-------------------
+* [ControllerChaining] Export state interfaces from chainable controllers (`#1021 <https://github.com/ros-controls/ros2_control/issues/1021>`_)
+* Contributors: Sai Kishor Kothakota
+
+4.12.0 (2024-07-01)
+-------------------
+
 4.11.0 (2024-05-14)
 -------------------
 * Fix dependencies for source build (`#1533 <https://github.com/ros-controls/ros2_control/issues/1533>`_)
