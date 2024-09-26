@@ -15,8 +15,6 @@
 #ifndef ROS2_CONTROL_TEST_ASSETS__COMPONENTS_URDFS_HPP_
 #define ROS2_CONTROL_TEST_ASSETS__COMPONENTS_URDFS_HPP_
 
-#include <string>
-
 namespace ros2_control_test_assets
 {
 // 1. Industrial Robots with only one interface
@@ -45,7 +43,7 @@ const auto valid_urdf_ros2_control_system_one_interface =
   </ros2_control>
 )";
 
-// 2. Industrial Robots with multiple interfaces (cannot be written at the same time)
+// 2.1 Industrial Robots with multiple interfaces (cannot be written at the same time)
 // Note, joint parameters can be any string
 const auto valid_urdf_ros2_control_system_multi_interface =
   R"(
@@ -82,6 +80,70 @@ const auto valid_urdf_ros2_control_system_multi_interface =
       <state_interface name="position"/>
       <state_interface name="velocity"/>
       <state_interface name="effort"/>
+    </joint>
+  </ros2_control>
+)";
+
+// 2.2 Industrial Robots with multiple interfaces (cannot be written at the same time)
+// Additionally some of the Command-/StateInterfaces have parameters defined per interface
+const auto valid_urdf_ros2_control_system_multi_interface_and_custom_interface_parameters =
+  R"(
+  <ros2_control name="RRBotSystemMultiInterface" type="system">
+    <hardware>
+      <plugin>ros2_control_demo_hardware/RRBotSystemMultiInterfaceHardware</plugin>
+      <param name="example_param_write_for_sec">2</param>
+      <param name="example_param_read_for_sec">2</param>
+    </hardware>
+    <joint name="joint1">
+      <command_interface name="position">
+        <param name="min">-1</param>
+        <param name="max">1</param>
+        <param name="initial_value">1.2</param>
+        <param name="register">1</param>
+        <param name="register_size">2</param>
+      </command_interface>
+      <command_interface name="velocity">
+        <param name="min">-1.5</param>
+        <param name="max">1.5</param>
+        <param name="initial_value">3.4</param>
+        <param name="register">2</param>
+        <param name="register_size">4</param>
+      </command_interface>
+      <command_interface name="effort">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="register">3</param>
+        <param name="register_size">2</param>
+      </state_interface>
+      <state_interface name="velocity">
+        <param name="register">4</param>
+        <param name="register_size">4</param>
+      </state_interface>
+      <state_interface name="effort"/>
+      <param name="modbus_server_ip">1.1.1.1</param>
+      <param name="modbus_server_port">1234</param>
+      <param name="use_persistent_connection">true</param>
+    </joint>
+    <joint name="joint2">
+      <command_interface name="position">
+        <param name="min">-1</param>
+        <param name="max">1</param>
+        <param name="register">20</param>
+        <param name="data_type">int32_t</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="register">21</param>
+        <param name="data_type">int32_t</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+      <state_interface name="effort">
+        <param name="register">21</param>
+        <param name="data_type">int32_t</param>
+      </state_interface>
+      <param name="modbus_server_ip">192.168.178.123</param>
+      <param name="modbus_server_port">4321</param>
     </joint>
   </ros2_control>
 )";
@@ -172,6 +234,7 @@ const auto valid_urdf_ros2_control_actuator_modular_robot =
   <ros2_control name="RRBotModularJoint1"  type="actuator">
     <hardware>
       <plugin>ros2_control_demo_hardware/PositionActuatorHardware</plugin>
+      <group>Hardware Group</group>
       <param name="example_param_write_for_sec">1.23</param>
       <param name="example_param_read_for_sec">3</param>
     </hardware>
@@ -186,6 +249,7 @@ const auto valid_urdf_ros2_control_actuator_modular_robot =
   <ros2_control name="RRBotModularJoint2"  type="actuator">
     <hardware>
       <plugin>ros2_control_demo_hardware/PositionActuatorHardware</plugin>
+      <group>Hardware Group</group>
       <param name="example_param_write_for_sec">1.23</param>
       <param name="example_param_read_for_sec">3</param>
     </hardware>
@@ -206,6 +270,7 @@ const auto valid_urdf_ros2_control_actuator_modular_robot_sensors =
   <ros2_control name="RRBotModularJoint1" type="actuator">
     <hardware>
       <plugin>ros2_control_demo_hardware/VelocityActuatorHardware</plugin>
+      <group>Hardware Group 1</group>
       <param name="example_param_write_for_sec">1.23</param>
       <param name="example_param_read_for_sec">3</param>
     </hardware>
@@ -226,6 +291,7 @@ const auto valid_urdf_ros2_control_actuator_modular_robot_sensors =
   <ros2_control name="RRBotModularJoint2" type="actuator">
     <hardware>
       <plugin>ros2_control_demo_hardware/VelocityActuatorHardware</plugin>
+      <group>Hardware Group 2</group>
       <param name="example_param_write_for_sec">1.23</param>
       <param name="example_param_read_for_sec">3</param>
     </hardware>
@@ -240,6 +306,7 @@ const auto valid_urdf_ros2_control_actuator_modular_robot_sensors =
   <ros2_control name="RRBotModularPositionSensorJoint1" type="sensor">
     <hardware>
       <plugin>ros2_control_demo_hardware/PositionSensorHardware</plugin>
+      <group>Hardware Group 1</group>
       <param name="example_param_read_for_sec">2</param>
     </hardware>
     <joint name="joint1">
@@ -249,6 +316,7 @@ const auto valid_urdf_ros2_control_actuator_modular_robot_sensors =
   <ros2_control name="RRBotModularPositionSensorJoint2" type="sensor">
     <hardware>
       <plugin>ros2_control_demo_hardware/PositionSensorHardware</plugin>
+      <group>Hardware Group 2</group>
       <param name="example_param_read_for_sec">2</param>
     </hardware>
     <joint name="joint2">
