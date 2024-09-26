@@ -2,6 +2,34 @@
 Changelog for package ros2controlcli
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+4.17.0 (2024-09-11)
+-------------------
+* [ros2controlcli] fix list_controllers when no controllers are loaded (`#1721 <https://github.com/ros-controls/ros2_control/issues/1721>`_)
+* Contributors: Sai Kishor Kothakota
+
+4.16.1 (2024-08-24)
+-------------------
+
+4.16.0 (2024-08-22)
+-------------------
+* Refactor spawner to be able to reuse code for ros2controlcli (`#1661 <https://github.com/ros-controls/ros2_control/issues/1661>`_)
+* Make list controller and list hardware components immediately visualize the state. (`#1606 <https://github.com/ros-controls/ros2_control/issues/1606>`_)
+* Contributors: Dr. Denis, Sai Kishor Kothakota
+
+4.15.0 (2024-08-05)
+-------------------
+
+4.14.0 (2024-07-23)
+-------------------
+
+4.13.0 (2024-07-08)
+-------------------
+* Remove ament linters (`#1601 <https://github.com/ros-controls/ros2_control/issues/1601>`_)
+* Contributors: Bence Magyar
+
+4.12.0 (2024-07-01)
+-------------------
+
 4.11.0 (2024-05-14)
 -------------------
 
