@@ -18,7 +18,6 @@
 #include <limits>
 #include <memory>
 #include <string>
-#include <unordered_map>
 #include <vector>
 
 #include "hardware_interface/actuator.hpp"
@@ -425,7 +424,8 @@ TEST(TestComponentInterfaces, dummy_actuator)
   hardware_interface::Actuator actuator_hw(std::make_unique<test_components::DummyActuator>());
 
   hardware_interface::HardwareInfo mock_hw_info{};
-  auto state = actuator_hw.initialize(mock_hw_info);
+  rclcpp::Logger logger = rclcpp::get_logger("test_actuator_components");
+  auto state = actuator_hw.initialize(mock_hw_info, logger, nullptr);
   EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED, state.id());
   EXPECT_EQ(hardware_interface::lifecycle_state_names::UNCONFIGURED, state.label());
 
@@ -515,7 +515,8 @@ TEST(TestComponentInterfaces, dummy_sensor)
   hardware_interface::Sensor sensor_hw(std::make_unique<test_components::DummySensor>());
 
   hardware_interface::HardwareInfo mock_hw_info{};
-  auto state = sensor_hw.initialize(mock_hw_info);
+  rclcpp::Logger logger = rclcpp::get_logger("test_sensor_components");
+  auto state = sensor_hw.initialize(mock_hw_info, logger, nullptr);
   EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED, state.id());
   EXPECT_EQ(hardware_interface::lifecycle_state_names::UNCONFIGURED, state.label());
 
@@ -546,7 +547,8 @@ TEST(TestComponentInterfaces, dummy_system)
   hardware_interface::System system_hw(std::make_unique<test_components::DummySystem>());
 
   hardware_interface::HardwareInfo mock_hw_info{};
-  auto state = system_hw.initialize(mock_hw_info);
+  rclcpp::Logger logger = rclcpp::get_logger("test_system_components");
+  auto state = system_hw.initialize(mock_hw_info, logger, nullptr);
   EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED, state.id());
   EXPECT_EQ(hardware_interface::lifecycle_state_names::UNCONFIGURED, state.label());
 
@@ -670,7 +672,8 @@ TEST(TestComponentInterfaces, dummy_command_mode_system)
   hardware_interface::System system_hw(
     std::make_unique<test_components::DummySystemPreparePerform>());
   hardware_interface::HardwareInfo mock_hw_info{};
-  auto state = system_hw.initialize(mock_hw_info);
+  rclcpp::Logger logger = rclcpp::get_logger("test_system_components");
+  auto state = system_hw.initialize(mock_hw_info, logger, nullptr);
   EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED, state.id());
   EXPECT_EQ(hardware_interface::lifecycle_state_names::UNCONFIGURED, state.label());
 
@@ -701,7 +704,8 @@ TEST(TestComponentInterfaces, dummy_actuator_read_error_behavior)
   hardware_interface::Actuator actuator_hw(std::make_unique<test_components::DummyActuator>());
 
   hardware_interface::HardwareInfo mock_hw_info{};
-  auto state = actuator_hw.initialize(mock_hw_info);
+  rclcpp::Logger logger = rclcpp::get_logger("test_actuator_components");
+  auto state = actuator_hw.initialize(mock_hw_info, logger, nullptr);
   EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED, state.id());
   EXPECT_EQ(hardware_interface::lifecycle_state_names::UNCONFIGURED, state.label());
 
@@ -722,7 +726,7 @@ TEST(TestComponentInterfaces, dummy_actuator_read_error_behavior)
   }
   ASSERT_EQ(hardware_interface::return_type::ERROR, actuator_hw.read(TIME, PERIOD));
 
-  state = actuator_hw.get_state();
+  state = actuator_hw.get_lifecycle_state();
   EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED, state.id());
   EXPECT_EQ(hardware_interface::lifecycle_state_names::UNCONFIGURED, state.label());
 
@@ -745,7 +749,7 @@ TEST(TestComponentInterfaces, dummy_actuator_read_error_behavior)
   }
   ASSERT_EQ(hardware_interface::return_type::ERROR, actuator_hw.read(TIME, PERIOD));
 
-  state = actuator_hw.get_state();
+  state = actuator_hw.get_lifecycle_state();
   EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_FINALIZED, state.id());
   EXPECT_EQ(hardware_interface::lifecycle_state_names::FINALIZED, state.label());
 
@@ -760,7 +764,8 @@ TEST(TestComponentInterfaces, dummy_actuator_write_error_behavior)
   hardware_interface::Actuator actuator_hw(std::make_unique<test_components::DummyActuator>());
 
   hardware_interface::HardwareInfo mock_hw_info{};
-  auto state = actuator_hw.initialize(mock_hw_info);
+  rclcpp::Logger logger = rclcpp::get_logger("test_actuator_components");
+  auto state = actuator_hw.initialize(mock_hw_info, logger, nullptr);
   EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED, state.id());
   EXPECT_EQ(hardware_interface::lifecycle_state_names::UNCONFIGURED, state.label());
 
@@ -781,7 +786,7 @@ TEST(TestComponentInterfaces, dummy_actuator_write_error_behavior)
   }
   ASSERT_EQ(hardware_interface::return_type::ERROR, actuator_hw.write(TIME, PERIOD));
 
-  state = actuator_hw.get_state();
+  state = actuator_hw.get_lifecycle_state();
   EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED, state.id());
   EXPECT_EQ(hardware_interface::lifecycle_state_names::UNCONFIGURED, state.label());
 
@@ -804,7 +809,7 @@ TEST(TestComponentInterfaces, dummy_actuator_write_error_behavior)
   }
   ASSERT_EQ(hardware_interface::return_type::ERROR, actuator_hw.write(TIME, PERIOD));
 
-  state = actuator_hw.get_state();
+  state = actuator_hw.get_lifecycle_state();
   EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_FINALIZED, state.id());
   EXPECT_EQ(hardware_interface::lifecycle_state_names::FINALIZED, state.label());
 
@@ -819,7 +824,8 @@ TEST(TestComponentInterfaces, dummy_sensor_read_error_behavior)
   hardware_interface::Sensor sensor_hw(std::make_unique<test_components::DummySensor>());
 
   hardware_interface::HardwareInfo mock_hw_info{};
-  auto state = sensor_hw.initialize(mock_hw_info);
+  rclcpp::Logger logger = rclcpp::get_logger("test_sensor_components");
+  auto state = sensor_hw.initialize(mock_hw_info, logger, nullptr);
 
   auto state_interfaces = sensor_hw.export_state_interfaces();
   // Updated because is is INACTIVE
@@ -837,7 +843,7 @@ TEST(TestComponentInterfaces, dummy_sensor_read_error_behavior)
   }
   ASSERT_EQ(hardware_interface::return_type::ERROR, sensor_hw.read(TIME, PERIOD));
 
-  state = sensor_hw.get_state();
+  state = sensor_hw.get_lifecycle_state();
   EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED, state.id());
   EXPECT_EQ(hardware_interface::lifecycle_state_names::UNCONFIGURED, state.label());
 
@@ -862,7 +868,7 @@ TEST(TestComponentInterfaces, dummy_sensor_read_error_behavior)
   }
   ASSERT_EQ(hardware_interface::return_type::ERROR, sensor_hw.read(TIME, PERIOD));
 
-  state = sensor_hw.get_state();
+  state = sensor_hw.get_lifecycle_state();
   EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_FINALIZED, state.id());
   EXPECT_EQ(hardware_interface::lifecycle_state_names::FINALIZED, state.label());
 
@@ -883,7 +889,8 @@ TEST(TestComponentInterfaces, dummy_system_read_error_behavior)
   hardware_interface::System system_hw(std::make_unique<test_components::DummySystem>());
 
   hardware_interface::HardwareInfo mock_hw_info{};
-  auto state = system_hw.initialize(mock_hw_info);
+  rclcpp::Logger logger = rclcpp::get_logger("test_system_components");
+  auto state = system_hw.initialize(mock_hw_info, logger, nullptr);
   EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED, state.id());
   EXPECT_EQ(hardware_interface::lifecycle_state_names::UNCONFIGURED, state.label());
 
@@ -904,7 +911,7 @@ TEST(TestComponentInterfaces, dummy_system_read_error_behavior)
   }
   ASSERT_EQ(hardware_interface::return_type::ERROR, system_hw.read(TIME, PERIOD));
 
-  state = system_hw.get_state();
+  state = system_hw.get_lifecycle_state();
   EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED, state.id());
   EXPECT_EQ(hardware_interface::lifecycle_state_names::UNCONFIGURED, state.label());
 
@@ -932,7 +939,7 @@ TEST(TestComponentInterfaces, dummy_system_read_error_behavior)
   }
   ASSERT_EQ(hardware_interface::return_type::ERROR, system_hw.read(TIME, PERIOD));
 
-  state = system_hw.get_state();
+  state = system_hw.get_lifecycle_state();
   EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_FINALIZED, state.id());
   EXPECT_EQ(hardware_interface::lifecycle_state_names::FINALIZED, state.label());
 
@@ -947,7 +954,8 @@ TEST(TestComponentInterfaces, dummy_system_write_error_behavior)
   hardware_interface::System system_hw(std::make_unique<test_components::DummySystem>());
 
   hardware_interface::HardwareInfo mock_hw_info{};
-  auto state = system_hw.initialize(mock_hw_info);
+  rclcpp::Logger logger = rclcpp::get_logger("test_system_components");
+  auto state = system_hw.initialize(mock_hw_info, logger, nullptr);
   EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED, state.id());
   EXPECT_EQ(hardware_interface::lifecycle_state_names::UNCONFIGURED, state.label());
 
@@ -968,7 +976,7 @@ TEST(TestComponentInterfaces, dummy_system_write_error_behavior)
   }
   ASSERT_EQ(hardware_interface::return_type::ERROR, system_hw.write(TIME, PERIOD));
 
-  state = system_hw.get_state();
+  state = system_hw.get_lifecycle_state();
   EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED, state.id());
   EXPECT_EQ(hardware_interface::lifecycle_state_names::UNCONFIGURED, state.label());
 
@@ -996,7 +1004,7 @@ TEST(TestComponentInterfaces, dummy_system_write_error_behavior)
   }
   ASSERT_EQ(hardware_interface::return_type::ERROR, system_hw.write(TIME, PERIOD));
 
-  state = system_hw.get_state();
+  state = system_hw.get_lifecycle_state();
   EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_FINALIZED, state.id());
   EXPECT_EQ(hardware_interface::lifecycle_state_names::FINALIZED, state.label());
 
