@@ -15,11 +15,9 @@
 #include <gmock/gmock.h>
 #include <memory>
 #include <string>
-#include <utility>
 #include <vector>
 
 #include "controller_manager/controller_manager.hpp"
-#include "controller_manager_msgs/srv/list_controllers.hpp"
 #include "controller_manager_test_common.hpp"
 #include "lifecycle_msgs/msg/state.hpp"
 #include "test_controller/test_controller.hpp"
@@ -129,7 +127,8 @@ TEST_P(TestControllerManagerWithStrictness, controller_lifecycle)
     << "Update should not reach an unconfigured controller";
 
   EXPECT_EQ(
-    lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED, test_controller->get_state().id());
+    lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED,
+    test_controller->get_lifecycle_state().id());
 
   // configure controller
   {
@@ -143,7 +142,9 @@ TEST_P(TestControllerManagerWithStrictness, controller_lifecycle)
   EXPECT_EQ(0u, test_controller->internal_counter) << "Controller is not started";
   EXPECT_EQ(0u, test_controller2->internal_counter) << "Controller is not started";
 
-  EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_INACTIVE, test_controller->get_state().id());
+  EXPECT_EQ(
+    lifecycle_msgs::msg::State::PRIMARY_STATE_INACTIVE,
+    test_controller->get_lifecycle_state().id());
 
   // Start controller, will take effect at the end of the update function
   std::vector<std::string> start_controllers = {"fake_controller", TEST_CONTROLLER2_NAME};
@@ -184,7 +185,8 @@ TEST_P(TestControllerManagerWithStrictness, controller_lifecycle)
     ControllerManagerRunner cm_runner(this);
     EXPECT_EQ(controller_interface::return_type::OK, switch_future.get());
   }
-  EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_ACTIVE, test_controller->get_state().id());
+  EXPECT_EQ(
+    lifecycle_msgs::msg::State::PRIMARY_STATE_ACTIVE, test_controller->get_lifecycle_state().id());
 
   EXPECT_EQ(
     controller_interface::return_type::OK,
@@ -212,7 +214,9 @@ TEST_P(TestControllerManagerWithStrictness, controller_lifecycle)
     EXPECT_EQ(controller_interface::return_type::OK, switch_future.get());
   }
 
-  EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_INACTIVE, test_controller->get_state().id());
+  EXPECT_EQ(
+    lifecycle_msgs::msg::State::PRIMARY_STATE_INACTIVE,
+    test_controller->get_lifecycle_state().id());
   auto unload_future = std::async(
     std::launch::async, &controller_manager::ControllerManager::unload_controller, cm_,
     test_controller::TEST_CONTROLLER_NAME);
@@ -223,7 +227,8 @@ TEST_P(TestControllerManagerWithStrictness, controller_lifecycle)
   EXPECT_EQ(controller_interface::return_type::OK, unload_future.get());
 
   EXPECT_EQ(
-    lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED, test_controller->get_state().id());
+    lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED,
+    test_controller->get_lifecycle_state().id());
   EXPECT_EQ(1, test_controller.use_count());
 }
 
@@ -244,7 +249,8 @@ TEST_P(TestControllerManagerWithStrictness, per_controller_update_rate)
     << "Update should not reach an unconfigured controller";
 
   EXPECT_EQ(
-    lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED, test_controller->get_state().id());
+    lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED,
+    test_controller->get_lifecycle_state().id());
 
   test_controller->get_node()->set_parameter({"update_rate", 4});
   // configure controller
@@ -257,7 +263,9 @@ TEST_P(TestControllerManagerWithStrictness, per_controller_update_rate)
     cm_->update(time_, rclcpp::Duration::from_seconds(0.01)));
   EXPECT_EQ(0u, test_controller->internal_counter) << "Controller is not started";
 
-  EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_INACTIVE, test_controller->get_state().id());
+  EXPECT_EQ(
+    lifecycle_msgs::msg::State::PRIMARY_STATE_INACTIVE,
+    test_controller->get_lifecycle_state().id());
 
   // Start controller, will take effect at the end of the update function
   std::vector<std::string> start_controllers = {test_controller::TEST_CONTROLLER_NAME};
@@ -278,7 +286,8 @@ TEST_P(TestControllerManagerWithStrictness, per_controller_update_rate)
     EXPECT_EQ(controller_interface::return_type::OK, switch_future.get());
   }
 
-  EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_ACTIVE, test_controller->get_state().id());
+  EXPECT_EQ(
+    lifecycle_msgs::msg::State::PRIMARY_STATE_ACTIVE, test_controller->get_lifecycle_state().id());
 
   // As the controller frequency is 4Hz, it needs to pass 25 iterations for 1 update cycle
   for (size_t i = 0; i < 25; i++)
@@ -325,7 +334,8 @@ TEST_P(TestControllerManagerWithUpdateRates, per_controller_equal_and_higher_upd
     << "Update should not reach an unconfigured controller";
 
   EXPECT_EQ(
-    lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED, test_controller->get_state().id());
+    lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED,
+    test_controller->get_lifecycle_state().id());
 
   rclcpp::Parameter update_rate_parameter("update_rate", static_cast<int>(ctrl_update_rate));
   test_controller->get_node()->set_parameter(update_rate_parameter);
@@ -339,7 +349,9 @@ TEST_P(TestControllerManagerWithUpdateRates, per_controller_equal_and_higher_upd
     cm_->update(time_, rclcpp::Duration::from_seconds(0.01)));
   EXPECT_EQ(last_internal_counter, test_controller->internal_counter)
     << "Controller is not started";
-  EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_INACTIVE, test_controller->get_state().id());
+  EXPECT_EQ(
+    lifecycle_msgs::msg::State::PRIMARY_STATE_INACTIVE,
+    test_controller->get_lifecycle_state().id());
 
   // Start controller, will take effect at the end of the update function
   std::vector<std::string> start_controllers = {test_controller::TEST_CONTROLLER_NAME};
@@ -362,7 +374,8 @@ TEST_P(TestControllerManagerWithUpdateRates, per_controller_equal_and_higher_upd
     EXPECT_EQ(controller_interface::return_type::OK, switch_future.get());
   }
 
-  EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_ACTIVE, test_controller->get_state().id());
+  EXPECT_EQ(
+    lifecycle_msgs::msg::State::PRIMARY_STATE_ACTIVE, test_controller->get_lifecycle_state().id());
 
   const auto pre_internal_counter = test_controller->internal_counter;
   rclcpp::Rate loop_rate(cm_->get_update_rate());
@@ -374,9 +387,12 @@ TEST_P(TestControllerManagerWithUpdateRates, per_controller_equal_and_higher_upd
       controller_interface::return_type::OK,
       cm_->update(time_, rclcpp::Duration::from_seconds(0.01)));
     // In case of a non perfect divisor, the update period should respect the rule
-    // [controller_update_rate, 2*controller_update_rate)
-    ASSERT_GE(test_controller->update_period_, 1.0 / cm_update_rate);
-    ASSERT_LT(test_controller->update_period_, 2.0 / cm_update_rate);
+    // [cm_update_rate, 2*cm_update_rate)
+    EXPECT_THAT(
+      test_controller->update_period_,
+      testing::AllOf(
+        testing::Ge(rclcpp::Duration::from_seconds(1.0 / cm_update_rate)),
+        testing::Lt(rclcpp::Duration::from_seconds(2.0 / cm_update_rate))));
     loop_rate.sleep();
   }
   // if we do 2 times of the controller_manager update rate, the internal counter should be
@@ -429,7 +445,8 @@ TEST_P(TestControllerUpdateRates, check_the_controller_update_rate)
   EXPECT_EQ(2, test_controller.use_count());
 
   EXPECT_EQ(
-    lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED, test_controller->get_state().id());
+    lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED,
+    test_controller->get_lifecycle_state().id());
 
   test_controller->get_node()->set_parameter({"update_rate", static_cast<int>(ctrl_update_rate)});
   // configure controller
@@ -442,9 +459,12 @@ TEST_P(TestControllerUpdateRates, check_the_controller_update_rate)
     cm_->update(time_, rclcpp::Duration::from_seconds(0.01)));
   EXPECT_EQ(0u, test_controller->internal_counter) << "Controller is not started";
 
-  EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_INACTIVE, test_controller->get_state().id());
+  EXPECT_EQ(
+    lifecycle_msgs::msg::State::PRIMARY_STATE_INACTIVE,
+    test_controller->get_lifecycle_state().id());
 
   // Start controller, will take effect at the end of the update function
+  time_ = test_controller->get_node()->now();  // set to something nonzero
   const auto strictness = controller_manager_msgs::srv::SwitchController::Request::STRICT;
   std::vector<std::string> start_controllers = {test_controller::TEST_CONTROLLER_NAME};
   std::vector<std::string> stop_controllers = {};
@@ -465,13 +485,15 @@ TEST_P(TestControllerUpdateRates, check_the_controller_update_rate)
     EXPECT_EQ(controller_interface::return_type::OK, switch_future.get());
   }
 
-  EXPECT_EQ(lifecycle_msgs::msg::State::PRIMARY_STATE_ACTIVE, test_controller->get_state().id());
+  EXPECT_EQ(
+    lifecycle_msgs::msg::State::PRIMARY_STATE_ACTIVE, test_controller->get_lifecycle_state().id());
 
   EXPECT_EQ(test_controller->get_update_rate(), ctrl_update_rate);
   const auto cm_update_rate = cm_->get_update_rate();
   const auto controller_update_rate = test_controller->get_update_rate();
 
   const auto initial_counter = test_controller->internal_counter;
+  // don't start with zero to check if the period is correct if controller is activated anytime
   rclcpp::Time time = time_;
   for (size_t update_counter = 0; update_counter <= 10 * cm_update_rate; ++update_counter)
   {
@@ -480,8 +502,12 @@ TEST_P(TestControllerUpdateRates, check_the_controller_update_rate)
       cm_->update(time, rclcpp::Duration::from_seconds(0.01)));
     // In case of a non perfect divisor, the update period should respect the rule
     // [controller_update_rate, 2*controller_update_rate)
-    ASSERT_GE(test_controller->update_period_, 1.0 / controller_update_rate);
-    ASSERT_LT(test_controller->update_period_, 2.0 / controller_update_rate);
+    EXPECT_THAT(
+      test_controller->update_period_,
+      testing::AllOf(
+        testing::Ge(rclcpp::Duration::from_seconds(1.0 / controller_update_rate)),
+        testing::Lt(rclcpp::Duration::from_seconds(2.0 / controller_update_rate))))
+      << "update_counter: " << update_counter;
 
     time += rclcpp::Duration::from_seconds(0.01);
     if (update_counter % cm_update_rate == 0)
