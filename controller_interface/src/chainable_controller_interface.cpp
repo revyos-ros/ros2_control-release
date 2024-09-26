@@ -32,7 +32,7 @@ return_type ChainableControllerInterface::update(
 
   if (!is_in_chained_mode())
   {
-    ret = update_reference_from_subscribers();
+    ret = update_reference_from_subscribers(time, period);
     if (ret != return_type::OK)
     {
       return ret;
@@ -44,25 +44,34 @@ return_type ChainableControllerInterface::update(
   return ret;
 }
 
+std::vector<hardware_interface::StateInterface>
+ChainableControllerInterface::export_state_interfaces()
+{
+  auto state_interfaces = on_export_state_interfaces();
+
+  // check if the names of the controller state interfaces begin with the controller's name
+  for (const auto & interface : state_interfaces)
+  {
+    if (interface.get_prefix_name() != get_node()->get_name())
+    {
+      RCLCPP_FATAL(
+        get_node()->get_logger(),
+        "The name of the interface '%s' does not begin with the controller's name. This is "
+        "mandatory for state interfaces. No state interface will be exported. Please "
+        "correct and recompile the controller with name '%s' and try again.",
+        interface.get_name().c_str(), get_node()->get_name());
+      state_interfaces.clear();
+      break;
+    }
+  }
+
+  return state_interfaces;
+}
+
 std::vector<hardware_interface::CommandInterface>
 ChainableControllerInterface::export_reference_interfaces()
 {
   auto reference_interfaces = on_export_reference_interfaces();
-
-  // check if the "reference_interfaces_" variable is resized to number of interfaces
-  if (reference_interfaces_.size() != reference_interfaces.size())
-  {
-    // TODO(destogl): Should here be "FATAL"? It is fatal in terms of controller but not for the
-    // framework
-    RCLCPP_FATAL(
-      get_node()->get_logger(),
-      "The internal storage for reference values 'reference_interfaces_' variable has size '%zu', "
-      "but it is expected to have the size '%zu' equal to the number of exported reference "
-      "interfaces. No reference interface will be exported. Please correct and recompile "
-      "the controller with name '%s' and try again.",
-      reference_interfaces_.size(), reference_interfaces.size(), get_node()->get_name());
-    reference_interfaces.clear();
-  }
 
   // check if the names of the reference interfaces begin with the controller's name
   for (const auto & interface : reference_interfaces)
@@ -88,7 +97,7 @@ bool ChainableControllerInterface::set_chained_mode(bool chained_mode)
 {
   bool result = false;
 
-  if (get_state().id() != lifecycle_msgs::msg::State::PRIMARY_STATE_ACTIVE)
+  if (get_lifecycle_state().id() != lifecycle_msgs::msg::State::PRIMARY_STATE_ACTIVE)
   {
     result = on_set_chained_mode(chained_mode);
 
@@ -103,7 +112,8 @@ bool ChainableControllerInterface::set_chained_mode(bool chained_mode)
       get_node()->get_logger(),
       "Can not change controller's chained mode because it is no in '%s' state. "
       "Current state is '%s'.",
-      hardware_interface::lifecycle_state_names::UNCONFIGURED, get_state().label().c_str());
+      hardware_interface::lifecycle_state_names::UNCONFIGURED,
+      get_lifecycle_state().label().c_str());
   }
 
   return result;
@@ -112,5 +122,31 @@ bool ChainableControllerInterface::set_chained_mode(bool chained_mode)
 bool ChainableControllerInterface::is_in_chained_mode() const { return in_chained_mode_; }
 
 bool ChainableControllerInterface::on_set_chained_mode(bool /*chained_mode*/) { return true; }
+
+std::vector<hardware_interface::StateInterface>
+ChainableControllerInterface::on_export_state_interfaces()
+{
+  state_interfaces_values_.resize(exported_state_interface_names_.size(), 0.0);
+  std::vector<hardware_interface::StateInterface> state_interfaces;
+  for (size_t i = 0; i < exported_state_interface_names_.size(); ++i)
+  {
+    state_interfaces.emplace_back(hardware_interface::StateInterface(
+      get_node()->get_name(), exported_state_interface_names_[i], &state_interfaces_values_[i]));
+  }
+  return state_interfaces;
+}
+
+std::vector<hardware_interface::CommandInterface>
+ChainableControllerInterface::on_export_reference_interfaces()
+{
+  reference_interfaces_.resize(exported_reference_interface_names_.size(), 0.0);
+  std::vector<hardware_interface::CommandInterface> reference_interfaces;
+  for (size_t i = 0; i < exported_reference_interface_names_.size(); ++i)
+  {
+    reference_interfaces.emplace_back(hardware_interface::CommandInterface(
+      get_node()->get_name(), exported_reference_interface_names_[i], &reference_interfaces_[i]));
+  }
+  return reference_interfaces;
+}
 
 }  // namespace controller_interface

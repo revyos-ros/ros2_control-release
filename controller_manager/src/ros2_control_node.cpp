@@ -13,14 +13,13 @@
 // limitations under the License.
 
 #include <errno.h>
-#include <algorithm>
 #include <chrono>
 #include <memory>
 #include <string>
 #include <thread>
 
 #include "controller_manager/controller_manager.hpp"
-#include "rclcpp/rclcpp.hpp"
+#include "rclcpp/executors.hpp"
 #include "realtime_tools/thread_priority.hpp"
 
 using namespace std::chrono_literals;
@@ -42,38 +41,41 @@ int main(int argc, char ** argv)
     std::make_shared<rclcpp::executors::MultiThreadedExecutor>();
   std::string manager_node_name = "controller_manager";
 
-  auto cm = std::make_shared<controller_manager::ControllerManager>(executor, manager_node_name);
+  rclcpp::NodeOptions cm_node_options = controller_manager::get_cm_node_options();
+  std::vector<std::string> node_arguments = cm_node_options.arguments();
+  for (int i = 1; i < argc; ++i)
+  {
+    if (node_arguments.empty() && std::string(argv[i]) != "--ros-args")
+    {
+      // A simple way to reject non ros args
+      continue;
+    }
+    node_arguments.push_back(argv[i]);
+  }
+  cm_node_options.arguments(node_arguments);
+
+  auto cm = std::make_shared<controller_manager::ControllerManager>(
+    executor, manager_node_name, "", cm_node_options);
 
   RCLCPP_INFO(cm->get_logger(), "update rate is %d Hz", cm->get_update_rate());
 
   std::thread cm_thread(
     [cm]()
     {
-      if (realtime_tools::has_realtime_kernel())
-      {
-        if (!realtime_tools::configure_sched_fifo(kSchedPriority))
-        {
-          RCLCPP_WARN(
-            cm->get_logger(),
-            "Could not enable FIFO RT scheduling policy: with error number <%i>(%s). See "
-            "[https://control.ros.org/master/doc/ros2_control/controller_manager/doc/userdoc.html] "
-            "for details on how to enable realtime scheduling.",
-            errno, strerror(errno));
-        }
-        else
-        {
-          RCLCPP_INFO(
-            cm->get_logger(), "Successful set up FIFO RT scheduling policy with priority %i.",
-            kSchedPriority);
-        }
-      }
-      else
+      if (!realtime_tools::configure_sched_fifo(kSchedPriority))
       {
         RCLCPP_WARN(
           cm->get_logger(),
-          "No real-time kernel detected on this system. See "
+          "Could not enable FIFO RT scheduling policy: with error number <%i>(%s). See "
           "[https://control.ros.org/master/doc/ros2_control/controller_manager/doc/userdoc.html] "
-          "for details on how to enable realtime scheduling.");
+          "for details on how to enable realtime scheduling.",
+          errno, strerror(errno));
+      }
+      else
+      {
+        RCLCPP_INFO(
+          cm->get_logger(), "Successful set up FIFO RT scheduling policy with priority %i.",
+          kSchedPriority);
       }
 
       // for calculating sleep time
@@ -101,6 +103,8 @@ int main(int argc, char ** argv)
         next_iteration_time += period;
         std::this_thread::sleep_until(next_iteration_time);
       }
+
+      cm->shutdown_async_controllers_and_components();
     });
 
   executor->add_node(cm);
