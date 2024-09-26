@@ -13,7 +13,6 @@
 // limitations under the License.
 
 #include <tinyxml2.h>
-#include <charconv>
 #include <iostream>
 #include <regex>
 #include <stdexcept>
@@ -36,6 +35,7 @@ constexpr const auto kROS2ControlTag = "ros2_control";
 constexpr const auto kHardwareTag = "hardware";
 constexpr const auto kPluginNameTag = "plugin";
 constexpr const auto kParamTag = "param";
+constexpr const auto kGroupTag = "group";
 constexpr const auto kActuatorTag = "actuator";
 constexpr const auto kJointTag = "joint";
 constexpr const auto kSensorTag = "sensor";
@@ -313,6 +313,13 @@ hardware_interface::InterfaceInfo parse_interfaces_from_xml(
   interface.data_type = "double";
   interface.size = 1;
 
+  // Parse parameters
+  const auto * params_it = interfaces_it->FirstChildElement(kParamTag);
+  if (params_it)
+  {
+    interface.parameters = parse_parameters_from_xml(params_it);
+  }
+
   return interface;
 }
 
@@ -578,6 +585,11 @@ HardwareInfo parse_resource_from_xml(
       const auto * type_it = ros2_control_child_it->FirstChildElement(kPluginNameTag);
       hardware.hardware_plugin_name =
         get_text_for_element(type_it, std::string("hardware ") + kPluginNameTag);
+      const auto * group_it = ros2_control_child_it->FirstChildElement(kGroupTag);
+      if (group_it)
+      {
+        hardware.group = get_text_for_element(group_it, std::string("hardware.") + kGroupTag);
+      }
       const auto * params_it = ros2_control_child_it->FirstChildElement(kParamTag);
       if (params_it)
       {
@@ -791,11 +803,13 @@ std::vector<HardwareInfo> parse_control_resources_from_urdf(const std::string & 
   tinyxml2::XMLDocument doc;
   if (!doc.Parse(urdf.c_str()) && doc.Error())
   {
-    throw std::runtime_error("invalid URDF passed in to robot parser");
+    throw std::runtime_error(
+      "invalid URDF passed in to robot parser: " + std::string(doc.ErrorStr()));
   }
   if (doc.Error())
   {
-    throw std::runtime_error("invalid URDF passed in to robot parser");
+    throw std::runtime_error(
+      "invalid URDF passed in to robot parser: " + std::string(doc.ErrorStr()));
   }
 
   // Find robot tag
@@ -830,91 +844,45 @@ std::vector<HardwareInfo> parse_control_resources_from_urdf(const std::string & 
     for (auto i = 0u; i < hw_info.joints.size(); ++i)
     {
       const auto & joint = hw_info.joints.at(i);
-
-      // Search for mimic joints defined in ros2_control tag (deprecated)
-      // TODO(christophfroehlich) delete deprecated config with ROS-J
-      if (joint.parameters.find("mimic") != joint.parameters.cend())
-      {
-        std::cerr << "Warning: Mimic joints defined in ros2_control tag are deprecated. "
-                  << "Please define mimic joints in URDF." << std::endl;
-        const auto mimicked_joint_it = std::find_if(
-          hw_info.joints.begin(), hw_info.joints.end(),
-          [&mimicked_joint =
-             joint.parameters.at("mimic")](const hardware_interface::ComponentInfo & joint_info)
-          { return joint_info.name == mimicked_joint; });
-        if (mimicked_joint_it == hw_info.joints.cend())
-        {
-          throw std::runtime_error(
-            "Mimicked joint '" + joint.parameters.at("mimic") + "' not found");
-        }
-        hardware_interface::MimicJoint mimic_joint;
-        mimic_joint.joint_index = i;
-        mimic_joint.multiplier = 1.0;
-        mimic_joint.offset = 0.0;
-        mimic_joint.mimicked_joint_index = std::distance(hw_info.joints.begin(), mimicked_joint_it);
-        auto param_it = joint.parameters.find("multiplier");
-        if (param_it != joint.parameters.end())
-        {
-          mimic_joint.multiplier = hardware_interface::stod(joint.parameters.at("multiplier"));
-        }
-        param_it = joint.parameters.find("offset");
-        if (param_it != joint.parameters.end())
-        {
-          mimic_joint.offset = hardware_interface::stod(joint.parameters.at("offset"));
-        }
-        hw_info.mimic_joints.push_back(mimic_joint);
-      }
-      else
-      {
-        auto urdf_joint = model.getJoint(joint.name);
-        if (!urdf_joint)
-        {
-          throw std::runtime_error("Joint " + joint.name + " not found in URDF");
-        }
-        if (!urdf_joint->mimic && joint.is_mimic == MimicAttribute::TRUE)
-        {
-          throw std::runtime_error(
-            "Joint '" + joint.name + "' has no mimic information in the URDF.");
-        }
-        if (urdf_joint->mimic && joint.is_mimic != MimicAttribute::FALSE)
-        {
-          if (joint.command_interfaces.size() > 0)
-          {
-            throw std::runtime_error(
-              "Joint '" + joint.name +
-              "' has mimic attribute not set to false: Activated mimic joints cannot have command "
-              "interfaces.");
-          }
-          auto find_joint = [&hw_info](const std::string & name)
-          {
-            auto it = std::find_if(
-              hw_info.joints.begin(), hw_info.joints.end(),
-              [&name](const auto & j) { return j.name == name; });
-            if (it == hw_info.joints.end())
-            {
-              throw std::runtime_error(
-                "Mimic joint '" + name + "' not found in <ros2_control> tag");
-            }
-            return std::distance(hw_info.joints.begin(), it);
-          };
-
-          MimicJoint mimic_joint;
-          mimic_joint.joint_index = i;
-          mimic_joint.mimicked_joint_index = find_joint(urdf_joint->mimic->joint_name);
-          mimic_joint.multiplier = urdf_joint->mimic->multiplier;
-          mimic_joint.offset = urdf_joint->mimic->offset;
-          hw_info.mimic_joints.push_back(mimic_joint);
-        }
-      }
-      // TODO(christophfroehlich) remove this code if deprecated mimic attribute - branch
-      // from above is removed (double check here, but throws already above if not found in URDF)
       auto urdf_joint = model.getJoint(joint.name);
       if (!urdf_joint)
       {
-        std::cerr << "Joint: '" + joint.name + "' not found in URDF. Skipping limits parsing!"
-                  << std::endl;
-        continue;
+        throw std::runtime_error("Joint '" + joint.name + "' not found in URDF");
       }
+      if (!urdf_joint->mimic && joint.is_mimic == MimicAttribute::TRUE)
+      {
+        throw std::runtime_error(
+          "Joint '" + joint.name + "' has no mimic information in the URDF.");
+      }
+      if (urdf_joint->mimic && joint.is_mimic != MimicAttribute::FALSE)
+      {
+        if (joint.command_interfaces.size() > 0)
+        {
+          throw std::runtime_error(
+            "Joint '" + joint.name +
+            "' has mimic attribute not set to false: Activated mimic joints cannot have command "
+            "interfaces.");
+        }
+        auto find_joint = [&hw_info](const std::string & name)
+        {
+          auto it = std::find_if(
+            hw_info.joints.begin(), hw_info.joints.end(),
+            [&name](const auto & j) { return j.name == name; });
+          if (it == hw_info.joints.end())
+          {
+            throw std::runtime_error("Mimic joint '" + name + "' not found in <ros2_control> tag");
+          }
+          return std::distance(hw_info.joints.begin(), it);
+        };
+
+        MimicJoint mimic_joint;
+        mimic_joint.joint_index = i;
+        mimic_joint.mimicked_joint_index = find_joint(urdf_joint->mimic->joint_name);
+        mimic_joint.multiplier = urdf_joint->mimic->multiplier;
+        mimic_joint.offset = urdf_joint->mimic->offset;
+        hw_info.mimic_joints.push_back(mimic_joint);
+      }
+
       if (urdf_joint->type == urdf::Joint::FIXED)
       {
         throw std::runtime_error(
@@ -922,6 +890,7 @@ std::vector<HardwareInfo> parse_control_resources_from_urdf(const std::string & 
           "' is of type 'fixed'. "
           "Fixed joints do not make sense in ros2_control.");
       }
+
       joint_limits::JointLimits limits;
       getJointLimits(urdf_joint, limits);
       // Take the most restricted one. Also valid for continuous-joint type only
@@ -941,6 +910,40 @@ std::vector<HardwareInfo> parse_control_resources_from_urdf(const std::string & 
   }
 
   return hardware_info;
+}
+
+std::vector<InterfaceDescription> parse_state_interface_descriptions(
+  const std::vector<ComponentInfo> & component_info)
+{
+  std::vector<InterfaceDescription> component_state_interface_descriptions;
+  component_state_interface_descriptions.reserve(component_info.size());
+
+  for (const auto & component : component_info)
+  {
+    for (const auto & state_interface : component.state_interfaces)
+    {
+      component_state_interface_descriptions.emplace_back(
+        InterfaceDescription(component.name, state_interface));
+    }
+  }
+  return component_state_interface_descriptions;
+}
+
+std::vector<InterfaceDescription> parse_command_interface_descriptions(
+  const std::vector<ComponentInfo> & component_info)
+{
+  std::vector<InterfaceDescription> component_command_interface_descriptions;
+  component_command_interface_descriptions.reserve(component_info.size());
+
+  for (const auto & component : component_info)
+  {
+    for (const auto & command_interface : component.command_interfaces)
+    {
+      component_command_interface_descriptions.emplace_back(
+        InterfaceDescription(component.name, command_interface));
+    }
+  }
+  return component_command_interface_descriptions;
 }
 
 }  // namespace hardware_interface
