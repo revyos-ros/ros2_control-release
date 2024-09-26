@@ -113,6 +113,7 @@ TEST_F(TestComponentParser, successfully_parse_valid_urdf_system_one_interface)
 
   EXPECT_EQ(hardware_info.name, "RRBotSystemPositionOnly");
   EXPECT_EQ(hardware_info.type, "system");
+  ASSERT_THAT(hardware_info.group, IsEmpty());
   EXPECT_EQ(
     hardware_info.hardware_plugin_name,
     "ros2_control_demo_hardware/RRBotSystemPositionOnlyHardware");
@@ -176,6 +177,7 @@ TEST_F(TestComponentParser, successfully_parse_valid_urdf_system_multi_interface
 
   EXPECT_EQ(hardware_info.name, "RRBotSystemMultiInterface");
   EXPECT_EQ(hardware_info.type, "system");
+  ASSERT_THAT(hardware_info.group, IsEmpty());
   EXPECT_EQ(
     hardware_info.hardware_plugin_name,
     "ros2_control_demo_hardware/RRBotSystemMultiInterfaceHardware");
@@ -238,6 +240,7 @@ TEST_F(TestComponentParser, successfully_parse_valid_urdf_system_robot_with_sens
 
   EXPECT_EQ(hardware_info.name, "RRBotSystemWithSensor");
   EXPECT_EQ(hardware_info.type, "system");
+  ASSERT_THAT(hardware_info.group, IsEmpty());
   EXPECT_EQ(
     hardware_info.hardware_plugin_name, "ros2_control_demo_hardware/RRBotSystemWithSensorHardware");
   ASSERT_THAT(hardware_info.hardware_parameters, SizeIs(2));
@@ -294,6 +297,108 @@ TEST_F(TestComponentParser, successfully_parse_valid_urdf_system_robot_with_sens
   }
 }
 
+TEST_F(
+  TestComponentParser,
+  successfully_parse_valid_urdf_system_multi_interface_custom_interface_parameters)
+{
+  std::string urdf_to_test =
+    std::string(ros2_control_test_assets::urdf_head) +
+    ros2_control_test_assets::
+      valid_urdf_ros2_control_system_multi_interface_and_custom_interface_parameters +
+    ros2_control_test_assets::urdf_tail;
+  const auto control_hardware = parse_control_resources_from_urdf(urdf_to_test);
+  ASSERT_THAT(control_hardware, SizeIs(1));
+  const auto hardware_info = control_hardware.front();
+
+  EXPECT_EQ(hardware_info.name, "RRBotSystemMultiInterface");
+  EXPECT_EQ(hardware_info.type, "system");
+  EXPECT_EQ(
+    hardware_info.hardware_plugin_name,
+    "ros2_control_demo_hardware/RRBotSystemMultiInterfaceHardware");
+  ASSERT_THAT(hardware_info.hardware_parameters, SizeIs(2));
+  EXPECT_EQ(hardware_info.hardware_parameters.at("example_param_write_for_sec"), "2");
+  EXPECT_EQ(hardware_info.hardware_parameters.at("example_param_read_for_sec"), "2");
+
+  ASSERT_THAT(hardware_info.joints, SizeIs(2));
+
+  EXPECT_EQ(hardware_info.joints[0].name, "joint1");
+  EXPECT_EQ(hardware_info.joints[0].type, "joint");
+  EXPECT_EQ(hardware_info.joints[0].parameters.size(), 3);
+  EXPECT_EQ(hardware_info.joints[0].parameters.at("modbus_server_ip"), "1.1.1.1");
+  EXPECT_EQ(hardware_info.joints[0].parameters.at("modbus_server_port"), "1234");
+  EXPECT_EQ(hardware_info.joints[0].parameters.at("use_persistent_connection"), "true");
+  ASSERT_THAT(hardware_info.joints[0].command_interfaces, SizeIs(3));
+  ASSERT_THAT(hardware_info.joints[0].state_interfaces, SizeIs(3));
+  // CommandInterfaces of joints
+  EXPECT_EQ(hardware_info.joints[0].command_interfaces[0].name, HW_IF_POSITION);
+  EXPECT_EQ(hardware_info.joints[0].command_interfaces[0].initial_value, "1.2");
+  EXPECT_EQ(hardware_info.joints[0].command_interfaces[0].min, "-1");
+  EXPECT_EQ(hardware_info.joints[0].command_interfaces[0].max, "1");
+  EXPECT_EQ(hardware_info.joints[0].command_interfaces[0].parameters.size(), 5);
+  EXPECT_EQ(hardware_info.joints[0].command_interfaces[0].parameters.at("register"), "1");
+  EXPECT_EQ(hardware_info.joints[0].command_interfaces[0].parameters.at("register_size"), "2");
+
+  EXPECT_EQ(hardware_info.joints[0].command_interfaces[1].name, HW_IF_VELOCITY);
+  EXPECT_EQ(hardware_info.joints[0].command_interfaces[1].initial_value, "3.4");
+  EXPECT_EQ(hardware_info.joints[0].command_interfaces[1].min, "-1.5");
+  EXPECT_EQ(hardware_info.joints[0].command_interfaces[1].max, "1.5");
+  EXPECT_EQ(hardware_info.joints[0].command_interfaces[1].parameters.size(), 5);
+  EXPECT_EQ(hardware_info.joints[0].command_interfaces[1].parameters.at("register"), "2");
+  EXPECT_EQ(hardware_info.joints[0].command_interfaces[1].parameters.at("register_size"), "4");
+
+  EXPECT_EQ(hardware_info.joints[0].command_interfaces[2].name, HW_IF_EFFORT);
+  EXPECT_EQ(hardware_info.joints[0].command_interfaces[2].min, "-0.5");
+  EXPECT_EQ(hardware_info.joints[0].command_interfaces[2].max, "0.5");
+  EXPECT_EQ(hardware_info.joints[0].command_interfaces[2].data_type, "double");
+  EXPECT_EQ(hardware_info.joints[0].command_interfaces[2].initial_value, "");
+  EXPECT_EQ(hardware_info.joints[0].command_interfaces[2].size, 1);
+  EXPECT_EQ(hardware_info.joints[0].command_interfaces[2].parameters.size(), 2);
+
+  // StateInterfaces of joints
+  EXPECT_EQ(hardware_info.joints[0].state_interfaces[0].name, HW_IF_POSITION);
+  EXPECT_EQ(hardware_info.joints[0].state_interfaces[0].parameters.size(), 2);
+  EXPECT_EQ(hardware_info.joints[0].state_interfaces[0].parameters.at("register"), "3");
+  EXPECT_EQ(hardware_info.joints[0].state_interfaces[0].parameters.at("register_size"), "2");
+
+  EXPECT_EQ(hardware_info.joints[0].state_interfaces[1].name, HW_IF_VELOCITY);
+  EXPECT_EQ(hardware_info.joints[0].state_interfaces[1].parameters.size(), 2);
+  EXPECT_EQ(hardware_info.joints[0].state_interfaces[1].parameters.at("register"), "4");
+  EXPECT_EQ(hardware_info.joints[0].state_interfaces[1].parameters.at("register_size"), "4");
+
+  EXPECT_EQ(hardware_info.joints[0].state_interfaces[2].name, HW_IF_EFFORT);
+  EXPECT_EQ(hardware_info.joints[0].state_interfaces[2].parameters.size(), 0);
+
+  // Second Joint
+  EXPECT_EQ(hardware_info.joints[1].name, "joint2");
+  EXPECT_EQ(hardware_info.joints[1].type, "joint");
+  EXPECT_EQ(hardware_info.joints[1].parameters.size(), 2);
+  EXPECT_EQ(hardware_info.joints[1].parameters.at("modbus_server_ip"), "192.168.178.123");
+  EXPECT_EQ(hardware_info.joints[1].parameters.at("modbus_server_port"), "4321");
+  ASSERT_THAT(hardware_info.joints[1].command_interfaces, SizeIs(1));
+  ASSERT_THAT(hardware_info.joints[1].state_interfaces, SizeIs(3));
+  // CommandInterfaces
+  EXPECT_EQ(hardware_info.joints[1].command_interfaces[0].name, HW_IF_POSITION);
+  EXPECT_EQ(hardware_info.joints[1].command_interfaces[0].initial_value, "");
+  EXPECT_EQ(hardware_info.joints[1].command_interfaces[0].min, "-1");
+  EXPECT_EQ(hardware_info.joints[1].command_interfaces[0].max, "1");
+  EXPECT_EQ(hardware_info.joints[1].command_interfaces[0].parameters.size(), 4);
+  EXPECT_EQ(hardware_info.joints[1].command_interfaces[0].parameters.at("register"), "20");
+  EXPECT_EQ(hardware_info.joints[1].command_interfaces[0].parameters.at("data_type"), "int32_t");
+  // StateInterfaces of joints
+  EXPECT_EQ(hardware_info.joints[1].state_interfaces[0].name, HW_IF_POSITION);
+  EXPECT_EQ(hardware_info.joints[1].state_interfaces[0].parameters.size(), 2);
+  EXPECT_EQ(hardware_info.joints[1].state_interfaces[0].parameters.at("register"), "21");
+  EXPECT_EQ(hardware_info.joints[1].state_interfaces[0].parameters.at("data_type"), "int32_t");
+
+  EXPECT_EQ(hardware_info.joints[1].state_interfaces[1].name, HW_IF_VELOCITY);
+  EXPECT_EQ(hardware_info.joints[1].state_interfaces[1].parameters.size(), 0);
+
+  EXPECT_EQ(hardware_info.joints[1].state_interfaces[2].name, HW_IF_EFFORT);
+  EXPECT_EQ(hardware_info.joints[1].state_interfaces[2].parameters.size(), 2);
+  EXPECT_EQ(hardware_info.joints[1].state_interfaces[2].parameters.at("register"), "21");
+  EXPECT_EQ(hardware_info.joints[1].state_interfaces[2].parameters.at("data_type"), "int32_t");
+}
+
 TEST_F(TestComponentParser, successfully_parse_valid_urdf_system_robot_with_external_sensor)
 {
   std::string urdf_to_test =
@@ -306,6 +411,7 @@ TEST_F(TestComponentParser, successfully_parse_valid_urdf_system_robot_with_exte
 
   EXPECT_EQ(hardware_info.name, "RRBotSystemPositionOnlyWithExternalSensor");
   EXPECT_EQ(hardware_info.type, "system");
+  ASSERT_THAT(hardware_info.group, IsEmpty());
   EXPECT_EQ(
     hardware_info.hardware_plugin_name,
     "ros2_control_demo_hardware/RRBotSystemPositionOnlyHardware");
@@ -372,6 +478,7 @@ TEST_F(TestComponentParser, successfully_parse_valid_urdf_actuator_modular_robot
   auto hardware_info = control_hardware.at(0);
 
   EXPECT_EQ(hardware_info.name, "RRBotModularJoint1");
+  EXPECT_EQ(hardware_info.group, "Hardware Group");
   EXPECT_EQ(hardware_info.type, "actuator");
   EXPECT_EQ(
     hardware_info.hardware_plugin_name, "ros2_control_demo_hardware/PositionActuatorHardware");
@@ -400,6 +507,7 @@ TEST_F(TestComponentParser, successfully_parse_valid_urdf_actuator_modular_robot
   hardware_info = control_hardware.at(1);
 
   EXPECT_EQ(hardware_info.name, "RRBotModularJoint2");
+  EXPECT_EQ(hardware_info.group, "Hardware Group");
   EXPECT_EQ(hardware_info.type, "actuator");
   EXPECT_EQ(
     hardware_info.hardware_plugin_name, "ros2_control_demo_hardware/PositionActuatorHardware");
@@ -445,6 +553,7 @@ TEST_F(TestComponentParser, successfully_parse_valid_urdf_actuator_modular_robot
   auto hardware_info = control_hardware.at(0);
 
   EXPECT_EQ(hardware_info.name, "RRBotModularJoint1");
+  EXPECT_EQ(hardware_info.group, "Hardware Group 1");
   EXPECT_EQ(hardware_info.type, "actuator");
   EXPECT_EQ(
     hardware_info.hardware_plugin_name, "ros2_control_demo_hardware/VelocityActuatorHardware");
@@ -484,6 +593,7 @@ TEST_F(TestComponentParser, successfully_parse_valid_urdf_actuator_modular_robot
   hardware_info = control_hardware.at(1);
 
   EXPECT_EQ(hardware_info.name, "RRBotModularJoint2");
+  EXPECT_EQ(hardware_info.group, "Hardware Group 2");
   EXPECT_EQ(hardware_info.type, "actuator");
   EXPECT_EQ(
     hardware_info.hardware_plugin_name, "ros2_control_demo_hardware/VelocityActuatorHardware");
@@ -523,6 +633,7 @@ TEST_F(TestComponentParser, successfully_parse_valid_urdf_actuator_modular_robot
   hardware_info = control_hardware.at(2);
 
   EXPECT_EQ(hardware_info.name, "RRBotModularPositionSensorJoint1");
+  EXPECT_EQ(hardware_info.group, "Hardware Group 1");
   EXPECT_EQ(hardware_info.type, "sensor");
   EXPECT_EQ(
     hardware_info.hardware_plugin_name, "ros2_control_demo_hardware/PositionSensorHardware");
@@ -554,6 +665,7 @@ TEST_F(TestComponentParser, successfully_parse_valid_urdf_actuator_modular_robot
   hardware_info = control_hardware.at(3);
 
   EXPECT_EQ(hardware_info.name, "RRBotModularPositionSensorJoint2");
+  EXPECT_EQ(hardware_info.group, "Hardware Group 2");
   EXPECT_EQ(hardware_info.type, "sensor");
   EXPECT_EQ(
     hardware_info.hardware_plugin_name, "ros2_control_demo_hardware/PositionSensorHardware");
@@ -602,6 +714,7 @@ TEST_F(TestComponentParser, successfully_parse_valid_urdf_system_multi_joints_tr
 
   EXPECT_EQ(hardware_info.name, "RRBotModularWrist");
   EXPECT_EQ(hardware_info.type, "system");
+  ASSERT_THAT(hardware_info.group, IsEmpty());
   EXPECT_EQ(
     hardware_info.hardware_plugin_name, "ros2_control_demo_hardware/ActuatorHardwareMultiDOF");
   ASSERT_THAT(hardware_info.hardware_parameters, SizeIs(2));
@@ -644,6 +757,7 @@ TEST_F(TestComponentParser, successfully_parse_valid_urdf_sensor_only)
 
   EXPECT_EQ(hardware_info.name, "CameraWithIMU");
   EXPECT_EQ(hardware_info.type, "sensor");
+  ASSERT_THAT(hardware_info.group, IsEmpty());
   EXPECT_EQ(hardware_info.hardware_plugin_name, "ros2_control_demo_hardware/CameraWithIMUSensor");
   ASSERT_THAT(hardware_info.hardware_parameters, SizeIs(1));
   EXPECT_EQ(hardware_info.hardware_parameters.at("example_param_read_for_sec"), "2");
@@ -1329,35 +1443,6 @@ TEST_F(TestComponentParser, gripper_no_mimic_valid_config)
   EXPECT_EQ(hw_info[0].mimic_joints[0].joint_index, 1);
 }
 
-// TODO(christophfroehlich) delete deprecated config test
-TEST_F(TestComponentParser, gripper_mimic_deprecated_valid_config)
-{
-  const auto urdf_to_test =
-    std::string(ros2_control_test_assets::gripper_urdf_head) +
-    std::string(ros2_control_test_assets::gripper_hardware_resources_mimic_deprecated) +
-    std::string(ros2_control_test_assets::urdf_tail);
-  std::vector<hardware_interface::HardwareInfo> hw_info;
-  ASSERT_NO_THROW(hw_info = parse_control_resources_from_urdf(urdf_to_test));
-  ASSERT_THAT(hw_info, SizeIs(1));
-  ASSERT_THAT(hw_info[0].mimic_joints, SizeIs(1));
-  EXPECT_DOUBLE_EQ(hw_info[0].mimic_joints[0].multiplier, 2.0);
-  EXPECT_DOUBLE_EQ(hw_info[0].mimic_joints[0].offset, 1.0);
-  EXPECT_EQ(hw_info[0].mimic_joints[0].mimicked_joint_index, 0);
-  EXPECT_EQ(hw_info[0].mimic_joints[0].joint_index, 1);
-}
-
-TEST_F(TestComponentParser, gripper_mimic_deprecated_unknown_joint_throws_error)
-{
-  const auto urdf_to_test =
-    std::string(ros2_control_test_assets::gripper_urdf_head) +
-    std::string(
-      ros2_control_test_assets::gripper_hardware_resources_mimic_deprecated_unknown_joint) +
-    std::string(ros2_control_test_assets::urdf_tail);
-  std::vector<hardware_interface::HardwareInfo> hw_info;
-  ASSERT_THROW(parse_control_resources_from_urdf(urdf_to_test), std::runtime_error);
-}
-// end delete deprecated config test
-
 TEST_F(TestComponentParser, gripper_mimic_with_unknown_joint_throws_error)
 {
   const auto urdf_to_test =
@@ -1420,4 +1505,114 @@ TEST_F(TestComponentParser, urdf_incomplete_throws_error)
     std::string(ros2_control_test_assets::gripper_hardware_resources_mimic_true_no_command_if) +
     std::string(ros2_control_test_assets::urdf_tail);
   ASSERT_THROW(parse_control_resources_from_urdf(urdf_to_test), std::runtime_error);
+}
+
+TEST_F(TestComponentParser, parse_joint_state_interface_descriptions_from_hardware_info)
+{
+  const std::string urdf_to_test =
+    std::string(ros2_control_test_assets::urdf_head) +
+    ros2_control_test_assets::valid_urdf_ros2_control_system_multi_joints_transmission +
+    ros2_control_test_assets::urdf_tail;
+  const auto control_hardware = parse_control_resources_from_urdf(urdf_to_test);
+
+  const auto joint_state_descriptions =
+    parse_state_interface_descriptions(control_hardware[0].joints);
+  EXPECT_EQ(joint_state_descriptions[0].get_prefix_name(), "joint1");
+  EXPECT_EQ(joint_state_descriptions[0].get_interface_name(), "position");
+  EXPECT_EQ(joint_state_descriptions[0].get_name(), "joint1/position");
+
+  EXPECT_EQ(joint_state_descriptions[1].get_prefix_name(), "joint2");
+  EXPECT_EQ(joint_state_descriptions[1].get_interface_name(), "position");
+  EXPECT_EQ(joint_state_descriptions[1].get_name(), "joint2/position");
+}
+
+TEST_F(TestComponentParser, parse_joint_command_interface_descriptions_from_hardware_info)
+{
+  const std::string urdf_to_test =
+    std::string(ros2_control_test_assets::urdf_head) +
+    ros2_control_test_assets::valid_urdf_ros2_control_system_multi_joints_transmission +
+    ros2_control_test_assets::urdf_tail;
+  const auto control_hardware = parse_control_resources_from_urdf(urdf_to_test);
+
+  const auto joint_command_descriptions =
+    parse_command_interface_descriptions(control_hardware[0].joints);
+  EXPECT_EQ(joint_command_descriptions[0].get_prefix_name(), "joint1");
+  EXPECT_EQ(joint_command_descriptions[0].get_interface_name(), "position");
+  EXPECT_EQ(joint_command_descriptions[0].get_name(), "joint1/position");
+  EXPECT_EQ(joint_command_descriptions[0].interface_info.min, "-1");
+  EXPECT_EQ(joint_command_descriptions[0].interface_info.max, "1");
+
+  EXPECT_EQ(joint_command_descriptions[1].get_prefix_name(), "joint2");
+  EXPECT_EQ(joint_command_descriptions[1].get_interface_name(), "position");
+  EXPECT_EQ(joint_command_descriptions[1].get_name(), "joint2/position");
+  EXPECT_EQ(joint_command_descriptions[1].interface_info.min, "-1");
+  EXPECT_EQ(joint_command_descriptions[1].interface_info.max, "1");
+}
+
+TEST_F(TestComponentParser, parse_sensor_state_interface_descriptions_from_hardware_info)
+{
+  const std::string urdf_to_test = std::string(ros2_control_test_assets::urdf_head) +
+                                   ros2_control_test_assets::valid_urdf_ros2_control_sensor_only +
+                                   ros2_control_test_assets::urdf_tail;
+  const auto control_hardware = parse_control_resources_from_urdf(urdf_to_test);
+
+  const auto sensor_state_descriptions =
+    parse_state_interface_descriptions(control_hardware[0].sensors);
+  EXPECT_EQ(sensor_state_descriptions[0].get_prefix_name(), "sensor1");
+  EXPECT_EQ(sensor_state_descriptions[0].get_interface_name(), "roll");
+  EXPECT_EQ(sensor_state_descriptions[0].get_name(), "sensor1/roll");
+  EXPECT_EQ(sensor_state_descriptions[1].get_prefix_name(), "sensor1");
+  EXPECT_EQ(sensor_state_descriptions[1].get_interface_name(), "pitch");
+  EXPECT_EQ(sensor_state_descriptions[1].get_name(), "sensor1/pitch");
+  EXPECT_EQ(sensor_state_descriptions[2].get_prefix_name(), "sensor1");
+  EXPECT_EQ(sensor_state_descriptions[2].get_interface_name(), "yaw");
+  EXPECT_EQ(sensor_state_descriptions[2].get_name(), "sensor1/yaw");
+
+  EXPECT_EQ(sensor_state_descriptions[3].get_prefix_name(), "sensor2");
+  EXPECT_EQ(sensor_state_descriptions[3].get_interface_name(), "image");
+  EXPECT_EQ(sensor_state_descriptions[3].get_name(), "sensor2/image");
+}
+
+TEST_F(TestComponentParser, parse_gpio_state_interface_descriptions_from_hardware_info)
+{
+  const std::string urdf_to_test =
+    std::string(ros2_control_test_assets::urdf_head) +
+    ros2_control_test_assets::valid_urdf_ros2_control_system_robot_with_gpio +
+    ros2_control_test_assets::urdf_tail;
+  const auto control_hardware = parse_control_resources_from_urdf(urdf_to_test);
+
+  const auto gpio_state_descriptions =
+    parse_state_interface_descriptions(control_hardware[0].gpios);
+  EXPECT_EQ(gpio_state_descriptions[0].get_prefix_name(), "flange_analog_IOs");
+  EXPECT_EQ(gpio_state_descriptions[0].get_interface_name(), "analog_output1");
+  EXPECT_EQ(gpio_state_descriptions[0].get_name(), "flange_analog_IOs/analog_output1");
+  EXPECT_EQ(gpio_state_descriptions[1].get_prefix_name(), "flange_analog_IOs");
+  EXPECT_EQ(gpio_state_descriptions[1].get_interface_name(), "analog_input1");
+  EXPECT_EQ(gpio_state_descriptions[1].get_name(), "flange_analog_IOs/analog_input1");
+  EXPECT_EQ(gpio_state_descriptions[2].get_prefix_name(), "flange_analog_IOs");
+  EXPECT_EQ(gpio_state_descriptions[2].get_interface_name(), "analog_input2");
+  EXPECT_EQ(gpio_state_descriptions[2].get_name(), "flange_analog_IOs/analog_input2");
+
+  EXPECT_EQ(gpio_state_descriptions[3].get_prefix_name(), "flange_vacuum");
+  EXPECT_EQ(gpio_state_descriptions[3].get_interface_name(), "vacuum");
+  EXPECT_EQ(gpio_state_descriptions[3].get_name(), "flange_vacuum/vacuum");
+}
+
+TEST_F(TestComponentParser, parse_gpio_command_interface_descriptions_from_hardware_info)
+{
+  const std::string urdf_to_test =
+    std::string(ros2_control_test_assets::urdf_head) +
+    ros2_control_test_assets::valid_urdf_ros2_control_system_robot_with_gpio +
+    ros2_control_test_assets::urdf_tail;
+  const auto control_hardware = parse_control_resources_from_urdf(urdf_to_test);
+
+  const auto gpio_state_descriptions =
+    parse_command_interface_descriptions(control_hardware[0].gpios);
+  EXPECT_EQ(gpio_state_descriptions[0].get_prefix_name(), "flange_analog_IOs");
+  EXPECT_EQ(gpio_state_descriptions[0].get_interface_name(), "analog_output1");
+  EXPECT_EQ(gpio_state_descriptions[0].get_name(), "flange_analog_IOs/analog_output1");
+
+  EXPECT_EQ(gpio_state_descriptions[1].get_prefix_name(), "flange_vacuum");
+  EXPECT_EQ(gpio_state_descriptions[1].get_interface_name(), "vacuum");
+  EXPECT_EQ(gpio_state_descriptions[1].get_name(), "flange_vacuum/vacuum");
 }
