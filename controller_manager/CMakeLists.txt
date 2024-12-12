@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 project(controller_manager)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra)
+  add_compile_options(-Wall -Wextra -Werror=conversion -Werror=unused-but-set-variable -Werror=return-type -Werror=shadow)
 endif()
 
 set(THIS_PACKAGE_INCLUDE_DEPENDS
@@ -174,6 +174,14 @@ if(BUILD_TESTING)
   target_include_directories(test_spawner_unspawner PRIVATE include)
   target_link_libraries(test_spawner_unspawner ${PROJECT_NAME} test_controller)
   ament_target_dependencies(test_spawner_unspawner ros2_control_test_assets)
+
+  ament_add_gmock(test_hardware_spawner
+    test/test_hardware_spawner.cpp
+    TIMEOUT 120
+  )
+  target_include_directories(test_hardware_spawner PRIVATE include)
+  target_link_libraries(test_hardware_spawner ${PROJECT_NAME})
+  ament_target_dependencies(test_hardware_spawner ros2_control_test_assets)
 
   install(FILES test/test_controller_spawner_with_type.yaml
   DESTINATION test)
