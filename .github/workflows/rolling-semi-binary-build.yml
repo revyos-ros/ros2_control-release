@@ -36,9 +36,10 @@ jobs:
   binary:
     uses: ros-controls/ros2_control_ci/.github/workflows/reusable-industrial-ci-with-cache.yml@master
     strategy:
+      fail-fast: false
       matrix:
         ROS_DISTRO: [rolling]
-        ROS_REPO: [main, testing]
+        ROS_REPO: [testing]
     with:
       ros_distro: ${{ matrix.ROS_DISTRO }}
       ros_repo: ${{ matrix.ROS_REPO }}

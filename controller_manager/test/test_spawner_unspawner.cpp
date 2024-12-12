@@ -33,6 +33,7 @@ const char coveragepy_script[] = "python3 -m coverage run --append --branch";
 using namespace std::chrono_literals;
 class TestLoadController : public ControllerManagerFixture<controller_manager::ControllerManager>
 {
+public:
   void SetUp() override
   {
     ControllerManagerFixture::SetUp();
@@ -41,9 +42,9 @@ class TestLoadController : public ControllerManagerFixture<controller_manager::C
       std::chrono::milliseconds(10),
       [&]()
       {
-        cm_->read(TIME, PERIOD);
-        cm_->update(TIME, PERIOD);
-        cm_->write(TIME, PERIOD);
+        cm_->read(time_, PERIOD);
+        cm_->update(time_, PERIOD);
+        cm_->write(time_, PERIOD);
       });
 
     update_executor_ =
@@ -221,6 +222,7 @@ TEST_F(TestLoadController, multi_ctrls_test_type_in_param)
 
 TEST_F(TestLoadController, spawner_test_type_in_arg)
 {
+  ControllerManagerRunner cm_runner(this);
   // Provide controller type via -t argument
   EXPECT_EQ(
     call_spawner(
@@ -235,16 +237,100 @@ TEST_F(TestLoadController, spawner_test_type_in_arg)
   ASSERT_EQ(ctrl_2.c->get_state().id(), lifecycle_msgs::msg::State::PRIMARY_STATE_ACTIVE);
 }
 
+TEST_F(TestLoadController, spawner_test_type_in_params_file)
+{
+  const std::string test_file_path = ament_index_cpp::get_package_prefix("controller_manager") +
+                                     "/test/test_controller_spawner_with_type.yaml";
+
+  ControllerManagerRunner cm_runner(this);
+  // Provide controller type via the parsed file
+  EXPECT_EQ(
+    call_spawner(
+      "ctrl_with_parameters_and_type chainable_ctrl_with_parameters_and_type --load-only -c "
+      "test_controller_manager -p " +
+      test_file_path),
+    0);
+
+  ASSERT_EQ(cm_->get_loaded_controllers().size(), 2ul);
+
+  auto ctrl_with_parameters_and_type = cm_->get_loaded_controllers()[0];
+  ASSERT_EQ(ctrl_with_parameters_and_type.info.name, "ctrl_with_parameters_and_type");
+  ASSERT_EQ(ctrl_with_parameters_and_type.info.type, test_controller::TEST_CONTROLLER_CLASS_NAME);
+  ASSERT_EQ(
+    ctrl_with_parameters_and_type.c->get_state().id(),
+    lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED);
+  ASSERT_EQ(
+    cm_->get_parameter("ctrl_with_parameters_and_type.params_file").as_string(), test_file_path);
+
+  auto chain_ctrl_with_parameters_and_type = cm_->get_loaded_controllers()[1];
+  ASSERT_EQ(
+    chain_ctrl_with_parameters_and_type.info.name, "chainable_ctrl_with_parameters_and_type");
+  ASSERT_EQ(
+    chain_ctrl_with_parameters_and_type.info.type,
+    test_chainable_controller::TEST_CONTROLLER_CLASS_NAME);
+  ASSERT_EQ(
+    chain_ctrl_with_parameters_and_type.c->get_state().id(),
+    lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED);
+  ASSERT_EQ(
+    cm_->get_parameter("chainable_ctrl_with_parameters_and_type.params_file").as_string(),
+    test_file_path);
+
+  EXPECT_EQ(
+    call_spawner(
+      "ctrl_with_parameters_and_no_type -c test_controller_manager --controller-manager-timeout "
+      "1.0 -p " +
+      test_file_path),
+    256);
+  // Will still be same as the current call will fail
+  ASSERT_EQ(cm_->get_loaded_controllers().size(), 2ul);
+
+  auto ctrl_1 = cm_->get_loaded_controllers()[0];
+  ASSERT_EQ(ctrl_1.info.name, "ctrl_with_parameters_and_type");
+  ASSERT_EQ(ctrl_1.info.type, test_controller::TEST_CONTROLLER_CLASS_NAME);
+  ASSERT_EQ(ctrl_1.c->get_state().id(), lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED);
+  ASSERT_EQ(
+    cm_->get_parameter("ctrl_with_parameters_and_type.params_file").as_string(), test_file_path);
+
+  auto ctrl_2 = cm_->get_loaded_controllers()[1];
+  ASSERT_EQ(ctrl_2.info.name, "chainable_ctrl_with_parameters_and_type");
+  ASSERT_EQ(ctrl_2.info.type, test_chainable_controller::TEST_CONTROLLER_CLASS_NAME);
+  ASSERT_EQ(ctrl_2.c->get_state().id(), lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED);
+  ASSERT_EQ(
+    cm_->get_parameter("chainable_ctrl_with_parameters_and_type.params_file").as_string(),
+    test_file_path);
+}
+
 TEST_F(TestLoadController, unload_on_kill)
 {
   // Launch spawner with unload on kill
   // timeout command will kill it after the specified time with signal SIGINT
+  ControllerManagerRunner cm_runner(this);
+  cm_->set_parameter(rclcpp::Parameter("ctrl_3.type", test_controller::TEST_CONTROLLER_CLASS_NAME));
   std::stringstream ss;
   ss << "timeout --signal=INT 5 "
      << std::string(coveragepy_script) +
           " $(ros2 pkg prefix controller_manager)/lib/controller_manager/spawner "
      << "ctrl_3 -c test_controller_manager -t "
      << std::string(test_controller::TEST_CONTROLLER_CLASS_NAME) << " --unload-on-kill";
+
+  EXPECT_NE(std::system(ss.str().c_str()), 0)
+    << "timeout should have killed spawner and returned non 0 code";
+
+  ASSERT_EQ(cm_->get_loaded_controllers().size(), 0ul);
+}
+
+TEST_F(TestLoadController, unload_on_kill_activate_as_group)
+{
+  // Launch spawner with unload on kill
+  // timeout command will kill it after the specified time with signal SIGINT
+  ControllerManagerRunner cm_runner(this);
+  cm_->set_parameter(rclcpp::Parameter("ctrl_3.type", test_controller::TEST_CONTROLLER_CLASS_NAME));
+  cm_->set_parameter(rclcpp::Parameter("ctrl_2.type", test_controller::TEST_CONTROLLER_CLASS_NAME));
+  std::stringstream ss;
+  ss << "timeout --signal=INT 5 "
+     << std::string(coveragepy_script) +
+          " $(ros2 pkg prefix controller_manager)/lib/controller_manager/spawner "
+     << "ctrl_3 ctrl_2 --activate-as-group -c test_controller_manager --unload-on-kill";
 
   EXPECT_NE(std::system(ss.str().c_str()), 0)
     << "timeout should have killed spawner and returned non 0 code";
@@ -507,17 +593,18 @@ TEST_F(TestLoadControllerWithNamespacedCM, spawner_test_type_in_params_file)
   const std::string test_file_path = ament_index_cpp::get_package_prefix("controller_manager") +
                                      "/test/test_controller_spawner_with_type.yaml";
 
+  ControllerManagerRunner cm_runner(this);
   // Provide controller type via the parsed file
   EXPECT_EQ(
     call_spawner(
-      "ctrl_with_parameters_and_type chainable_ctrl_with_parameters_and_type --load-only -c "
+      "ns_ctrl_with_parameters_and_type ns_chainable_ctrl_with_parameters_and_type --load-only -c "
       "test_controller_manager --controller-manager-timeout 1.0 -p " +
       test_file_path),
     256)
     << "Should fail without the namespacing it";
   EXPECT_EQ(
     call_spawner(
-      "ctrl_with_parameters_and_type chainable_ctrl_with_parameters_and_type --load-only -c "
+      "ns_ctrl_with_parameters_and_type ns_chainable_ctrl_with_parameters_and_type --load-only -c "
       "test_controller_manager -p " +
       test_file_path + " --ros-args -r __ns:=/foo_namespace"),
     0);
@@ -525,25 +612,31 @@ TEST_F(TestLoadControllerWithNamespacedCM, spawner_test_type_in_params_file)
   ASSERT_EQ(cm_->get_loaded_controllers().size(), 2ul);
 
   auto ctrl_with_parameters_and_type = cm_->get_loaded_controllers()[0];
-  ASSERT_EQ(ctrl_with_parameters_and_type.info.name, "ctrl_with_parameters_and_type");
+  ASSERT_EQ(ctrl_with_parameters_and_type.info.name, "ns_ctrl_with_parameters_and_type");
   ASSERT_EQ(ctrl_with_parameters_and_type.info.type, test_controller::TEST_CONTROLLER_CLASS_NAME);
   ASSERT_EQ(
     ctrl_with_parameters_and_type.c->get_state().id(),
     lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED);
+  ASSERT_EQ(
+    cm_->get_parameter(ctrl_with_parameters_and_type.info.name + ".params_file").as_string(),
+    test_file_path);
 
   auto chain_ctrl_with_parameters_and_type = cm_->get_loaded_controllers()[1];
   ASSERT_EQ(
-    chain_ctrl_with_parameters_and_type.info.name, "chainable_ctrl_with_parameters_and_type");
+    chain_ctrl_with_parameters_and_type.info.name, "ns_chainable_ctrl_with_parameters_and_type");
   ASSERT_EQ(
     chain_ctrl_with_parameters_and_type.info.type,
     test_chainable_controller::TEST_CONTROLLER_CLASS_NAME);
   ASSERT_EQ(
     chain_ctrl_with_parameters_and_type.c->get_state().id(),
     lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED);
+  ASSERT_EQ(
+    cm_->get_parameter(chain_ctrl_with_parameters_and_type.info.name + ".params_file").as_string(),
+    test_file_path);
 
   EXPECT_EQ(
     call_spawner(
-      "ctrl_with_parameters_and_no_type -c test_controller_manager -p " + test_file_path +
+      "ns_ctrl_with_parameters_and_no_type -c test_controller_manager -p " + test_file_path +
       " --ros-args -r __ns:=/foo_namespace"),
     256)
     << "Should fail as no type is defined!";
@@ -551,14 +644,16 @@ TEST_F(TestLoadControllerWithNamespacedCM, spawner_test_type_in_params_file)
   ASSERT_EQ(cm_->get_loaded_controllers().size(), 2ul);
 
   auto ctrl_1 = cm_->get_loaded_controllers()[0];
-  ASSERT_EQ(ctrl_1.info.name, "ctrl_with_parameters_and_type");
+  ASSERT_EQ(ctrl_1.info.name, "ns_ctrl_with_parameters_and_type");
   ASSERT_EQ(ctrl_1.info.type, test_controller::TEST_CONTROLLER_CLASS_NAME);
   ASSERT_EQ(ctrl_1.c->get_state().id(), lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED);
+  ASSERT_EQ(cm_->get_parameter(ctrl_1.info.name + ".params_file").as_string(), test_file_path);
 
   auto ctrl_2 = cm_->get_loaded_controllers()[1];
-  ASSERT_EQ(ctrl_2.info.name, "chainable_ctrl_with_parameters_and_type");
+  ASSERT_EQ(ctrl_2.info.name, "ns_chainable_ctrl_with_parameters_and_type");
   ASSERT_EQ(ctrl_2.info.type, test_chainable_controller::TEST_CONTROLLER_CLASS_NAME);
   ASSERT_EQ(ctrl_2.c->get_state().id(), lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED);
+  ASSERT_EQ(cm_->get_parameter(ctrl_2.info.name + ".params_file").as_string(), test_file_path);
 }
 
 TEST_F(
@@ -567,31 +662,32 @@ TEST_F(
   const std::string test_file_path = ament_index_cpp::get_package_prefix("controller_manager") +
                                      "/test/test_controller_spawner_with_type.yaml";
 
+  ControllerManagerRunner cm_runner(this);
   // Provide controller type via the parsed file
   EXPECT_EQ(
     call_spawner(
-      "ctrl_with_parameters_and_type chainable_ctrl_with_parameters_and_type --load-only -c "
+      "ns_ctrl_with_parameters_and_type ns_chainable_ctrl_with_parameters_and_type --load-only -c "
       "test_controller_manager --controller-manager-timeout 1.0 -p " +
       test_file_path),
     256)
     << "Should fail without the namespacing it";
   EXPECT_EQ(
     call_spawner(
-      "ctrl_with_parameters_and_type chainable_ctrl_with_parameters_and_type --load-only -c "
+      "ns_ctrl_with_parameters_and_type ns_chainable_ctrl_with_parameters_and_type --load-only -c "
       "test_controller_manager --namespace foo_namespace --controller-manager-timeout 1.0 -p " +
       test_file_path + " --ros-args -r __ns:=/random_namespace"),
     256)
     << "Should fail when parsed namespace through both way with different namespaces";
   EXPECT_EQ(
     call_spawner(
-      "ctrl_with_parameters_and_type chainable_ctrl_with_parameters_and_type --load-only -c "
+      "ns_ctrl_with_parameters_and_type ns_chainable_ctrl_with_parameters_and_type --load-only -c "
       "test_controller_manager --namespace foo_namespace --controller-manager-timeout 1.0 -p" +
       test_file_path + " --ros-args -r __ns:=/foo_namespace"),
     256)
     << "Should fail when parsed namespace through both ways even with same namespacing name";
   EXPECT_EQ(
     call_spawner(
-      "ctrl_with_parameters_and_type chainable_ctrl_with_parameters_and_type --load-only -c "
+      "ns_ctrl_with_parameters_and_type ns_chainable_ctrl_with_parameters_and_type --load-only -c "
       "test_controller_manager --namespace foo_namespace -p " +
       test_file_path),
     0)
@@ -600,7 +696,78 @@ TEST_F(
   ASSERT_EQ(cm_->get_loaded_controllers().size(), 2ul);
 
   auto ctrl_with_parameters_and_type = cm_->get_loaded_controllers()[0];
-  ASSERT_EQ(ctrl_with_parameters_and_type.info.name, "ctrl_with_parameters_and_type");
+  ASSERT_EQ(ctrl_with_parameters_and_type.info.name, "ns_ctrl_with_parameters_and_type");
+  ASSERT_EQ(ctrl_with_parameters_and_type.info.type, test_controller::TEST_CONTROLLER_CLASS_NAME);
+  ASSERT_EQ(
+    ctrl_with_parameters_and_type.c->get_state().id(),
+    lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED);
+  ASSERT_EQ(
+    cm_->get_parameter(ctrl_with_parameters_and_type.info.name + ".params_file").as_string(),
+    test_file_path);
+
+  auto chain_ctrl_with_parameters_and_type = cm_->get_loaded_controllers()[1];
+  ASSERT_EQ(
+    chain_ctrl_with_parameters_and_type.info.name, "ns_chainable_ctrl_with_parameters_and_type");
+  ASSERT_EQ(
+    chain_ctrl_with_parameters_and_type.info.type,
+    test_chainable_controller::TEST_CONTROLLER_CLASS_NAME);
+  ASSERT_EQ(
+    chain_ctrl_with_parameters_and_type.c->get_state().id(),
+    lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED);
+  ASSERT_EQ(
+    cm_->get_parameter(chain_ctrl_with_parameters_and_type.info.name + ".params_file").as_string(),
+    test_file_path);
+
+  EXPECT_EQ(
+    call_spawner(
+      "ns_ctrl_with_parameters_and_no_type -c test_controller_manager --namespace foo_namespace "
+      "-p " +
+      test_file_path),
+    256)
+    << "Should fail as no type is defined!";
+  // Will still be same as the current call will fail
+  ASSERT_EQ(cm_->get_loaded_controllers().size(), 2ul);
+
+  auto ctrl_1 = cm_->get_loaded_controllers()[0];
+  ASSERT_EQ(ctrl_1.info.name, "ns_ctrl_with_parameters_and_type");
+  ASSERT_EQ(ctrl_1.info.type, test_controller::TEST_CONTROLLER_CLASS_NAME);
+  ASSERT_EQ(ctrl_1.c->get_state().id(), lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED);
+  ASSERT_EQ(cm_->get_parameter(ctrl_1.info.name + ".params_file").as_string(), test_file_path);
+
+  auto ctrl_2 = cm_->get_loaded_controllers()[1];
+  ASSERT_EQ(ctrl_2.info.name, "ns_chainable_ctrl_with_parameters_and_type");
+  ASSERT_EQ(ctrl_2.info.type, test_chainable_controller::TEST_CONTROLLER_CLASS_NAME);
+  ASSERT_EQ(ctrl_2.c->get_state().id(), lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED);
+  ASSERT_EQ(cm_->get_parameter(ctrl_2.info.name + ".params_file").as_string(), test_file_path);
+}
+
+TEST_F(TestLoadControllerWithNamespacedCM, spawner_test_with_wildcard_entries_in_params_file)
+{
+  const std::string test_file_path = ament_index_cpp::get_package_prefix("controller_manager") +
+                                     "/test/test_controller_spawner_with_type.yaml";
+
+  ControllerManagerRunner cm_runner(this);
+  // Provide controller type via the parsed file
+  EXPECT_EQ(
+    call_spawner(
+      "wildcard_ctrl_with_parameters_and_type wildcard_chainable_ctrl_with_parameters_and_type "
+      "--load-only -c "
+      "test_controller_manager --controller-manager-timeout 1.0 -p " +
+      test_file_path),
+    256)
+    << "Should fail without the namespacing it due to timeout but can find the parameters";
+  EXPECT_EQ(
+    call_spawner(
+      "wildcard_ctrl_with_parameters_and_type wildcard_chainable_ctrl_with_parameters_and_type "
+      "--load-only -c "
+      "test_controller_manager -p " +
+      test_file_path + " --ros-args -r __ns:=/foo_namespace"),
+    0);
+
+  ASSERT_EQ(cm_->get_loaded_controllers().size(), 2ul);
+
+  auto ctrl_with_parameters_and_type = cm_->get_loaded_controllers()[0];
+  ASSERT_EQ(ctrl_with_parameters_and_type.info.name, "wildcard_ctrl_with_parameters_and_type");
   ASSERT_EQ(ctrl_with_parameters_and_type.info.type, test_controller::TEST_CONTROLLER_CLASS_NAME);
   ASSERT_EQ(
     ctrl_with_parameters_and_type.c->get_state().id(),
@@ -608,7 +775,8 @@ TEST_F(
 
   auto chain_ctrl_with_parameters_and_type = cm_->get_loaded_controllers()[1];
   ASSERT_EQ(
-    chain_ctrl_with_parameters_and_type.info.name, "chainable_ctrl_with_parameters_and_type");
+    chain_ctrl_with_parameters_and_type.info.name,
+    "wildcard_chainable_ctrl_with_parameters_and_type");
   ASSERT_EQ(
     chain_ctrl_with_parameters_and_type.info.type,
     test_chainable_controller::TEST_CONTROLLER_CLASS_NAME);
@@ -618,20 +786,62 @@ TEST_F(
 
   EXPECT_EQ(
     call_spawner(
-      "ctrl_with_parameters_and_no_type -c test_controller_manager --namespace foo_namespace -p " +
-      test_file_path),
+      "wildcard_ctrl_with_parameters_and_no_type -c test_controller_manager -p " + test_file_path +
+      " --ros-args -r __ns:=/foo_namespace"),
     256)
     << "Should fail as no type is defined!";
   // Will still be same as the current call will fail
   ASSERT_EQ(cm_->get_loaded_controllers().size(), 2ul);
 
   auto ctrl_1 = cm_->get_loaded_controllers()[0];
-  ASSERT_EQ(ctrl_1.info.name, "ctrl_with_parameters_and_type");
+  ASSERT_EQ(ctrl_1.info.name, "wildcard_ctrl_with_parameters_and_type");
   ASSERT_EQ(ctrl_1.info.type, test_controller::TEST_CONTROLLER_CLASS_NAME);
   ASSERT_EQ(ctrl_1.c->get_state().id(), lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED);
 
   auto ctrl_2 = cm_->get_loaded_controllers()[1];
-  ASSERT_EQ(ctrl_2.info.name, "chainable_ctrl_with_parameters_and_type");
+  ASSERT_EQ(ctrl_2.info.name, "wildcard_chainable_ctrl_with_parameters_and_type");
   ASSERT_EQ(ctrl_2.info.type, test_chainable_controller::TEST_CONTROLLER_CLASS_NAME);
   ASSERT_EQ(ctrl_2.c->get_state().id(), lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED);
+}
+
+TEST_F(
+  TestLoadControllerWithNamespacedCM,
+  spawner_test_fail_namespaced_controllers_with_non_wildcard_entries)
+{
+  const std::string test_file_path = ament_index_cpp::get_package_prefix("controller_manager") +
+                                     "/test/test_controller_spawner_with_type.yaml";
+
+  ControllerManagerRunner cm_runner(this);
+  // Provide controller type via the parsed file
+  EXPECT_EQ(
+    call_spawner(
+      "ctrl_with_parameters_and_type --load-only -c "
+      "test_controller_manager --controller-manager-timeout 1.0 -p " +
+      test_file_path),
+    256)
+    << "Should fail without the namespacing it";
+  EXPECT_EQ(
+    call_spawner(
+      "ctrl_with_parameters_and_type --load-only -c "
+      "test_controller_manager --namespace foo_namespace -p " +
+      test_file_path),
+    256)
+    << "Should fail even namespacing it as ctrl_with_parameters_and_type is not a wildcard entry";
+  EXPECT_EQ(
+    call_spawner(
+      "chainable_ctrl_with_parameters_and_type --load-only -c "
+      "test_controller_manager --namespace foo_namespace -p " +
+      test_file_path),
+    0)
+    << "Should work as chainable_ctrl_with_parameters_and_type is a wildcard entry";
+
+  ASSERT_EQ(cm_->get_loaded_controllers().size(), 1ul);
+
+  auto ctrl_with_parameters_and_type = cm_->get_loaded_controllers()[0];
+  ASSERT_EQ(ctrl_with_parameters_and_type.info.name, "chainable_ctrl_with_parameters_and_type");
+  ASSERT_EQ(
+    ctrl_with_parameters_and_type.info.type, test_chainable_controller::TEST_CONTROLLER_CLASS_NAME);
+  ASSERT_EQ(
+    ctrl_with_parameters_and_type.c->get_state().id(),
+    lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED);
 }
