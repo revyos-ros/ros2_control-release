@@ -1,3 +1,37 @@
+## ros2_control (humble) - 2.46.0-1
+
+The packages in the `ros2_control` repository were released into the `humble` distro by running `/tmp/venv/bin/bloom-release -r humble ros2_control --override-release-repository-push-url git@github.com:revyos-ros/ros2_control-release.git` on `Wed, 18 Dec 2024 12:52:47 -0000`
+
+These packages were released:
+- `controller_interface`
+- `controller_manager`
+- `controller_manager_msgs`
+- `hardware_interface`
+- `hardware_interface_testing`
+- `joint_limits`
+- `ros2_control`
+- `ros2_control_test_assets`
+- `ros2controlcli`
+- `rqt_controller_manager`
+- `transmission_interface`
+
+Version of package(s) in repository `ros2_control`:
+
+- upstream repository: https://github.com/ros-controls/ros2_control.git
+- release repository: https://github.com/revyos-ros/ros2_control-release.git
+- rosdistro version: `2.45.0-1`
+- old version: `2.45.0-2`
+- new version: `2.46.0-1`
+
+Versions of tools used:
+
+- bloom version: `0.12.0`
+- catkin_pkg version: `1.0.0`
+- rosdep version: `0.25.1`
+- rosdistro version: `1.0.1`
+- vcstools version: `0.1.42`
+
+
 ## ros2_control (humble) - 2.45.0-2
 
 The packages in the `ros2_control` repository were released into the `humble` distro by running `/home/z572/gits/revyos-ros/venv2/bin/bloom-release -r humble ros2_control --override-release-repository-push-url git@github.com:revyos-ros/ros2_control-release.git` on `Thu, 12 Dec 2024 07:39:21 -0000`
