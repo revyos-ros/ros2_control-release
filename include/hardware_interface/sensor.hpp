@@ -71,7 +71,7 @@ public:
   const rclcpp_lifecycle::State & error();
 
   HARDWARE_INTERFACE_PUBLIC
-  std::vector<StateInterface::SharedPtr> export_state_interfaces();
+  std::vector<StateInterface::ConstSharedPtr> export_state_interfaces();
 
   HARDWARE_INTERFACE_PUBLIC
   std::string get_name() const;
@@ -83,14 +83,22 @@ public:
   const rclcpp_lifecycle::State & get_lifecycle_state() const;
 
   HARDWARE_INTERFACE_PUBLIC
+  const rclcpp::Time & get_last_read_time() const;
+
+  HARDWARE_INTERFACE_PUBLIC
   return_type read(const rclcpp::Time & time, const rclcpp::Duration & period);
 
   HARDWARE_INTERFACE_PUBLIC
   return_type write(const rclcpp::Time &, const rclcpp::Duration &) { return return_type::OK; }
 
+  HARDWARE_INTERFACE_PUBLIC
+  std::recursive_mutex & get_mutex();
+
 private:
   std::unique_ptr<SensorInterface> impl_;
   mutable std::recursive_mutex sensors_mutex_;
+  // Last read cycle time
+  rclcpp::Time last_read_cycle_time_;
 };
 
 }  // namespace hardware_interface
