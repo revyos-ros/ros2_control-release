@@ -8,9 +8,6 @@ on:
       - ros2_control/rosdoc2.yaml
       - ros2_control/package.xml
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   check:

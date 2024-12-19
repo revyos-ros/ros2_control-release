@@ -17,10 +17,6 @@ on:
     # Run every day to detect flakiness and broken dependencies
     - cron: '03 1 * * *'
 
-concurrency:
-  # cancel previous runs of the same workflow, except for pushes on humble branch
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: ${{ !startsWith(github.ref, '/refs/heads') }}
 
 jobs:
   debian_source_build:
@@ -34,4 +30,4 @@ jobs:
       upstream_workspace: ros2_control.${{ matrix.ROS_DISTRO }}.repos
       ref_for_scheduled_build: master
       skip_packages: rqt_controller_manager
-      skip_packages_test: controller_manager_msgs control_msgs
+      skip_packages_test: controller_manager_msgs

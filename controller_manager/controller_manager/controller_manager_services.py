@@ -88,15 +88,23 @@ def service_caller(
     @return The service response
 
     """
-    cli = node.create_client(service_type, service_name)
+    namespace = "" if node.get_namespace() == "/" else node.get_namespace()
+    fully_qualified_service_name = (
+        f"{namespace}/{service_name}" if not service_name.startswith("/") else service_name
+    )
+    cli = node.create_client(service_type, fully_qualified_service_name)
 
     while not cli.service_is_ready():
-        node.get_logger().info(f"waiting for service {service_name} to become available...")
+        node.get_logger().info(
+            f"waiting for service {fully_qualified_service_name} to become available..."
+        )
         if service_timeout:
             if not cli.wait_for_service(service_timeout):
-                raise ServiceNotFoundError(f"Could not contact service {service_name}")
+                raise ServiceNotFoundError(
+                    f"Could not contact service {fully_qualified_service_name}"
+                )
         elif not cli.wait_for_service(10.0):
-            node.get_logger().warn(f"Could not contact service {service_name}")
+            node.get_logger().warn(f"Could not contact service {fully_qualified_service_name}")
 
     node.get_logger().debug(f"requester: making request: {request}\n")
     future = None
@@ -105,13 +113,13 @@ def service_caller(
         rclpy.spin_until_future_complete(node, future, timeout_sec=call_timeout)
         if future.result() is None:
             node.get_logger().warning(
-                f"Failed getting a result from calling {service_name} in "
+                f"Failed getting a result from calling {fully_qualified_service_name} in "
                 f"{call_timeout}. (Attempt {attempt+1} of {max_attempts}.)"
             )
         else:
             return future.result()
     raise RuntimeError(
-        f"Could not successfully call service {service_name} after {max_attempts} attempts."
+        f"Could not successfully call service {fully_qualified_service_name} after {max_attempts} attempts."
     )
 
 
@@ -288,7 +296,6 @@ def get_params_files_with_controller_parameters(
                 f"/{controller_name}" if namespace == "/" else f"{namespace}/{controller_name}"
             )
             WILDCARD_KEY = "/**"
-            ROS_PARAMS_KEY = "ros__parameters"
             parameters = yaml.safe_load(f)
             # check for the parameter in 'controller_name' or 'namespaced_controller' or '/**/namespaced_controller' or '/**/controller_name'
             for key in [
@@ -297,8 +304,6 @@ def get_params_files_with_controller_parameters(
                 f"{WILDCARD_KEY}/{controller_name}",
                 f"{WILDCARD_KEY}{namespaced_controller}",
             ]:
-                if parameter_file in controller_parameter_files:
-                    break
                 if key in parameters:
                     if key == controller_name and namespace != "/":
                         node.get_logger().fatal(
@@ -308,8 +313,6 @@ def get_params_files_with_controller_parameters(
                     controller_parameter_files.append(parameter_file)
 
                 if WILDCARD_KEY in parameters and key in parameters[WILDCARD_KEY]:
-                    controller_parameter_files.append(parameter_file)
-                if WILDCARD_KEY in parameters and ROS_PARAMS_KEY in parameters[WILDCARD_KEY]:
                     controller_parameter_files.append(parameter_file)
     return controller_parameter_files
 
@@ -343,8 +346,6 @@ def get_parameter_from_param_files(
 
                 if WILDCARD_KEY in parameters and key in parameters[WILDCARD_KEY]:
                     controller_param_dict = parameters[WILDCARD_KEY][key]
-                if WILDCARD_KEY in parameters and ROS_PARAMS_KEY in parameters[WILDCARD_KEY]:
-                    controller_param_dict = parameters[WILDCARD_KEY]
 
                 if controller_param_dict and (
                     not isinstance(controller_param_dict, dict)
@@ -433,4 +434,21 @@ def set_controller_parameters_from_param_files(
             node, controller_manager_name, controller_name, "type", controller_type
         ):
             return False
+
+        fallback_controllers = get_parameter_from_param_files(
+            node,
+            controller_name,
+            spawner_namespace,
+            controller_parameter_files,
+            "fallback_controllers",
+        )
+        if fallback_controllers:
+            if not set_controller_parameters(
+                node,
+                controller_manager_name,
+                controller_name,
+                "fallback_controllers",
+                fallback_controllers,
+            ):
+                return False
     return True

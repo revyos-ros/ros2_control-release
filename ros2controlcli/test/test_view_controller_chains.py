@@ -23,9 +23,7 @@ from ros2controlcli.verb.view_controller_chains import parse_response
 
 
 class TestViewControllerChains(unittest.TestCase):
-
     def test_expected(self):
-
         list_controllers_response = ListControllers.Response()
         list_hardware_response = ListHardwareInterfaces.Response()
 

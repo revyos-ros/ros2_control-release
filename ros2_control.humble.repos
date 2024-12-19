@@ -2,7 +2,7 @@ repositories:
   ros-controls/realtime_tools:
     type: git
     url: https://github.com/ros-controls/realtime_tools.git
-    version: humble
+    version: master
   ros-controls/control_msgs:
     type: git
     url: https://github.com/ros-controls/control_msgs.git

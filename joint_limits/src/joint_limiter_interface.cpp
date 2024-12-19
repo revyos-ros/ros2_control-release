@@ -1,4 +1,4 @@
-// Copyright (c) 2021 PickNik, Inc.
+// Copyright (c) 2024, Stogl Robotics Consulting UG (haftungsbeschränkt)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -11,19 +11,11 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-//
-// Author: Jafar Abdi, Denis Stogl
 
-#ifndef FAKE_COMPONENTS__GENERIC_SYSTEM_HPP_
-#define FAKE_COMPONENTS__GENERIC_SYSTEM_HPP_
+/// \author Dr. Denis Stogl
 
-#include "mock_components/generic_system.hpp"
+#include "joint_limits/joint_limiter_interface.hpp"
 
-namespace fake_components
+namespace joint_limits
 {
-using GenericSystem [[deprecated]] = mock_components::GenericSystem;
-
-using GenericSystem [[deprecated]] = mock_components::GenericRobot;
-}  // namespace fake_components
-
-#endif  // FAKE_COMPONENTS__GENERIC_SYSTEM_HPP_
+}  // namespace joint_limits
