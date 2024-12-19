@@ -2,6 +2,50 @@
 Changelog for package controller_manager
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+4.21.0 (2024-12-06)
+-------------------
+* Use the .hpp headers from realtime_tools package (`#1916 <https://github.com/ros-controls/ros2_control/issues/1916>`_)
+* CM: Check if a valid time is received (`#1901 <https://github.com/ros-controls/ros2_control/issues/1901>`_)
+* Lock memory by default on a realtime system setup (`#1896 <https://github.com/ros-controls/ros2_control/issues/1896>`_)
+* Fix the launch_utils regression (`#1909 <https://github.com/ros-controls/ros2_control/issues/1909>`_)
+* [Diagnostics] Add diagnostics of execution time and periodicity of the controllers and controller_manager (`#1871 <https://github.com/ros-controls/ros2_control/issues/1871>`_)
+* Add more parameter overriding tests by parsing multiple parameter files (`#1899 <https://github.com/ros-controls/ros2_control/issues/1899>`_)
+* add logic for 'params_file' to handle both string and string_array (`#1898 <https://github.com/ros-controls/ros2_control/issues/1898>`_)
+* [Spawner] Accept parsing multiple `--param-file` arguments to spawner  (`#1805 <https://github.com/ros-controls/ros2_control/issues/1805>`_)
+* Add documentation on `ros2_control_node` and make lock_memory false by default (`#1890 <https://github.com/ros-controls/ros2_control/issues/1890>`_)
+* Add service call timeout argument in spawner (`#1808 <https://github.com/ros-controls/ros2_control/issues/1808>`_)
+* Add CM `switch_controller` service timeout as parameter to spawner.py (`#1790 <https://github.com/ros-controls/ros2_control/issues/1790>`_)
+* Fix the missing bcolors.ENDC in hardware_spawner log prints (`#1870 <https://github.com/ros-controls/ros2_control/issues/1870>`_)
+* Contributors: Christoph Fröhlich, Sai Kishor Kothakota, Tony Najjar
+
+4.20.0 (2024-11-08)
+-------------------
+* change from thread_priority.hpp to realtime_helpers.hpp (`#1829 <https://github.com/ros-controls/ros2_control/issues/1829>`_)
+* Use Clock instead of Rate for backward compatibility of rolling (`#1864 <https://github.com/ros-controls/ros2_control/issues/1864>`_)
+* [ros2_control_node] Handle simulation environment clocks (`#1810 <https://github.com/ros-controls/ros2_control/issues/1810>`_)
+* [CM] Fix controller missing update cycles in a real setup (`#1774 <https://github.com/ros-controls/ros2_control/issues/1774>`_)
+* [ros2_control_node] Add option to set the CPU affinity  (`#1852 <https://github.com/ros-controls/ros2_control/issues/1852>`_)
+* [ros2_control_node] Add the realtime_tools lock_memory method to prevent page faults (`#1822 <https://github.com/ros-controls/ros2_control/issues/1822>`_)
+* Fix CMP0115 (`#1830 <https://github.com/ros-controls/ros2_control/issues/1830>`_)
+* fix: typo use thread_priority (`#1844 <https://github.com/ros-controls/ros2_control/issues/1844>`_)
+* Fix Hardware spawner and add tests for it (`#1759 <https://github.com/ros-controls/ros2_control/issues/1759>`_)
+* add thread_priority option to the ros2_control_node (`#1820 <https://github.com/ros-controls/ros2_control/issues/1820>`_)
+* Contributors: Baris Yazici, Christoph Fröhlich, Felix Exner (fexner), Sai Kishor Kothakota
+
+4.19.0 (2024-10-26)
+-------------------
+* Fix timeout value in std output (`#1807 <https://github.com/ros-controls/ros2_control/issues/1807>`_)
+* [CM] Async Function Handler for Controllers (`#1489 <https://github.com/ros-controls/ros2_control/issues/1489>`_)
+* [Spawner] Add support for wildcard entries in the controller param files  (`#1724 <https://github.com/ros-controls/ros2_control/issues/1724>`_)
+* [Feature] Fallback controllers (`#1789 <https://github.com/ros-controls/ros2_control/issues/1789>`_)
+* Check the update_rate set to the controllers to be a valid one (`#1788 <https://github.com/ros-controls/ros2_control/issues/1788>`_)
+* [PR-1689] Follow-up PR of the controller interface variants integration (`#1779 <https://github.com/ros-controls/ros2_control/issues/1779>`_)
+* Improve diagnostics of Controllers, Hardware Components and Controller Manager (`#1764 <https://github.com/ros-controls/ros2_control/issues/1764>`_)
+* Improve launch utils to support the multiple controller names (`#1782 <https://github.com/ros-controls/ros2_control/issues/1782>`_)
+* [RM/HW] Constify the exported state interfaces using ConstSharedPtr (`#1767 <https://github.com/ros-controls/ros2_control/issues/1767>`_)
+* [CM] Throw an exception when the components initially fail to be in the required state (`#1729 <https://github.com/ros-controls/ros2_control/issues/1729>`_)
+* Contributors: Felix Exner (fexner), Sai Kishor Kothakota
+
 4.18.0 (2024-10-07)
 -------------------
 * Adapt controller Reference/StateInterfaces to New Way of Exporting (variant support) (`#1689 <https://github.com/ros-controls/ros2_control/issues/1689>`_)
