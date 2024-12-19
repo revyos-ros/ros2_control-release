@@ -126,56 +126,13 @@ public:
   virtual CallbackReturn on_init(const HardwareInfo & hardware_info)
   {
     info_ = hardware_info;
-    import_state_interface_descriptions(info_);
-    import_command_interface_descriptions(info_);
+    parse_state_interface_descriptions(info_.joints, joint_state_interfaces_);
+    parse_state_interface_descriptions(info_.sensors, sensor_state_interfaces_);
+    parse_state_interface_descriptions(info_.gpios, gpio_state_interfaces_);
+    parse_command_interface_descriptions(info_.joints, joint_command_interfaces_);
+    parse_command_interface_descriptions(info_.gpios, gpio_command_interfaces_);
     return CallbackReturn::SUCCESS;
   };
-
-  /**
-   * Import the InterfaceDescription for the StateInterfaces from the HardwareInfo.
-   * Separate them into the possible types: Joint, GPIO, Sensor and store them.
-   */
-  void import_state_interface_descriptions(const HardwareInfo & hardware_info)
-  {
-    auto joint_state_interface_descriptions =
-      parse_state_interface_descriptions(hardware_info.joints);
-    for (const auto & description : joint_state_interface_descriptions)
-    {
-      joint_state_interfaces_.insert(std::make_pair(description.get_name(), description));
-    }
-    auto sensor_state_interface_descriptions =
-      parse_state_interface_descriptions(hardware_info.sensors);
-    for (const auto & description : sensor_state_interface_descriptions)
-    {
-      sensor_state_interfaces_.insert(std::make_pair(description.get_name(), description));
-    }
-    auto gpio_state_interface_descriptions =
-      parse_state_interface_descriptions(hardware_info.gpios);
-    for (const auto & description : gpio_state_interface_descriptions)
-    {
-      gpio_state_interfaces_.insert(std::make_pair(description.get_name(), description));
-    }
-  }
-
-  /**
-   * Import the InterfaceDescription for the CommandInterfaces from the HardwareInfo.
-   * Separate them into the possible types: Joint and GPIO and store them.
-   */
-  void import_command_interface_descriptions(const HardwareInfo & hardware_info)
-  {
-    auto joint_command_interface_descriptions =
-      parse_command_interface_descriptions(hardware_info.joints);
-    for (const auto & description : joint_command_interface_descriptions)
-    {
-      joint_command_interfaces_.insert(std::make_pair(description.get_name(), description));
-    }
-    auto gpio_command_interface_descriptions =
-      parse_command_interface_descriptions(hardware_info.gpios);
-    for (const auto & description : gpio_command_interface_descriptions)
-    {
-      gpio_command_interfaces_.insert(std::make_pair(description.get_name(), description));
-    }
-  }
 
   /// Exports all state interfaces for this hardware interface.
   /**
@@ -190,7 +147,7 @@ public:
    * \return vector of state interfaces
    */
   [[deprecated(
-    "Replaced by vector<StateInterface::SharedPtr> on_export_state_interfaces() method. "
+    "Replaced by vector<StateInterface::ConstSharedPtr> on_export_state_interfaces() method. "
     "Exporting is handled "
     "by the Framework.")]] virtual std::vector<StateInterface>
   export_state_interfaces()
@@ -221,13 +178,13 @@ public:
    *
    * \return vector of shared pointers to the created and stored StateInterfaces
    */
-  std::vector<StateInterface::SharedPtr> on_export_state_interfaces()
+  virtual std::vector<StateInterface::ConstSharedPtr> on_export_state_interfaces()
   {
     // import the unlisted interfaces
     std::vector<hardware_interface::InterfaceDescription> unlisted_interface_descriptions =
       export_unlisted_state_interface_descriptions();
 
-    std::vector<StateInterface::SharedPtr> state_interfaces;
+    std::vector<StateInterface::ConstSharedPtr> state_interfaces;
     state_interfaces.reserve(
       unlisted_interface_descriptions.size() + joint_state_interfaces_.size() +
       sensor_state_interfaces_.size() + gpio_state_interfaces_.size());
@@ -241,7 +198,7 @@ public:
       auto state_interface = std::make_shared<StateInterface>(description);
       system_states_.insert(std::make_pair(name, state_interface));
       unlisted_states_.push_back(state_interface);
-      state_interfaces.push_back(state_interface);
+      state_interfaces.push_back(std::const_pointer_cast<const StateInterface>(state_interface));
     }
 
     for (const auto & [name, descr] : joint_state_interfaces_)
@@ -249,21 +206,21 @@ public:
       auto state_interface = std::make_shared<StateInterface>(descr);
       system_states_.insert(std::make_pair(name, state_interface));
       joint_states_.push_back(state_interface);
-      state_interfaces.push_back(state_interface);
+      state_interfaces.push_back(std::const_pointer_cast<const StateInterface>(state_interface));
     }
     for (const auto & [name, descr] : sensor_state_interfaces_)
     {
       auto state_interface = std::make_shared<StateInterface>(descr);
       system_states_.insert(std::make_pair(name, state_interface));
       sensor_states_.push_back(state_interface);
-      state_interfaces.push_back(state_interface);
+      state_interfaces.push_back(std::const_pointer_cast<const StateInterface>(state_interface));
     }
     for (const auto & [name, descr] : gpio_state_interfaces_)
     {
       auto state_interface = std::make_shared<StateInterface>(descr);
       system_states_.insert(std::make_pair(name, state_interface));
       gpio_states_.push_back(state_interface);
-      state_interfaces.push_back(state_interface);
+      state_interfaces.push_back(std::const_pointer_cast<const StateInterface>(state_interface));
     }
     return state_interfaces;
   }
@@ -313,7 +270,7 @@ public:
    *
    * \return vector of shared pointers to the created and stored CommandInterfaces
    */
-  std::vector<CommandInterface::SharedPtr> on_export_command_interfaces()
+  virtual std::vector<CommandInterface::SharedPtr> on_export_command_interfaces()
   {
     // import the unlisted interfaces
     std::vector<hardware_interface::InterfaceDescription> unlisted_interface_descriptions =

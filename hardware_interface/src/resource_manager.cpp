@@ -142,6 +142,10 @@ public:
         component_info.name = hardware_info.name;
         component_info.type = hardware_info.type;
         component_info.group = hardware_info.group;
+        component_info.rw_rate =
+          (hardware_info.rw_rate == 0 || hardware_info.rw_rate > cm_update_rate_)
+            ? cm_update_rate_
+            : hardware_info.rw_rate;
         component_info.plugin_name = hardware_info.hardware_plugin_name;
         component_info.is_async = hardware_info.is_async;
 
@@ -608,7 +612,7 @@ public:
   template <class HardwareT>
   void import_state_interfaces(HardwareT & hardware)
   {
-    std::vector<StateInterface::SharedPtr> interfaces = hardware.export_state_interfaces();
+    auto interfaces = hardware.export_state_interfaces();
     const auto interface_names = add_state_interfaces(interfaces);
 
     RCLCPP_WARN(
@@ -678,7 +682,7 @@ public:
     }
   }
 
-  std::string add_state_interface(StateInterface::SharedPtr interface)
+  std::string add_state_interface(StateInterface::ConstSharedPtr interface)
   {
     auto interface_name = interface->get_name();
     const auto [it, success] = state_interface_map_.emplace(interface_name, interface);
@@ -702,7 +706,8 @@ public:
    * \returns list of interface names that are added into internal storage. The output is used to
    * avoid additional iterations to cache interface names, e.g., for initializing info structures.
    */
-  std::vector<std::string> add_state_interfaces(std::vector<StateInterface::SharedPtr> & interfaces)
+  std::vector<std::string> add_state_interfaces(
+    std::vector<StateInterface::ConstSharedPtr> & interfaces)
   {
     std::vector<std::string> interface_names;
     interface_names.reserve(interfaces.size());
@@ -1068,7 +1073,7 @@ public:
   std::unordered_map<std::string, std::vector<std::string>> controllers_reference_interfaces_map_;
 
   /// Storage of all available state interfaces
-  std::map<std::string, StateInterface::SharedPtr> state_interface_map_;
+  std::map<std::string, StateInterface::ConstSharedPtr> state_interface_map_;
   /// Storage of all available command interfaces
   std::map<std::string, CommandInterface::SharedPtr> command_interface_map_;
 
@@ -1241,7 +1246,7 @@ bool ResourceManager::state_interface_is_available(const std::string & name) con
 
 // CM API: Called in "callback/slow"-thread
 void ResourceManager::import_controller_exported_state_interfaces(
-  const std::string & controller_name, std::vector<StateInterface::SharedPtr> & interfaces)
+  const std::string & controller_name, std::vector<StateInterface::ConstSharedPtr> & interfaces)
 {
   std::lock_guard<std::recursive_mutex> guard(resource_interfaces_lock_);
   auto interface_names = resource_storage_->add_state_interfaces(interfaces);
@@ -1835,10 +1840,35 @@ HardwareReadWriteStatus ResourceManager::read(
   {
     for (auto & component : components)
     {
+      std::unique_lock<std::recursive_mutex> lock(component.get_mutex(), std::try_to_lock);
+      if (!lock.owns_lock())
+      {
+        RCLCPP_DEBUG(
+          get_logger(), "Skipping read() call for the component '%s' since it is locked",
+          component.get_name().c_str());
+        continue;
+      }
       auto ret_val = return_type::OK;
       try
       {
-        ret_val = component.read(time, period);
+        if (
+          resource_storage_->hardware_info_map_[component.get_name()].rw_rate == 0 ||
+          resource_storage_->hardware_info_map_[component.get_name()].rw_rate ==
+            resource_storage_->cm_update_rate_)
+        {
+          ret_val = component.read(time, period);
+        }
+        else
+        {
+          const double read_rate =
+            resource_storage_->hardware_info_map_[component.get_name()].rw_rate;
+          const auto current_time = resource_storage_->get_clock()->now();
+          const rclcpp::Duration actual_period = current_time - component.get_last_read_time();
+          if (actual_period.seconds() * read_rate >= 0.99)
+          {
+            ret_val = component.read(current_time, actual_period);
+          }
+        }
         const auto component_group = component.get_group_name();
         ret_val =
           resource_storage_->update_hardware_component_group_state(component_group, ret_val);
@@ -1896,10 +1926,35 @@ HardwareReadWriteStatus ResourceManager::write(
   {
     for (auto & component : components)
     {
+      std::unique_lock<std::recursive_mutex> lock(component.get_mutex(), std::try_to_lock);
+      if (!lock.owns_lock())
+      {
+        RCLCPP_DEBUG(
+          get_logger(), "Skipping write() call for the component '%s' since it is locked",
+          component.get_name().c_str());
+        continue;
+      }
       auto ret_val = return_type::OK;
       try
       {
-        ret_val = component.write(time, period);
+        if (
+          resource_storage_->hardware_info_map_[component.get_name()].rw_rate == 0 ||
+          resource_storage_->hardware_info_map_[component.get_name()].rw_rate ==
+            resource_storage_->cm_update_rate_)
+        {
+          ret_val = component.write(time, period);
+        }
+        else
+        {
+          const double write_rate =
+            resource_storage_->hardware_info_map_[component.get_name()].rw_rate;
+          const auto current_time = resource_storage_->get_clock()->now();
+          const rclcpp::Duration actual_period = current_time - component.get_last_write_time();
+          if (actual_period.seconds() * write_rate >= 0.99)
+          {
+            ret_val = component.write(current_time, actual_period);
+          }
+        }
         const auto component_group = component.get_group_name();
         ret_val =
           resource_storage_->update_hardware_component_group_state(component_group, ret_val);
