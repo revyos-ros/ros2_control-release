@@ -1,0 +1,12 @@
+Source: ros-humble-ros2controlcli
+Section: misc
+Priority: optional
+Maintainer: Bence Magyar <bence.magyar.robotics@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-humble-ament-copyright <!nocheck>, ros-humble-ament-flake8 <!nocheck>, ros-humble-ament-pep257 <!nocheck>, ros-humble-ament-xmllint <!nocheck>, ros-humble-controller-manager, ros-humble-controller-manager-msgs, ros-humble-rcl-interfaces, ros-humble-rclpy, ros-humble-ros2cli, ros-humble-ros2node, ros-humble-ros2param, ros-humble-ros-workspace, python3-all, python3-setuptools, dh-python
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-humble-ros2controlcli
+Architecture: any
+Depends: ${python3:Depends}, ${misc:Depends}, python3-pygraphviz, ros-humble-controller-manager, ros-humble-controller-manager-msgs, ros-humble-rcl-interfaces, ros-humble-rclpy, ros-humble-ros2cli, ros-humble-ros2node, ros-humble-ros2param, ros-humble-rosidl-runtime-py, ros-humble-ros-workspace
+Description: The ROS 2 command line tools for ROS2 Control.
