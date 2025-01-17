@@ -173,6 +173,7 @@ class ControllerManager(Plugin):
             self._update_hw_components()
 
     def _update_controllers(self):
+
         if not self._cm_name:
             return
 
@@ -633,11 +634,4 @@ def _get_parameter_controller_names(node, node_name):
     """Get list of ROS parameter names that potentially represent a controller configuration."""
     parameter_names = call_list_parameters(node=node, node_name=node_name)
     suffix = ".type"
-    # @note: The versions conditioning is added here to support the source-compatibility with Humble
-    if os.environ.get("ROS_DISTRO") == "humble":
-        # for humble, ros2param < 0.20.0
-        return [n[: -len(suffix)] for n in parameter_names if n.endswith(suffix)]
-    else:
-        return [
-            n[: -len(suffix)] for n in parameter_names.result().result.names if n.endswith(suffix)
-        ]
+    return [n[: -len(suffix)] for n in parameter_names if n.endswith(suffix)]

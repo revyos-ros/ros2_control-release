@@ -19,14 +19,11 @@
 #include <string>
 #include <vector>
 
-#include "hardware_interface/actuator_interface.hpp"
 #include "hardware_interface/handle.hpp"
 #include "hardware_interface/hardware_info.hpp"
 #include "hardware_interface/types/hardware_interface_return_values.hpp"
 #include "hardware_interface/visibility_control.h"
 #include "rclcpp/duration.hpp"
-#include "rclcpp/logger.hpp"
-#include "rclcpp/node_interfaces/node_clock_interface.hpp"
 #include "rclcpp/time.hpp"
 #include "rclcpp_lifecycle/state.hpp"
 
@@ -42,15 +39,12 @@ public:
   HARDWARE_INTERFACE_PUBLIC
   explicit Actuator(std::unique_ptr<ActuatorInterface> impl);
 
-  HARDWARE_INTERFACE_PUBLIC
-  explicit Actuator(Actuator && other) noexcept;
+  Actuator(Actuator && other) = default;
 
   ~Actuator() = default;
 
   HARDWARE_INTERFACE_PUBLIC
-  const rclcpp_lifecycle::State & initialize(
-    const HardwareInfo & actuator_info, rclcpp::Logger logger,
-    rclcpp::node_interfaces::NodeClockInterface::SharedPtr clock_interface);
+  const rclcpp_lifecycle::State & initialize(const HardwareInfo & actuator_info);
 
   HARDWARE_INTERFACE_PUBLIC
   const rclcpp_lifecycle::State & configure();
@@ -71,10 +65,10 @@ public:
   const rclcpp_lifecycle::State & error();
 
   HARDWARE_INTERFACE_PUBLIC
-  std::vector<StateInterface::ConstSharedPtr> export_state_interfaces();
+  std::vector<StateInterface> export_state_interfaces();
 
   HARDWARE_INTERFACE_PUBLIC
-  std::vector<CommandInterface::SharedPtr> export_command_interfaces();
+  std::vector<CommandInterface> export_command_interfaces();
 
   HARDWARE_INTERFACE_PUBLIC
   return_type prepare_command_mode_switch(
@@ -90,16 +84,7 @@ public:
   std::string get_name() const;
 
   HARDWARE_INTERFACE_PUBLIC
-  std::string get_group_name() const;
-
-  HARDWARE_INTERFACE_PUBLIC
-  const rclcpp_lifecycle::State & get_lifecycle_state() const;
-
-  HARDWARE_INTERFACE_PUBLIC
-  const rclcpp::Time & get_last_read_time() const;
-
-  HARDWARE_INTERFACE_PUBLIC
-  const rclcpp::Time & get_last_write_time() const;
+  const rclcpp_lifecycle::State & get_state() const;
 
   HARDWARE_INTERFACE_PUBLIC
   return_type read(const rclcpp::Time & time, const rclcpp::Duration & period);
@@ -107,16 +92,8 @@ public:
   HARDWARE_INTERFACE_PUBLIC
   return_type write(const rclcpp::Time & time, const rclcpp::Duration & period);
 
-  HARDWARE_INTERFACE_PUBLIC
-  std::recursive_mutex & get_mutex();
-
 private:
   std::unique_ptr<ActuatorInterface> impl_;
-  mutable std::recursive_mutex actuators_mutex_;
-  // Last read cycle time
-  rclcpp::Time last_read_cycle_time_;
-  // Last write cycle time
-  rclcpp::Time last_write_cycle_time_;
 };
 
 }  // namespace hardware_interface
