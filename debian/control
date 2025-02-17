@@ -1,0 +1,12 @@
+Source: ros-humble-controller-manager
+Section: misc
+Priority: optional
+Maintainer: Bence Magyar <bence.magyar.robotics@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), python3-coverage <!nocheck>, ros-humble-ament-cmake, ros-humble-ament-cmake-gen-version-h, ros-humble-ament-cmake-gmock <!nocheck>, ros-humble-ament-cmake-pytest <!nocheck>, ros-humble-ament-cmake-python, ros-humble-ament-index-cpp, ros-humble-backward-ros, ros-humble-controller-interface, ros-humble-controller-manager-msgs, ros-humble-hardware-interface, ros-humble-hardware-interface-testing <!nocheck>, ros-humble-launch, ros-humble-launch-ros, ros-humble-pluginlib, ros-humble-rclcpp, ros-humble-rcpputils, ros-humble-realtime-tools, ros-humble-ros2-control-test-assets, ros-humble-ros2-control-test-assets <!nocheck>, ros-humble-ros2param, ros-humble-ros2run, ros-humble-std-msgs, ros-humble-ros-workspace
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-humble-controller-manager
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-humble-ament-index-cpp, ros-humble-backward-ros, ros-humble-controller-interface, ros-humble-controller-manager-msgs, ros-humble-hardware-interface, ros-humble-launch, ros-humble-launch-ros, ros-humble-pluginlib, ros-humble-rclcpp, ros-humble-rcpputils, ros-humble-realtime-tools, ros-humble-ros2-control-test-assets, ros-humble-ros2param, ros-humble-ros2run, ros-humble-std-msgs, ros-humble-ros-workspace
+Description: Description of controller_manager
