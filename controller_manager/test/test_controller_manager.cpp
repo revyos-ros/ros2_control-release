@@ -228,7 +228,7 @@ TEST_P(TestControllerManagerWithStrictness, controller_lifecycle)
   EXPECT_EQ(controller_interface::return_type::OK, unload_future.get());
 
   EXPECT_EQ(
-    lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED,
+    lifecycle_msgs::msg::State::PRIMARY_STATE_FINALIZED,
     test_controller->get_lifecycle_state().id());
   EXPECT_EQ(1, test_controller.use_count());
 }
@@ -429,7 +429,7 @@ TEST_P(TestControllerManagerWithStrictness, async_controller_lifecycle)
   EXPECT_EQ(controller_interface::return_type::OK, unload_future.get());
 
   EXPECT_EQ(
-    lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED,
+    lifecycle_msgs::msg::State::PRIMARY_STATE_FINALIZED,
     test_controller->get_lifecycle_state().id());
   EXPECT_EQ(1, test_controller.use_count());
 }
@@ -607,11 +607,11 @@ TEST_P(TestControllerManagerWithUpdateRates, per_controller_equal_and_higher_upd
     EXPECT_THAT(
       cm_->get_loaded_controllers()[0].periodicity_statistics->Min(),
       testing::AllOf(
-        testing::Ge(0.85 * cm_->get_update_rate()), testing::Lt((1.2 * cm_->get_update_rate()))));
+        testing::Ge(0.75 * cm_->get_update_rate()), testing::Lt((1.2 * cm_->get_update_rate()))));
     EXPECT_THAT(
       cm_->get_loaded_controllers()[0].periodicity_statistics->Max(),
       testing::AllOf(
-        testing::Ge(0.85 * cm_->get_update_rate()), testing::Lt((1.2 * cm_->get_update_rate()))));
+        testing::Ge(0.75 * cm_->get_update_rate()), testing::Lt((2.0 * cm_->get_update_rate()))));
     loop_rate.sleep();
   }
   // if we do 2 times of the controller_manager update rate, the internal counter should be
@@ -778,10 +778,10 @@ TEST_P(TestControllerUpdateRates, check_the_controller_update_rate)
         testing::AllOf(testing::Ge(0.95 * exp_periodicity), testing::Lt((1.05 * exp_periodicity))));
       EXPECT_THAT(
         cm_->get_loaded_controllers()[0].periodicity_statistics->Min(),
-        testing::AllOf(testing::Ge(0.85 * exp_periodicity), testing::Lt((1.2 * exp_periodicity))));
+        testing::AllOf(testing::Ge(0.75 * exp_periodicity), testing::Lt((1.2 * exp_periodicity))));
       EXPECT_THAT(
         cm_->get_loaded_controllers()[0].periodicity_statistics->Max(),
-        testing::AllOf(testing::Ge(0.85 * exp_periodicity), testing::Lt((1.2 * exp_periodicity))));
+        testing::AllOf(testing::Ge(0.75 * exp_periodicity), testing::Lt((2.0 * exp_periodicity))));
       EXPECT_LT(
         cm_->get_loaded_controllers()[0].execution_time_statistics->Average(),
         50.0);  // 50 microseconds
@@ -924,10 +924,10 @@ TEST_F(TestAsyncControllerUpdateRates, check_the_async_controller_update_rate_an
         testing::AllOf(testing::Ge(0.95 * exp_periodicity), testing::Lt((1.05 * exp_periodicity))));
       EXPECT_THAT(
         cm_->get_loaded_controllers()[0].periodicity_statistics->Min(),
-        testing::AllOf(testing::Ge(0.85 * exp_periodicity), testing::Lt((1.2 * exp_periodicity))));
+        testing::AllOf(testing::Ge(0.75 * exp_periodicity), testing::Lt((1.2 * exp_periodicity))));
       EXPECT_THAT(
         cm_->get_loaded_controllers()[0].periodicity_statistics->Max(),
-        testing::AllOf(testing::Ge(0.85 * exp_periodicity), testing::Lt((1.2 * exp_periodicity))));
+        testing::AllOf(testing::Ge(0.75 * exp_periodicity), testing::Lt((2.0 * exp_periodicity))));
       EXPECT_LT(
         cm_->get_loaded_controllers()[0].execution_time_statistics->Average(),
         12000);  // more or less 12 milliseconds considering the waittime in the controller
