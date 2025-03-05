@@ -38,6 +38,12 @@ struct ControllerInfo
 
   /// List of claimed interfaces by the controller.
   std::vector<std::string> claimed_interfaces;
+
+  /// List of fallback controller names to be activated if this controller fails.
+  std::vector<std::string> fallback_controllers_names;
+
+  /// Controller node options arguments
+  std::vector<std::string> node_options_args;
 };
 
 }  // namespace hardware_interface

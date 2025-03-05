@@ -20,10 +20,7 @@ from launch_ros.actions import Node
 
 
 def generate_controllers_spawner_launch_description(
-    controller_names: list,
-    controller_type=None,
-    controller_params_files=None,
-    extra_spawner_args=[],
+    controller_names: list, controller_params_files=None, extra_spawner_args=[]
 ):
     """
     Generate launch description for loading a controller using spawner.
@@ -34,10 +31,10 @@ def generate_controllers_spawner_launch_description(
 
     Examples
     --------
-      # Assuming the controller type and controller parameters are known to the controller_manager
+      # Assuming the controller parameters are known to the controller_manager
       generate_controllers_spawner_launch_description(['joint_state_broadcaster'])
 
-      # Passing controller type and parameter file to load the controller
+      # Passing controller parameter file to load the controller (Controller type is retrieved from config file)
       generate_controllers_spawner_launch_description(
         ['joint_state_broadcaster'],
         controller_params_files=[os.path.join(get_package_share_directory('my_pkg'),
@@ -143,12 +140,11 @@ def generate_controllers_spawner_launch_description_from_dict(
 
 
 def generate_load_controller_launch_description(
-    controller_name: str, controller_type=None, controller_params_file=None, extra_spawner_args=[]
+    controller_name: str, controller_params_file=None, extra_spawner_args=[]
 ):
     controller_params_files = [controller_params_file] if controller_params_file else None
     return generate_controllers_spawner_launch_description(
         controller_names=[controller_name],
-        controller_type=controller_type,
         controller_params_files=controller_params_files,
         extra_spawner_args=extra_spawner_args,
     )

@@ -22,26 +22,22 @@
 #include <memory>
 #include <string>
 #include <thread>
-#include <utility>
 #include <vector>
 
 #include "controller_interface/controller_interface.hpp"
 
 #include "controller_manager/controller_manager.hpp"
-#include "controller_manager_msgs/srv/list_hardware_interfaces.hpp"
 #include "controller_manager_msgs/srv/switch_controller.hpp"
 
-#include "rclcpp/rclcpp.hpp"
+#include "rclcpp/executors.hpp"
 #include "rclcpp/utilities.hpp"
 
 #include "std_msgs/msg/string.hpp"
 
 #include "ros2_control_test_assets/descriptions.hpp"
-#include "test_controller_failed_init/test_controller_failed_init.hpp"
 
 namespace
 {
-const auto TIME = rclcpp::Time(0);
 const auto PERIOD = rclcpp::Duration::from_seconds(0.01);
 const auto STRICT = controller_manager_msgs::srv::SwitchController::Request::STRICT;
 const auto BEST_EFFORT = controller_manager_msgs::srv::SwitchController::Request::BEST_EFFORT;
@@ -67,40 +63,20 @@ class ControllerManagerFixture : public ::testing::Test
 public:
   explicit ControllerManagerFixture(
     const std::string & robot_description = ros2_control_test_assets::minimal_robot_urdf,
-    const bool & pass_urdf_as_parameter = false, const std::string & cm_namespace = "")
-  : robot_description_(robot_description), pass_urdf_as_parameter_(pass_urdf_as_parameter)
+    const std::string & cm_namespace = "")
+  : robot_description_(robot_description)
   {
     executor_ = std::make_shared<rclcpp::executors::SingleThreadedExecutor>();
-    // We want to be able to create a ResourceManager where no urdf file has been passed to
-    if (robot_description_.empty())
+    cm_ = std::make_shared<CtrlMgr>(
+      std::make_unique<hardware_interface::ResourceManager>(
+        rm_node_->get_node_clock_interface(), rm_node_->get_node_logging_interface()),
+      executor_, TEST_CM_NAME, cm_namespace);
+    // We want to be able to not pass robot description immediately
+    if (!robot_description_.empty())
     {
-      cm_ = std::make_shared<CtrlMgr>(
-        std::make_unique<hardware_interface::ResourceManager>(), executor_, TEST_CM_NAME,
-        cm_namespace);
+      pass_robot_description_to_cm_and_rm(robot_description_);
     }
-    else
-    {
-      // can be removed later, needed if we want to have the deprecated way of passing the robot
-      // description file to the controller manager covered by tests
-      if (pass_urdf_as_parameter_)
-      {
-        cm_ = std::make_shared<CtrlMgr>(
-          std::make_unique<hardware_interface::ResourceManager>(robot_description_, true, true),
-          executor_, TEST_CM_NAME, cm_namespace);
-      }
-      else
-      {
-        // TODO(mamueluth) : passing via topic not working in test setup, tested cm does
-        // not receive msg. Have to check this...
-
-        // this is just a workaround to skip passing
-        cm_ = std::make_shared<CtrlMgr>(
-          std::make_unique<hardware_interface::ResourceManager>(), executor_, TEST_CM_NAME,
-          cm_namespace);
-        // mimic topic call
-        pass_robot_description_to_cm_and_rm(robot_description_);
-      }
-    }
+    time_ = rclcpp::Time(0, 0, cm_->get_node_clock_interface()->get_clock()->get_clock_type());
   }
 
   static void SetUpTestCase() { rclcpp::init(0, nullptr); }
@@ -119,7 +95,7 @@ public:
       {
         while (run_updater_)
         {
-          cm_->update(rclcpp::Time(0), rclcpp::Duration::from_seconds(0.01));
+          cm_->update(time_, rclcpp::Duration::from_seconds(0.01));
           std::this_thread::sleep_for(std::chrono::milliseconds(10));
         }
       });
@@ -151,7 +127,6 @@ public:
     const std::future_status expected_future_status = std::future_status::timeout,
     const controller_interface::return_type expected_return = controller_interface::return_type::OK)
   {
-    // First activation not possible because controller not configured
     auto switch_future = std::async(
       std::launch::async, &controller_manager::ControllerManager::switch_controller, cm_,
       start_controllers, stop_controllers, strictness, true, rclcpp::Duration(0, 0));
@@ -169,18 +144,16 @@ public:
   bool run_updater_;
   const std::string robot_description_;
   rclcpp::Time time_;
-  const bool pass_urdf_as_parameter_;
+
+protected:
+  rclcpp::Node::SharedPtr rm_node_ = std::make_shared<rclcpp::Node>("ResourceManager");
 };
 
 class TestControllerManagerSrvs
 : public ControllerManagerFixture<controller_manager::ControllerManager>
 {
 public:
-  TestControllerManagerSrvs()
-  : ControllerManagerFixture<controller_manager::ControllerManager>(
-      ros2_control_test_assets::minimal_robot_urdf, true)
-  {
-  }
+  TestControllerManagerSrvs() {}
 
   void SetUp() override
   {
@@ -194,9 +167,9 @@ public:
       std::chrono::milliseconds(10),
       [&]()
       {
-        cm_->read(TIME, PERIOD);
-        cm_->update(TIME, PERIOD);
-        cm_->write(TIME, PERIOD);
+        cm_->read(time_, PERIOD);
+        cm_->update(time_, PERIOD);
+        cm_->write(time_, PERIOD);
       });
 
     executor_->add_node(cm_);
@@ -223,7 +196,7 @@ public:
       while (service_executor.spin_until_future_complete(result, std::chrono::milliseconds(50)) !=
              rclcpp::FutureReturnCode::SUCCESS)
       {
-        cm_->update(rclcpp::Time(0), rclcpp::Duration::from_seconds(0.01));
+        cm_->update(time_, rclcpp::Duration::from_seconds(0.01));
       }
     }
     else
