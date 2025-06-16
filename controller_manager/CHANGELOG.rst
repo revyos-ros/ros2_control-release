@@ -2,6 +2,27 @@
 Changelog for package controller_manager
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.51.0 (2025-06-06)
+-------------------
+* Cleanup test name (`#2295 <https://github.com/ros-controls/ros2_control/issues/2295>`_) (`#2297 <https://github.com/ros-controls/ros2_control/issues/2297>`_)
+* check_controllers_running: Make timeout a parameter  (`#2278 <https://github.com/ros-controls/ros2_control/issues/2278>`_) (`#2280 <https://github.com/ros-controls/ros2_control/issues/2280>`_)
+* doc: Added explanation of preceding/following controllers (backport `#2192 <https://github.com/ros-controls/ros2_control/issues/2192>`_) (`#2193 <https://github.com/ros-controls/ros2_control/issues/2193>`_)
+* Contributors: mergify[bot]
+
+2.50.0 (2025-04-10)
+-------------------
+* Bump version of pre-commit hooks (backport `#2156 <https://github.com/ros-controls/ros2_control/issues/2156>`_) (`#2157 <https://github.com/ros-controls/ros2_control/issues/2157>`_)
+* Fix generate_controllers_spawner_launch_description_from_dict (`#2146 <https://github.com/ros-controls/ros2_control/issues/2146>`_) (`#2148 <https://github.com/ros-controls/ros2_control/issues/2148>`_)
+* Fix `~/robot_description` in docs
+* Fix documentation of `robot_description` in CM (`#2117 <https://github.com/ros-controls/ros2_control/issues/2117>`_)
+* Contributors: Christoph Fröhlich, mergify[bot]
+
+2.49.0 (2025-03-18)
+-------------------
+* Move test_utils module from demos repo (backport `#1955 <https://github.com/ros-controls/ros2_control/issues/1955>`_) (`#2110 <https://github.com/ros-controls/ros2_control/issues/2110>`_)
+* Update memlock values in doc (`#2066 <https://github.com/ros-controls/ros2_control/issues/2066>`_) (`#2069 <https://github.com/ros-controls/ros2_control/issues/2069>`_)
+* Contributors: mergify[bot]
+
 2.48.0 (2025-02-07)
 -------------------
 * Handle SIGINT properly in the controller manager (backport `#2014 <https://github.com/ros-controls/ros2_control/issues/2014>`_) (`#2040 <https://github.com/ros-controls/ros2_control/issues/2040>`_)
