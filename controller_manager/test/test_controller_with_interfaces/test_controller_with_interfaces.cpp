@@ -14,6 +14,11 @@
 
 #include "test_controller_with_interfaces.hpp"
 
+#include <memory>
+#include <string>
+
+#include "lifecycle_msgs/msg/transition.hpp"
+
 namespace test_controller_with_interfaces
 {
 TestControllerWithInterfaces::TestControllerWithInterfaces()
@@ -41,12 +46,6 @@ TestControllerWithInterfaces::on_configure(const rclcpp_lifecycle::State & /*pre
 
 rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
 TestControllerWithInterfaces::on_cleanup(const rclcpp_lifecycle::State & /*previous_state*/)
-{
-  return rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
-}
-
-rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
-TestControllerWithInterfaces::on_shutdown(const rclcpp_lifecycle::State & /*previous_state*/)
 {
   return rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
 }

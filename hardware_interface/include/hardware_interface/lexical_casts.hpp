@@ -15,6 +15,9 @@
 #ifndef HARDWARE_INTERFACE__LEXICAL_CASTS_HPP_
 #define HARDWARE_INTERFACE__LEXICAL_CASTS_HPP_
 
+#include <locale>
+#include <sstream>
+#include <stdexcept>
 #include <string>
 
 namespace hardware_interface

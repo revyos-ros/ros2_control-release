@@ -152,9 +152,10 @@ public:
   : ControllerManagerFixture<controller_manager::ControllerManager>(""),
     RMServiceCaller(TEST_CM_NAME)
   {
-    cm_->set_parameter(rclcpp::Parameter(
-      "hardware_components_initial_state.unconfigured",
-      std::vector<std::string>{"TestSystemHardware"}));
+    cm_->set_parameter(
+      rclcpp::Parameter(
+        "hardware_components_initial_state.unconfigured",
+        std::vector<std::string>{"TestSystemHardware"}));
   }
 
 public:
@@ -232,7 +233,7 @@ class TestHardwareSpawnerWithNamespacedCM
 public:
   TestHardwareSpawnerWithNamespacedCM()
   : ControllerManagerFixture<controller_manager::ControllerManager>(
-      ros2_control_test_assets::minimal_robot_urdf, "foo_namespace"),
+      ros2_control_test_assets::minimal_robot_urdf, false, "foo_namespace"),
     RMServiceCaller("foo_namespace/" + std::string(TEST_CM_NAME))
   {
     cm_->set_parameter(
@@ -272,8 +273,9 @@ TEST_F(TestHardwareSpawnerWithNamespacedCM, set_component_to_configured_state_cm
     256)
     << "Should fail without defining the namespace";
   EXPECT_EQ(
-    call_spawner("TestSystemHardware --configure -c test_controller_manager --ros-args -r "
-                 "__ns:=/foo_namespace"),
+    call_spawner(
+      "TestSystemHardware --configure -c test_controller_manager --ros-args -r "
+      "__ns:=/foo_namespace"),
     0);
 
   EXPECT_EQ(

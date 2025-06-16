@@ -2,7 +2,7 @@
 <?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="2">
   <name>controller_manager</name>
-  <version>4.27.0</version>
+  <version>2.51.0</version>
   <description>Description of controller_manager</description>
   <maintainer email="bence.magyar.robotics@gmail.com">Bence Magyar</maintainer>
   <maintainer email="denis@stoglrobotics.de">Denis Štogl</maintainer>
@@ -12,10 +12,10 @@
   <buildtool_depend>ament_cmake_gen_version_h</buildtool_depend>
   <buildtool_depend>ament_cmake_python</buildtool_depend>
 
+  <depend>ament_index_cpp</depend>
   <depend>backward_ros</depend>
   <depend>controller_interface</depend>
   <depend>controller_manager_msgs</depend>
-  <depend>diagnostic_updater</depend>
   <depend>hardware_interface</depend>
   <depend>launch</depend>
   <depend>launch_ros</depend>
@@ -27,8 +27,6 @@
   <depend>ros2param</depend>
   <depend>ros2run</depend>
   <depend>std_msgs</depend>
-  <depend>libstatistics_collector</depend>
-  <depend>generate_parameter_library</depend>
 
   <test_depend>ament_cmake_gmock</test_depend>
   <test_depend>ament_cmake_pytest</test_depend>
@@ -41,7 +39,6 @@
   <test_depend>robot_state_publisher</test_depend>
   <test_depend>ros2_control_test_assets</test_depend>
   <test_depend>sensor_msgs</test_depend>
-  <test_depend>example_interfaces</test_depend>
 
   <export>
     <build_type>ament_cmake</build_type>

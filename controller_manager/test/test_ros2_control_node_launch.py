@@ -61,6 +61,9 @@ def generate_test_description():
         package="controller_manager",
         executable="ros2_control_node",
         parameters=[robot_controllers],
+        remappings=[
+            ("~/robot_description", "/robot_description"),
+        ],
         output="both",
     )
     # Get URDF, without involving xacro
@@ -133,7 +136,7 @@ class TestFixture(unittest.TestCase):
 
 @launch_testing.post_shutdown_test()
 # These tests are run after the processes in generate_test_description() have shutdown.
-class TestDescriptionCraneShutdown(unittest.TestCase):
+class TestShutdown(unittest.TestCase):
 
     def test_exit_codes(self, proc_info):
         """Check if the processes exited normally."""
