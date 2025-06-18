@@ -1,0 +1,674 @@
+ros-jazzy-ros2controlcli (4.32.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 06 Jun 2025 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.31.0-1bookworm) bookworm; urgency=high
+
+  * Add data_type field to the HardwareInterfaces message (backport #2204 <https://github.com/ros-controls/ros2_control/issues/2204>) (#2232 <https://github.com/ros-controls/ros2_control/issues/2232>)
+  * Contributors: mergify[bot]
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 24 May 2025 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.30.0-1bookworm) bookworm; urgency=high
+
+  * [CM] Set default strictness of switch_controllers using parameters (#2168 <https://github.com/ros-controls/ros2_control/issues/2168>) (#2233 <https://github.com/ros-controls/ros2_control/issues/2233>)
+  * Contributors: mergify[bot]
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 21 May 2025 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.29.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 04 May 2025 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.28.1-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 17 Apr 2025 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.28.0-1bookworm) bookworm; urgency=high
+
+  * [CLI] print update_rate and is_async on verbose (#2126 <https://github.com/ros-controls/ros2_control/issues/2126>)
+  * [CM] Extend the list controller and hardware components messages (#2102 <https://github.com/ros-controls/ros2_control/issues/2102>)
+  * Improve package descriptions & update maintainers (#2103 <https://github.com/ros-controls/ros2_control/issues/2103>)
+  * [CM] Add message field to the switch_controller service (#2088 <https://github.com/ros-controls/ros2_control/issues/2088>)
+  * Contributors: Bence Magyar, Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 10 Apr 2025 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.27.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 01 Mar 2025 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.26.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 07 Feb 2025 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.25.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 29 Jan 2025 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.24.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 13 Jan 2025 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.23.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 29 Dec 2024 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.22.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 20 Dec 2024 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.21.0-1bookworm) bookworm; urgency=high
+
+  * [Spawner] Accept parsing multiple --param-file arguments to spawner  (#1805 <https://github.com/ros-controls/ros2_control/issues/1805>)
+  * Contributors: Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 06 Dec 2024 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.20.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 08 Nov 2024 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.19.0-1bookworm) bookworm; urgency=high
+
+  * [ros2controlcli] Fix the missing exported state interface printing (#1800 <https://github.com/ros-controls/ros2_control/issues/1800>)
+  * Contributors: Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 26 Oct 2024 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.18.0-1bookworm) bookworm; urgency=high
+
+  * [ros2controlcli] add params file parsing to load_controller verb and add namespacing support  (#1703 <https://github.com/ros-controls/ros2_control/issues/1703>)
+  * Contributors: Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 07 Oct 2024 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.17.0-1bookworm) bookworm; urgency=high
+
+  * [ros2controlcli] fix list_controllers when no controllers are loaded (#1721 <https://github.com/ros-controls/ros2_control/issues/1721>)
+  * Contributors: Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 11 Sep 2024 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.16.1-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 24 Aug 2024 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.16.0-1bookworm) bookworm; urgency=high
+
+  * Refactor spawner to be able to reuse code for ros2controlcli (#1661 <https://github.com/ros-controls/ros2_control/issues/1661>)
+  * Make list controller and list hardware components immediately visualize the state. (#1606 <https://github.com/ros-controls/ros2_control/issues/1606>)
+  * Contributors: Dr. Denis, Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 22 Aug 2024 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.15.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 05 Aug 2024 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.14.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 23 Jul 2024 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.13.0-1bookworm) bookworm; urgency=high
+
+  * Remove ament linters (#1601 <https://github.com/ros-controls/ros2_control/issues/1601>)
+  * Contributors: Bence Magyar
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 08 Jul 2024 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.12.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 01 Jul 2024 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.11.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 14 May 2024 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.10.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 08 May 2024 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.9.0-1bookworm) bookworm; urgency=high
+
+  * [CI] Specify runner/container images and codecov for joint_limits  (#1504 <https://github.com/ros-controls/ros2_control/issues/1504>)
+  * [CLI] Add set_hardware_component_state verb (#1248 <https://github.com/ros-controls/ros2_control/issues/1248>)
+  * Contributors: Christoph Fröhlich
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 30 Apr 2024 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.8.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 27 Mar 2024 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.7.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 22 Mar 2024 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.6.0-1bookworm) bookworm; urgency=high
+
+  * Added spawner colours to list_controllers depending upon active or inactive (#1409 <https://github.com/ros-controls/ros2_control/issues/1409>)
+  * Contributors: Soham Patil
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 02 Mar 2024 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.5.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 12 Feb 2024 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.4.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 31 Jan 2024 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.3.0-1bookworm) bookworm; urgency=high
+
+  * [docs] Remove joint_state_controller (#1263 <https://github.com/ros-controls/ros2_control/issues/1263>)
+  * Contributors: Christoph Fröhlich
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 20 Jan 2024 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.2.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 12 Dec 2023 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.1.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 30 Nov 2023 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (4.0.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 21 Nov 2023 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.21.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 06 Nov 2023 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.20.0-1bookworm) bookworm; urgency=high
+
+  * Fix doc of load_controller (#1132 <https://github.com/ros-controls/ros2_control/issues/1132>)
+  * Contributors: Christoph Fröhlich
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 31 Oct 2023 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.19.1-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 04 Oct 2023 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.19.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 03 Oct 2023 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.18.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 17 Aug 2023 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.17.0-1bookworm) bookworm; urgency=high
+
+  * Add info where the pdf is saved to view_controller_chains (#1094 <https://github.com/ros-controls/ros2_control/issues/1094>)
+  * Contributors: Christoph Fröhlich
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 07 Aug 2023 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.16.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 09 Jul 2023 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.15.0-1bookworm) bookworm; urgency=high
+
+  * Improve list hardware components output and code for better readability. (#1060 <https://github.com/ros-controls/ros2_control/issues/1060>)
+  * Contributors: Dr. Denis
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 23 Jun 2023 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.14.0-1bookworm) bookworm; urgency=high
+
+  * Docs: Use branch name substitution for all links (#1031 <https://github.com/ros-controls/ros2_control/issues/1031>)
+  * Contributors: Christoph Fröhlich
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 14 Jun 2023 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.13.0-1bookworm) bookworm; urgency=high
+
+  * Fix github links on control.ros.org (#1019 <https://github.com/ros-controls/ros2_control/issues/1019>)
+  * Contributors: Christoph Fröhlich
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 18 May 2023 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.12.2-1bookworm) bookworm; urgency=high
+
+  * Fix verbose output of list_hardware_components (#1004 <https://github.com/ros-controls/ros2_control/issues/1004>)
+  * Contributors: Christoph Fröhlich
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 29 Apr 2023 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.12.1-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 14 Apr 2023 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.12.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 02 Apr 2023 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.11.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 22 Mar 2023 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.10.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 16 Mar 2023 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.9.1-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 09 Mar 2023 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.9.0-1bookworm) bookworm; urgency=high
+
+  * Remove deprecations from CLI and controller_manager (#948 <https://github.com/ros-controls/ros2_control/issues/948>)
+  * [CLI] Fix wrong output of controller states for load_controller command (#947 <https://github.com/ros-controls/ros2_control/issues/947>)
+  * Contributors: Christoph Fröhlich
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 28 Feb 2023 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.8.0-1bookworm) bookworm; urgency=high
+
+  * 🖤 Add Black formatter for Python files. (#936 <https://github.com/ros-controls/ros2_control/issues/936>)
+  * Add list_hardware_components CLI  <https://github.com/ros-controls/ros2_control/issues/796>`_ - Adds list_hardware_components to CLI (#891 <https://github.com/ros-controls/ros2_control/issues/891>)
+  * Contributors: Andy McEvoy, Dr. Denis
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 10 Feb 2023 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.7.0-1bookworm) bookworm; urgency=high
+
+  * Do not use CLI calls but direct API for setting parameters. (#910 <https://github.com/ros-controls/ros2_control/issues/910>)
+  * Contributors: Dr. Denis
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 24 Jan 2023 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.6.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 12 Jan 2023 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.5.1-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 06 Jan 2023 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.5.0-1bookworm) bookworm; urgency=high
+
+  * Fix hardware interface CLI description (#864 <https://github.com/ros-controls/ros2_control/issues/864>)
+  * Contributors: Christoph Fröhlich
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 06 Dec 2022 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.4.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 27 Nov 2022 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.3.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 15 Nov 2022 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.2.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 15 Oct 2022 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.1.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 05 Oct 2022 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (3.0.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 19 Sep 2022 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (2.15.0-1bookworm) bookworm; urgency=high
+
+  * migrate from graphviz python to pygraphviz (#812 <https://github.com/ros-controls/ros2_control/issues/812>)
+  * Contributors: Sachin Kumar
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 19 Sep 2022 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (2.14.0-1bookworm) bookworm; urgency=high
+
+  * Visualize chained controllers with graphviz (#763 <https://github.com/ros-controls/ros2_control/issues/763>)
+  * Corrected the site link to a valid one. (#801 <https://github.com/ros-controls/ros2_control/issues/801>)
+  * Contributors: Interactics, Paul Gesel
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 04 Sep 2022 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (2.13.0-1bookworm) bookworm; urgency=high
+
+  * Add chained controllers information in list controllers service #abi-braking (#758 <https://github.com/ros-controls/ros2_control/issues/758>)
+    * add chained controllers in ros2controlcli
+    * remove controller_group from service
+    * added comments to ControllerState message
+    * added comments to ChainedConnection message
+  * Added spawner colors to command interfaces based on availablity and claimed status (#754 <https://github.com/ros-controls/ros2_control/issues/754>)
+  * Contributors: Leander Stephen D'Souza, Paul Gesel
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 03 Aug 2022 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (2.12.1-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 14 Jul 2022 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (2.12.0-1bookworm) bookworm; urgency=high
+
+  * Deprecate and rename start and stop nomenclature toward user to activate and deactivate #ABI-breaking (#755 <https://github.com/ros-controls/ros2_control/issues/755>)
+    * Rename fields and deprecate old nomenclature.
+    * Add new defines to SwitchController.srv
+    * Deprecated start/stop nomenclature in all CLI commands.
+    * Deprecate 'start_asap' too as other fields.
+  * Contributors: Denis Štogl
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 09 Jul 2022 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (2.11.0-1bookworm) bookworm; urgency=high
+
+  * Remove hybrid services in controller manager. They are just overhead. (#761 <https://github.com/ros-controls/ros2_control/issues/761>)
+  * Update maintainers of packages (#753 <https://github.com/ros-controls/ros2_control/issues/753>)
+  * Add available status and moved to fstrings when listing hardware interfaces (#739 <https://github.com/ros-controls/ros2_control/issues/739>)
+  * Contributors: Bence Magyar, Denis Štogl, Leander Stephen D'Souza
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 03 Jul 2022 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (2.10.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 18 Jun 2022 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (2.9.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 19 May 2022 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (2.8.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 13 May 2022 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (2.7.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 29 Apr 2022 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (2.6.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 20 Apr 2022 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (2.5.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 25 Mar 2022 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (2.4.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 23 Feb 2022 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (2.3.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 18 Feb 2022 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (2.2.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 24 Jan 2022 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (2.1.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 11 Jan 2022 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (2.0.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 29 Dec 2021 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (1.2.0-1bookworm) bookworm; urgency=high
+
+  * Add verbose flag to CLI command list_controllers (#569 <https://github.com/ros-controls/ros2_control/issues/569>)
+  * Contributors: Xi-Huang
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 05 Nov 2021 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (1.1.0-1bookworm) bookworm; urgency=high
+
+  * Fixup formatting 🔧 of "list_controllers.py" and do not check formating on build stage. (#555 <https://github.com/ros-controls/ros2_control/issues/555>)
+    * Do not check formating on build stage.
+    * Change formatting of strings.
+    * Make output a bit easier to read.
+  * controller_manager: Use command_interface_configuration for the claimed interfaces when calling list_controllers (#544 <https://github.com/ros-controls/ros2_control/issues/544>)
+  * Contributors: Denis Štogl, Jafar Abdi
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 25 Oct 2021 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (1.0.0-1bookworm) bookworm; urgency=high
+
+  * Removed deprecated CLI verbs (#420 <https://github.com/ros-controls/ros2_control/issues/420>)
+  * Contributors: Mathias Aarbo
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 29 Sep 2021 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (0.8.0-1bookworm) bookworm; urgency=high
+
+  * fix link to point to read-the-docs (#496 <https://github.com/ros-controls/ros2_control/issues/496>)
+  * Add pre-commit setup. (#473 <https://github.com/ros-controls/ros2_control/issues/473>)
+  * Add index, rename cli main doc. (#465 <https://github.com/ros-controls/ros2_control/issues/465>)
+  * fixes unload_controller issue (#456 <https://github.com/ros-controls/ros2_control/issues/456>)
+  * Contributors: Denis Štogl, Michael, Mathias Arbo
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 28 Aug 2021 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (0.7.1-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 15 Jun 2021 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (0.7.0-1bookworm) bookworm; urgency=high
+
+  * Updated arg reference to set_state from state since the argument name has been changed (#433 <https://github.com/ros-controls/ros2_control/issues/433>)
+  * Contributors: Andrew Lycas
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 06 Jun 2021 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (0.6.1-1bookworm) bookworm; urgency=high
+
+  * Use correct names after changing arguments (#425 <https://github.com/ros-controls/ros2_control/issues/425>)
+    In #412 <https://github.com/ros-controls/ros2_control/issues/412> we forgot to update the argument after changing flags.
+  * Contributors: Denis Štogl
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 31 May 2021 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (0.6.0-1bookworm) bookworm; urgency=high
+
+  * Renaming ros2controlcli verbs (#412 <https://github.com/ros-controls/ros2_control/issues/412>)
+    * Renamed verbs to match services
+    * README.rst redirects to docs/index.rst
+    * argument {start/stop}_controllers -> {start/stop}
+    * rst include did not work, try relative link
+    * Moved configure_controller doc to deprecated
+    * set_state -> set-state
+  * Contributors: Mathias Hauan Arbo, Denis Štogl
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 23 May 2021 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (0.5.0-1bookworm) bookworm; urgency=high
+
+  * correct return values in CLI (#401 <https://github.com/ros-controls/ros2_control/issues/401>)
+  * [python] Update files in ros2controlcli to use format strings (#358 <https://github.com/ros-controls/ros2_control/issues/358>)
+  * Add starting doc for ros2controlcli (#377 <https://github.com/ros-controls/ros2_control/issues/377>)
+  * Contributors: Bence Magyar, Karsten Knese, NovusEdge
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 03 May 2021 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (0.4.0-1bookworm) bookworm; urgency=high
+
+  * Remodel ros2controlcli, refactor spawner/unspawner and fix test (#349 <https://github.com/ros-controls/ros2_control/issues/349>)
+  * Contributors: Karsten Knese
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 07 Apr 2021 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (0.3.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 21 Mar 2021 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (0.2.1-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 02 Mar 2021 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (0.2.0-1bookworm) bookworm; urgency=high
+
+  * Increase service call timeout, often services take longer than 0.2s (#324 <https://github.com/ros-controls/ros2_control/issues/324>)
+  * Contributors: Victor Lopez
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 26 Feb 2021 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (0.1.6-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 05 Feb 2021 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (0.1.5-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 04 Feb 2021 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (0.1.4-1bookworm) bookworm; urgency=high
+
+  * Print error messages if ros2controlcli commands fail (#309 <https://github.com/ros-controls/ros2_control/issues/309>)
+  * Inverse the response of cli commands to return correct exit-status. (#308 <https://github.com/ros-controls/ros2_control/issues/308>)
+    * Inverse the response of cli commands to return correct exit-status.
+    * list verbs return exit-status 0
+  * Contributors: Shota Aoki, Victor Lopez
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 03 Feb 2021 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (0.1.3-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 21 Jan 2021 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (0.1.2-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 06 Jan 2021 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (0.1.1-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 23 Dec 2020 00:00:00 -0000
+
+ros-jazzy-ros2controlcli (0.1.0-1bookworm) bookworm; urgency=high
+
+  * Add configure controller service (#272 <https://github.com/ros-controls/ros2_control/issues/272>)
+  * Use resource manager (#236 <https://github.com/ros-controls/ros2_control/issues/236>)
+  * Add cli interface (#176 <https://github.com/ros-controls/ros2_control/issues/176>)
+  * Contributors: Bence Magyar, Denis Štogl, Karsten Knese, Victor Lopez
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 22 Dec 2020 00:00:00 -0000
+
+

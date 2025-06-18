@@ -1,0 +1,12 @@
+Source: ros-jazzy-ros2controlcli
+Section: misc
+Priority: optional
+Maintainer: Bence Magyar <bence.magyar.robotics@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-jazzy-controller-manager, ros-jazzy-controller-manager-msgs, ros-jazzy-rcl-interfaces, ros-jazzy-rclpy, ros-jazzy-ros2cli, ros-jazzy-ros2node, ros-jazzy-ros2param, ros-jazzy-ros-workspace, python3-all, python3-setuptools, dh-python
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-jazzy-ros2controlcli
+Architecture: any
+Depends: ${python3:Depends}, ${misc:Depends}, python3-pygraphviz, ros-jazzy-controller-manager, ros-jazzy-controller-manager-msgs, ros-jazzy-rcl-interfaces, ros-jazzy-rclpy, ros-jazzy-ros2cli, ros-jazzy-ros2node, ros-jazzy-ros2param, ros-jazzy-rosidl-runtime-py, ros-jazzy-ros-workspace
+Description: The ROS 2 command line tools for ros2_control.
