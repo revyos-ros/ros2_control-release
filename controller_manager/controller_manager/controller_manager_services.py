@@ -133,7 +133,7 @@ def service_caller(
                     f"Could not contact service {fully_qualified_service_name}"
                 )
         elif not cli.wait_for_service(10.0):
-            node.get_logger().warn(f"Could not contact service {fully_qualified_service_name}")
+            node.get_logger().warning(f"Could not contact service {fully_qualified_service_name}")
 
     node.get_logger().debug(f"requester: making request: {request}\n")
     future = None
@@ -275,7 +275,7 @@ def switch_controllers(
     controller_manager_name,
     deactivate_controllers,
     activate_controllers,
-    strict,
+    strictness,
     activate_asap,
     timeout,
     call_timeout=10.0,
@@ -283,10 +283,7 @@ def switch_controllers(
     request = SwitchController.Request()
     request.activate_controllers = activate_controllers
     request.deactivate_controllers = deactivate_controllers
-    if strict:
-        request.strictness = SwitchController.Request.STRICT
-    else:
-        request.strictness = SwitchController.Request.BEST_EFFORT
+    request.strictness = strictness
     request.activate_asap = activate_asap
     request.timeout = rclpy.duration.Duration(seconds=timeout).to_msg()
     return service_caller(
@@ -343,10 +340,9 @@ def get_params_files_with_controller_parameters(
                         )
                         break
                     controller_parameter_files.append(parameter_file)
-
-                if WILDCARD_KEY in parameters and key in parameters[WILDCARD_KEY]:
+                elif WILDCARD_KEY in parameters and key in parameters[WILDCARD_KEY]:
                     controller_parameter_files.append(parameter_file)
-                if WILDCARD_KEY in parameters and ROS_PARAMS_KEY in parameters[WILDCARD_KEY]:
+                elif WILDCARD_KEY in parameters and ROS_PARAMS_KEY in parameters[WILDCARD_KEY]:
                     controller_parameter_files.append(parameter_file)
     return controller_parameter_files
 
@@ -378,9 +374,9 @@ def get_parameter_from_param_files(
                         break
                     controller_param_dict = parameters[key]
 
-                if WILDCARD_KEY in parameters and key in parameters[WILDCARD_KEY]:
+                elif WILDCARD_KEY in parameters and key in parameters[WILDCARD_KEY]:
                     controller_param_dict = parameters[WILDCARD_KEY][key]
-                if WILDCARD_KEY in parameters and ROS_PARAMS_KEY in parameters[WILDCARD_KEY]:
+                elif WILDCARD_KEY in parameters and ROS_PARAMS_KEY in parameters[WILDCARD_KEY]:
                     controller_param_dict = parameters[WILDCARD_KEY]
 
                 if controller_param_dict and (
@@ -470,4 +466,21 @@ def set_controller_parameters_from_param_files(
             node, controller_manager_name, controller_name, "type", controller_type
         ):
             return False
+
+        fallback_controllers = get_parameter_from_param_files(
+            node,
+            controller_name,
+            spawner_namespace,
+            controller_parameter_files,
+            "fallback_controllers",
+        )
+        if fallback_controllers:
+            if not set_controller_parameters(
+                node,
+                controller_manager_name,
+                controller_name,
+                "fallback_controllers",
+                fallback_controllers,
+            ):
+                return False
     return True

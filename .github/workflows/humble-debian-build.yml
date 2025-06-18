@@ -30,4 +30,4 @@ jobs:
       upstream_workspace: ros2_control.humble.repos
       ref_for_scheduled_build: humble
       skip_packages: rqt_controller_manager
-      skip_packages_test: controller_manager_msgs control_msgs
+      skip_packages_test: controller_manager_msgs

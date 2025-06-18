@@ -33,6 +33,9 @@ def print_controller_state(c, args, col_width_name, col_width_state, col_width_t
     print(
         f"{state_color}{c.name:<{col_width_name}}{bcolors.ENDC} {c.type:<{col_width_type}}  {state_color}{c.state:<{col_width_state}}{bcolors.ENDC}"
     )
+    if args.verbose:
+        print(f"\tupdate_rate: {c.update_rate} Hz")
+        print(f"\tis_async: {c.is_async}")
     if args.claimed_interfaces or args.verbose:
         print("\tclaimed interfaces:")
         for claimed_interface in c.claimed_interfaces:
@@ -50,10 +53,14 @@ def print_controller_state(c, args, col_width_name, col_width_state, col_width_t
         for connection in c.chain_connections:
             for reference in connection.reference_interfaces:
                 print(f"\t\t{reference:20s}")
-    if args.reference_interfaces or args.verbose:
+    if args.exported_interfaces or args.verbose:
         print("\texported reference interfaces:")
-        for reference_interfaces in c.reference_interfaces:
-            print(f"\t\t{reference_interfaces}")
+        for reference_interface in c.reference_interfaces:
+            print(f"\t\t{reference_interface}")
+    if args.exported_interfaces or args.verbose:
+        print("\texported state interfaces:")
+        for exported_state_interface in c.exported_state_interfaces:
+            print(f"\t\t{exported_state_interface}")
 
 
 class ListControllersVerb(VerbExtension):
@@ -82,9 +89,9 @@ class ListControllersVerb(VerbExtension):
             help="List interfaces that the controllers are chained to",
         )
         parser.add_argument(
-            "--reference-interfaces",
+            "--exported-interfaces",
             action="store_true",
-            help="List controller's exported references",
+            help="List controller's exported state and reference interfaces",
         )
         parser.add_argument(
             "--verbose",
@@ -95,7 +102,7 @@ class ListControllersVerb(VerbExtension):
         add_controller_mgr_parsers(parser)
 
     def main(self, *, args):
-        with NodeStrategy(args) as node:
+        with NodeStrategy(args).direct_node as node:
             response = list_controllers(node, args.controller_manager)
 
             if not response.controller:

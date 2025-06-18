@@ -2,251 +2,142 @@
 Changelog for package hardware_interface_testing
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-2.51.0 (2025-06-06)
--------------------
-
-2.50.0 (2025-04-10)
--------------------
-* Bump version of pre-commit hooks (backport `#2156 <https://github.com/ros-controls/ros2_control/issues/2156>`_) (`#2157 <https://github.com/ros-controls/ros2_control/issues/2157>`_)
-* Contributors: mergify[bot]
-
-2.49.0 (2025-03-18)
--------------------
-
-2.48.0 (2025-02-07)
--------------------
-
-2.47.0 (2024-12-31)
--------------------
-
-2.46.0 (2024-12-16)
--------------------
-
-2.45.0 (2024-12-03)
--------------------
-
-2.44.0 (2024-11-09)
--------------------
-* Add few warning compiler options to error (backport `#1181 <https://github.com/ros-controls/ros2_control/issues/1181>`_) (`#1816 <https://github.com/ros-controls/ros2_control/issues/1816>`_)
-* Contributors: mergify[bot]
-
-2.43.1 (2024-09-11)
--------------------
-
-2.43.0 (2024-08-22)
--------------------
-
-2.42.0 (2024-07-23)
--------------------
-
-2.41.0 (2024-04-30)
--------------------
-
-2.40.0 (2024-03-02)
--------------------
-
-2.39.1 (2024-02-14)
--------------------
-
-2.39.0 (2024-02-12)
--------------------
-* Move `test_components` to own package (backport `#1325 <https://github.com/ros-controls/ros2_control/issues/1325>`_) (`#1340 <https://github.com/ros-controls/ros2_control/issues/1340>`_)
-* Contributors: mergify[bot]
-
-2.38.0 (2024-01-25)
--------------------
-
-2.37.0 (2024-01-20)
--------------------
-
-2.36.1 (2024-01-08)
--------------------
-
-2.36.0 (2023-12-12)
--------------------
-
-2.35.1 (2023-11-27)
--------------------
-
-2.35.0 (2023-11-14)
--------------------
-
-2.34.0 (2023-11-08)
--------------------
-
-2.33.0 (2023-10-11)
--------------------
-
-2.32.0 (2023-10-03)
--------------------
-
-2.31.0 (2023-09-11)
--------------------
-
-2.30.0 (2023-08-14)
--------------------
-
-2.29.0 (2023-07-09)
--------------------
-
-2.28.0 (2023-06-23)
--------------------
-
-2.27.0 (2023-06-14)
--------------------
-
-2.26.0 (2023-05-20)
--------------------
-
-2.25.3 (2023-04-29)
--------------------
-
-2.25.2 (2023-04-20)
--------------------
-
-2.25.1 (2023-04-14)
--------------------
-
-2.25.0 (2023-04-02)
--------------------
-
-2.24.1 (2023-03-09)
--------------------
-
-2.24.0 (2023-02-28)
--------------------
-
-2.23.0 (2023-02-20)
--------------------
-
-2.22.0 (2023-01-31)
--------------------
-
-2.21.0 (2023-01-24)
--------------------
-
-2.20.0 (2023-01-12)
--------------------
-
-2.19.0 (2023-01-06)
--------------------
-
-2.18.0 (2022-12-03)
--------------------
-
-2.17.0 (2022-11-27)
--------------------
-
-2.16.0 (2022-10-17)
--------------------
-
-2.15.0 (2022-09-19)
--------------------
-
-2.14.0 (2022-09-04)
--------------------
-
-2.13.0 (2022-08-03)
--------------------
-
-2.12.1 (2022-07-14)
--------------------
-
-2.12.0 (2022-07-09)
--------------------
-
-2.11.0 (2022-07-03)
--------------------
-
-2.10.0 (2022-06-18)
--------------------
-
-2.9.0 (2022-05-19)
+5.2.0 (2025-06-07)
 ------------------
 
-2.8.0 (2022-05-13)
+5.1.0 (2025-05-24)
+------------------
+* [RM] Isolate start and stop interfaces for each Hardware Component (`#2120 <https://github.com/ros-controls/ros2_control/issues/2120>`_)
+* Use target_link_libraries instead of ament_target_dependencies (`#2266 <https://github.com/ros-controls/ros2_control/issues/2266>`_)
+* Contributors: Sai Kishor Kothakota
+
+5.0.0 (2025-05-21)
+------------------
+* Statically allocate string concatenations using FMT formatting (`#2205 <https://github.com/ros-controls/ros2_control/issues/2205>`_)
+* Suppress the deprecation warnings of the hardware_interface API (`#2223 <https://github.com/ros-controls/ros2_control/issues/2223>`_)
+* Contributors: Sai Kishor Kothakota, mini-1235
+
+4.29.0 (2025-05-04)
+-------------------
+* [Diagnostics] Add diagnostics of execution time and periodicity of the hardware components (`#2086 <https://github.com/ros-controls/ros2_control/issues/2086>`_)
+* Contributors: Sai Kishor Kothakota
+
+4.28.1 (2025-04-17)
+-------------------
+* Use previous command to enforce the joint limits on position interfaces (`#2183 <https://github.com/ros-controls/ros2_control/issues/2183>`_)
+* Contributors: Sai Kishor Kothakota
+
+4.28.0 (2025-04-10)
+-------------------
+* Integrate joint limit enforcement into `ros2_control` framework functional with Async controllers and components  (`#2047 <https://github.com/ros-controls/ros2_control/issues/2047>`_)
+* Make all packages use gmock, not gtest (`#2162 <https://github.com/ros-controls/ros2_control/issues/2162>`_)
+* Bump version of pre-commit hooks (`#2156 <https://github.com/ros-controls/ros2_control/issues/2156>`_)
+* Use ros2_control_cmake (`#2134 <https://github.com/ros-controls/ros2_control/issues/2134>`_)
+* [Handle] Add support for booleans in the handles (`#2065 <https://github.com/ros-controls/ros2_control/issues/2065>`_)
+* Improve package descriptions & update maintainers (`#2103 <https://github.com/ros-controls/ros2_control/issues/2103>`_)
+* [RM] Fix skipped cycles by adjusting `rw_rate` handling (`#2091 <https://github.com/ros-controls/ros2_control/issues/2091>`_)
+* Contributors: Bence Magyar, Christoph Fröhlich, RobertWilbrandt, Sai Kishor Kothakota, Soham Patil, github-actions[bot]
+
+4.27.0 (2025-03-01)
+-------------------
+* [Handle] Use `get_optional` instead of `get_value<double>` (`#2061 <https://github.com/ros-controls/ros2_control/issues/2061>`_)
+* Add new `get_value` API for Handles and Interfaces (`#1976 <https://github.com/ros-controls/ros2_control/issues/1976>`_)
+* [CM] Fix the controller deactivation on the control cycles returning ERROR  (`#1756 <https://github.com/ros-controls/ros2_control/issues/1756>`_)
+* Contributors: Sai Kishor Kothakota
+
+4.26.0 (2025-02-07)
+-------------------
+* Fix memory leak in the ros2_control (`#2033 <https://github.com/ros-controls/ros2_control/issues/2033>`_)
+* Contributors: Sai Kishor Kothakota
+
+4.25.0 (2025-01-29)
+-------------------
+
+4.24.0 (2025-01-13)
+-------------------
+
+4.23.0 (2024-12-29)
+-------------------
+
+4.22.0 (2024-12-20)
+-------------------
+* Propagate read/write rate to the HardwareInfo properly (`#1928 <https://github.com/ros-controls/ros2_control/issues/1928>`_)
+* Async Hardware Components (`#1567 <https://github.com/ros-controls/ros2_control/issues/1567>`_)
+* Contributors: Sai Kishor Kothakota
+
+4.21.0 (2024-12-06)
+-------------------
+* [Feature] Choose different read and write rate for the hardware components (`#1570 <https://github.com/ros-controls/ros2_control/issues/1570>`_)
+* Contributors: Sai Kishor Kothakota
+
+4.20.0 (2024-11-08)
+-------------------
+
+4.19.0 (2024-10-26)
+-------------------
+
+4.18.0 (2024-10-07)
+-------------------
+* Adapt controller Reference/StateInterfaces to New Way of Exporting (variant support) (`#1689 <https://github.com/ros-controls/ros2_control/issues/1689>`_)
+* Contributors: Manuel Muth
+
+4.17.0 (2024-09-11)
+-------------------
+
+4.16.1 (2024-08-24)
+-------------------
+
+4.16.0 (2024-08-22)
+-------------------
+
+4.15.0 (2024-08-05)
+-------------------
+* [RM] Add `get_hardware_info` method to the Hardware Components (`#1643 <https://github.com/ros-controls/ros2_control/issues/1643>`_)
+* Contributors: Sai Kishor Kothakota
+
+4.14.0 (2024-07-23)
+-------------------
+* Unused header cleanup (`#1627 <https://github.com/ros-controls/ros2_control/issues/1627>`_)
+* Fix typos in test_resource_manager.cpp (`#1609 <https://github.com/ros-controls/ros2_control/issues/1609>`_)
+* Contributors: Henry Moore, Parker Drouillard
+
+4.13.0 (2024-07-08)
+-------------------
+* [ResourceManager] Propagate access to logger and clock interfaces to HardwareComponent (`#1585 <https://github.com/ros-controls/ros2_control/issues/1585>`_)
+* Contributors: Sai Kishor Kothakota
+
+4.12.0 (2024-07-01)
+-------------------
+* [RM] Rename `load_urdf` method to `load_and_initialize_components` and add error handling there to avoid stack crashing when error happens. (`#1354 <https://github.com/ros-controls/ros2_control/issues/1354>`_)
+* Contributors: Dr. Denis
+
+4.11.0 (2024-05-14)
+-------------------
+
+4.10.0 (2024-05-08)
+-------------------
+
+4.9.0 (2024-04-30)
+------------------
+* Component parser: Get mimic information from URDF (`#1256 <https://github.com/ros-controls/ros2_control/issues/1256>`_)
+* Contributors: Christoph Fröhlich
+
+4.8.0 (2024-03-27)
 ------------------
 
-2.7.0 (2022-04-29)
+4.7.0 (2024-03-22)
 ------------------
 
-2.6.0 (2022-04-20)
+4.6.0 (2024-03-02)
+------------------
+* Add -Werror=missing-braces to compile options (`#1423 <https://github.com/ros-controls/ros2_control/issues/1423>`_)
+* Contributors: Sai Kishor Kothakota
+
+4.5.0 (2024-02-12)
 ------------------
 
-2.5.0 (2022-03-25)
+4.4.0 (2024-01-31)
 ------------------
-
-2.4.0 (2022-02-23)
-------------------
-
-2.3.0 (2022-02-18)
-------------------
-
-2.2.0 (2022-01-24)
-------------------
-
-2.1.0 (2022-01-11)
-------------------
-
-2.0.0 (2021-12-29)
-------------------
-
-1.2.0 (2021-11-05)
-------------------
-
-1.1.0 (2021-10-25)
-------------------
-
-1.0.0 (2021-09-29)
-------------------
-
-0.8.0 (2021-08-28)
-------------------
-
-0.7.1 (2021-06-15)
-------------------
-
-0.7.0 (2021-06-06)
-------------------
-
-0.6.1 (2021-05-31)
-------------------
-
-0.6.0 (2021-05-23)
-------------------
-
-0.5.0 (2021-05-03)
-------------------
-
-0.4.0 (2021-04-07)
-------------------
-
-0.3.0 (2021-03-21)
-------------------
-
-0.2.1 (2021-03-02)
-------------------
-
-0.2.0 (2021-02-26)
-------------------
-
-0.1.6 (2021-02-05)
-------------------
-
-0.1.5 (2021-02-04)
-------------------
-
-0.1.4 (2021-02-03)
-------------------
-
-0.1.3 (2021-01-21)
-------------------
-
-0.1.2 (2021-01-06)
-------------------
-
-0.1.1 (2020-12-23)
-------------------
-
-0.1.0 (2020-12-22)
-------------------
+* Fix version
+* Move `test_components` to own package (`#1325 <https://github.com/ros-controls/ros2_control/issues/1325>`_)
+* Contributors: Bence Magyar, Christoph Fröhlich

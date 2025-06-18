@@ -17,6 +17,8 @@ Guidelines and Best Practices
    Hardware Interface Types <hardware_interface_types_userdoc.rst>
    Writing a Hardware Component <writing_new_hardware_component.rst>
    Different Update Rates <different_update_rates_userdoc.rst>
+   Asynchronous Execution <asynchronous_components.rst>
+   Semantic Components <semantic_components.rst>
 
 
 Lifecycle of a Hardware Component

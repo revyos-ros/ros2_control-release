@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
-
 #include <cstdlib>
 #include <memory>
 #include <string>
@@ -21,6 +19,7 @@
 
 #include "controller_manager/controller_manager.hpp"
 #include "controller_manager_test_common.hpp"
+#include "gmock/gmock.h"
 #include "lifecycle_msgs/msg/state.hpp"
 #include "test_chainable_controller/test_chainable_controller.hpp"
 #include "test_controller/test_controller.hpp"
@@ -233,7 +232,7 @@ class TestHardwareSpawnerWithNamespacedCM
 public:
   TestHardwareSpawnerWithNamespacedCM()
   : ControllerManagerFixture<controller_manager::ControllerManager>(
-      ros2_control_test_assets::minimal_robot_urdf, false, "foo_namespace"),
+      ros2_control_test_assets::minimal_robot_urdf, "foo_namespace"),
     RMServiceCaller("foo_namespace/" + std::string(TEST_CM_NAME))
   {
     cm_->set_parameter(
