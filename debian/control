@@ -1,0 +1,12 @@
+Source: ros-jazzy-ros2-control
+Section: misc
+Priority: optional
+Maintainer: Bence Magyar <bence.magyar.robotics@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-jazzy-ament-cmake, ros-jazzy-ros-workspace
+Homepage: https://control.ros.org
+Standards-Version: 3.9.2
+
+Package: ros-jazzy-ros2-control
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-jazzy-controller-interface, ros-jazzy-controller-manager, ros-jazzy-controller-manager-msgs, ros-jazzy-hardware-interface, ros-jazzy-joint-limits, ros-jazzy-ros2-control-test-assets, ros-jazzy-ros2controlcli, ros-jazzy-transmission-interface, ros-jazzy-ros-workspace
+Description: Metapackage for ROS2 control related packages
