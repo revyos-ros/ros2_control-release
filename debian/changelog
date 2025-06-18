@@ -1,0 +1,603 @@
+ros-jazzy-rqt-controller-manager (5.2.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 07 Jun 2025 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (5.1.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 24 May 2025 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (5.0.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 21 May 2025 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.29.0-1noble) noble; urgency=high
+
+  * Add consistent transitions for controllers in rqt_controller_manager (#2163 <https://github.com/ros-controls/ros2_control/issues/2163>)
+  * Contributors: Soham Patil
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 04 May 2025 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.28.1-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 17 Apr 2025 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.28.0-1noble) noble; urgency=high
+
+  * Update rqt_controller_manager controller state color scheme to match list_controllers color scheme (#2143 <https://github.com/ros-controls/ros2_control/issues/2143>)
+  * Improve package descriptions & update maintainers (#2103 <https://github.com/ros-controls/ros2_control/issues/2103>)
+  * Contributors: Bence Magyar, Soham Patil
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 10 Apr 2025 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.27.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 01 Mar 2025 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.26.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 07 Feb 2025 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.25.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 29 Jan 2025 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.24.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 13 Jan 2025 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.23.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 29 Dec 2024 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.22.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 20 Dec 2024 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.21.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 06 Dec 2024 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.20.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 08 Nov 2024 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.19.0-1noble) noble; urgency=high
+
+  * fix: call configure_controller  on 'unconfigured' state instead load_controller (#1794 <https://github.com/ros-controls/ros2_control/issues/1794>)
+  * Contributors: Santosh Govindaraj
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 26 Oct 2024 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.18.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 07 Oct 2024 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.17.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 11 Sep 2024 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.16.1-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 24 Aug 2024 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.16.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 22 Aug 2024 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.15.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 05 Aug 2024 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.14.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 23 Jul 2024 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.13.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 08 Jul 2024 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.12.0-1noble) noble; urgency=high
+
+  * [rqt_controller_manager] Add hardware components (#1455 <https://github.com/ros-controls/ros2_control/issues/1455>)
+  * Contributors: Christoph Fröhlich
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 01 Jul 2024 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.11.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 14 May 2024 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.10.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 08 May 2024 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.9.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 30 Apr 2024 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.8.0-1noble) noble; urgency=high
+
+  * Fix rqt_controller_manager for non-humble (#1454 <https://github.com/ros-controls/ros2_control/issues/1454>)
+  * Add cm as dependency to rqt_cm (#1447 <https://github.com/ros-controls/ros2_control/issues/1447>)
+  * Contributors: Christoph Fröhlich
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 27 Mar 2024 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.7.0-1noble) noble; urgency=high
+
+  * Codeformat from new pre-commit config (#1433 <https://github.com/ros-controls/ros2_control/issues/1433>)
+  * rqt_controller_manager compatibility for humble (#1429 <https://github.com/ros-controls/ros2_control/issues/1429>)
+  * Contributors: Christoph Fröhlich
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 22 Mar 2024 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.6.0-1noble) noble; urgency=high
+
+  * [CI] Code coverage + pre-commit (#1413 <https://github.com/ros-controls/ros2_control/issues/1413>)
+  * Contributors: Christoph Fröhlich
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 02 Mar 2024 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.5.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 12 Feb 2024 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.4.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 31 Jan 2024 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.3.0-1noble) noble; urgency=high
+
+  * Fix rqt controller manager crash on ros2_control restart (#1273 <https://github.com/ros-controls/ros2_control/issues/1273>)
+  * Contributors: Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 20 Jan 2024 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.2.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 12 Dec 2023 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.1.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 30 Nov 2023 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (4.0.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 21 Nov 2023 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.21.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 06 Nov 2023 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.20.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 31 Oct 2023 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.19.1-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 04 Oct 2023 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.19.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 03 Oct 2023 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.18.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 17 Aug 2023 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.17.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 07 Aug 2023 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.16.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 09 Jul 2023 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.15.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 23 Jun 2023 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.14.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 14 Jun 2023 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.13.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 18 May 2023 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.12.2-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 29 Apr 2023 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.12.1-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 14 Apr 2023 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.12.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 02 Apr 2023 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.11.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 22 Mar 2023 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.10.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 16 Mar 2023 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.9.1-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 09 Mar 2023 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.9.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 28 Feb 2023 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.8.0-1noble) noble; urgency=high
+
+  * 🖤 Add Black formatter for Python files. (#936 <https://github.com/ros-controls/ros2_control/issues/936>)
+  * Contributors: Dr. Denis
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 10 Feb 2023 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.7.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 24 Jan 2023 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.6.0-1noble) noble; urgency=high
+
+  * 🔧 Fixes and updated on pre-commit hooks and their action (#890 <https://github.com/ros-controls/ros2_control/issues/890>)
+  * Contributors: Denis Štogl
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 12 Jan 2023 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.5.1-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 06 Jan 2023 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.5.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 06 Dec 2022 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.4.0-1noble) noble; urgency=high
+
+  * rqt controller manager ros 2 port (#813 <https://github.com/ros-controls/ros2_control/issues/813>)
+  * Contributors: Kenji Brameld
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 27 Nov 2022 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.3.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 15 Nov 2022 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.2.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 15 Oct 2022 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.1.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 05 Oct 2022 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (3.0.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 19 Sep 2022 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (2.14.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 04 Sep 2022 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (2.13.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 03 Aug 2022 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (2.12.1-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 14 Jul 2022 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (2.12.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 09 Jul 2022 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (2.11.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 03 Jul 2022 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (2.10.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 18 Jun 2022 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (2.9.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 19 May 2022 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (2.8.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 13 May 2022 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (2.7.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 29 Apr 2022 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (2.6.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 20 Apr 2022 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (2.5.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 25 Mar 2022 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (2.4.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 23 Feb 2022 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (2.3.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 18 Feb 2022 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (2.2.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 24 Jan 2022 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (2.1.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 11 Jan 2022 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (2.0.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 29 Dec 2021 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (1.2.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 05 Nov 2021 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (1.1.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 25 Oct 2021 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (1.0.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 29 Sep 2021 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (0.8.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 28 Aug 2021 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (0.7.1-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 15 Jun 2021 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (0.7.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 06 Jun 2021 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (0.6.1-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 31 May 2021 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (0.6.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 23 May 2021 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (0.5.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 03 May 2021 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (0.4.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 07 Apr 2021 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (0.3.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 21 Mar 2021 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (0.2.1-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 02 Mar 2021 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (0.2.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 26 Feb 2021 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (0.1.6-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 05 Feb 2021 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (0.1.5-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 04 Feb 2021 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (0.1.4-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 03 Feb 2021 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (0.1.3-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 21 Jan 2021 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (0.1.2-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 06 Jan 2021 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (0.1.1-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 23 Dec 2020 00:00:00 -0000
+
+ros-jazzy-rqt-controller-manager (0.1.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 22 Dec 2020 00:00:00 -0000
+
+
