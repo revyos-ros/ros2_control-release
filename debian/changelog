@@ -1,0 +1,885 @@
+ros-jazzy-hardware-interface (4.32.0-1noble) noble; urgency=high
+
+  * also use std::mutex on macOS (#2313 <https://github.com/ros-controls/ros2_control/issues/2313>) (#2315 <https://github.com/ros-controls/ros2_control/issues/2315>)
+  * Use std::mutex on windows (#2311 <https://github.com/ros-controls/ros2_control/issues/2311>) (#2312 <https://github.com/ros-controls/ros2_control/issues/2312>)
+  * Contributors: mergify[bot]
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 06 Jun 2025 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.31.0-1noble) noble; urgency=high
+
+  * [RM] Isolate start and stop interfaces for each Hardware Component (backport #2120 <https://github.com/ros-controls/ros2_control/issues/2120>) (#2273 <https://github.com/ros-controls/ros2_control/issues/2273>)
+  * Add data_type field to the HardwareInterfaces message (backport #2204 <https://github.com/ros-controls/ros2_control/issues/2204>) (#2232 <https://github.com/ros-controls/ros2_control/issues/2232>)
+  * Add new Handle constructor for easier initialization (#2253 <https://github.com/ros-controls/ros2_control/issues/2253>) (#2270 <https://github.com/ros-controls/ros2_control/issues/2270>)
+  * Use target_link_libraries instead of ament_target_dependencies (#2266 <https://github.com/ros-controls/ros2_control/issues/2266>) (#2271 <https://github.com/ros-controls/ros2_control/issues/2271>)
+  * Read data_type for all types of interfaces (#2235 <https://github.com/ros-controls/ros2_control/issues/2235>) (#2261 <https://github.com/ros-controls/ros2_control/issues/2261>)
+  * Contributors: mergify[bot]
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 24 May 2025 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.30.0-1noble) noble; urgency=high
+
+  * Statically allocate string concatenations using FMT formatting (#2205 <https://github.com/ros-controls/ros2_control/issues/2205>) (#2249 <https://github.com/ros-controls/ros2_control/issues/2249>)
+  * Suppress the deprecation warnings of the hardware_interface API (#2223 <https://github.com/ros-controls/ros2_control/issues/2223>) (#2247 <https://github.com/ros-controls/ros2_control/issues/2247>)
+  * Contributors: mergify[bot]
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 21 May 2025 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.29.0-1noble) noble; urgency=high
+
+  * [Diagnostics] Add diagnostics of execution time and periodicity of the hardware components (#2086 <https://github.com/ros-controls/ros2_control/issues/2086>)
+  * Add common reusable helper methods header (#2099 <https://github.com/ros-controls/ros2_control/issues/2099>)
+  * Contributors: Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 04 May 2025 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.28.1-1noble) noble; urgency=high
+
+  * Avoid running joint limit enforcement during initialization (#2188 <https://github.com/ros-controls/ros2_control/issues/2188>)
+  * Use previous command to enforce the joint limits on position interfaces (#2183 <https://github.com/ros-controls/ros2_control/issues/2183>)
+  * Add log info for the type of joint limits being used (#2186 <https://github.com/ros-controls/ros2_control/issues/2186>)
+  * Fix the joint limits enforcement with position and velocity (#2182 <https://github.com/ros-controls/ros2_control/issues/2182>)
+  * Only log limiting error if something is limited. (#2176 <https://github.com/ros-controls/ros2_control/issues/2176>)
+  * Contributors: Felix Exner (fexner), Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 17 Apr 2025 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.28.0-1noble) noble; urgency=high
+
+  * [HW Interface] Use new handle API inside the hardware components (#2092 <https://github.com/ros-controls/ros2_control/issues/2092>)
+  * Integrate joint limit enforcement into ros2_control framework functional with Async controllers and components  (#2047 <https://github.com/ros-controls/ros2_control/issues/2047>)
+  * Make all packages use gmock, not gtest (#2162 <https://github.com/ros-controls/ros2_control/issues/2162>)
+  * Bump version of pre-commit hooks (#2156 <https://github.com/ros-controls/ros2_control/issues/2156>)
+  * [RM] Add error handling for missing plugin tags in URDF parsing (#2138 <https://github.com/ros-controls/ros2_control/issues/2138>)
+  * Use ros2_control_cmake (#2134 <https://github.com/ros-controls/ros2_control/issues/2134>)
+  * [Handle] Add support for booleans in the handles (#2065 <https://github.com/ros-controls/ros2_control/issues/2065>)
+  * Docs: Remove link to gazebo_ros2_control (#2106 <https://github.com/ros-controls/ros2_control/issues/2106>)
+  * Improve package descriptions & update maintainers (#2103 <https://github.com/ros-controls/ros2_control/issues/2103>)
+  * Use monotonic clock for triggering read-update-write cycles + fix for overruns (#2046 <https://github.com/ros-controls/ros2_control/issues/2046>)
+  * [RM] Fix skipped cycles by adjusting rw_rate handling (#2091 <https://github.com/ros-controls/ros2_control/issues/2091>)
+  * [CM] Add controller_manager activity topic (#2006 <https://github.com/ros-controls/ros2_control/issues/2006>)
+  * Improve API/lifecycle docs (#2081 <https://github.com/ros-controls/ros2_control/issues/2081>)
+  * Contributors: Bence Magyar, Christoph Fröhlich, Mehul Anand, RobertWilbrandt, Sai Kishor Kothakota, Soham Patil, github-actions[bot]
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 10 Apr 2025 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.27.0-1noble) noble; urgency=high
+
+  * [HW Components] Add fix for async hardware components improper rate (#2076 <https://github.com/ros-controls/ros2_control/issues/2076>)
+  * [Handle] Update get_value deprecation note (#2074 <https://github.com/ros-controls/ros2_control/issues/2074>)
+  * [Handle] Use get_optional instead of get_value<double> (#2061 <https://github.com/ros-controls/ros2_control/issues/2061>)
+  * Use new get_value API for newly added tests and semantic components (#2055 <https://github.com/ros-controls/ros2_control/issues/2055>)
+  * Fix introspection for handles with variable references (#2050 <https://github.com/ros-controls/ros2_control/issues/2050>)
+  * Add new get_value API for Handles and Interfaces (#1976 <https://github.com/ros-controls/ros2_control/issues/1976>)
+  * Integrate pal_statistics for introspection of controllers, hardware components and more (#1918 <https://github.com/ros-controls/ros2_control/issues/1918>)
+  * Add scoped lock (#2045 <https://github.com/ros-controls/ros2_control/issues/2045>)
+  * add tests for copy and move operations of the Handle class (#2011 <https://github.com/ros-controls/ros2_control/issues/2011>)
+  * Contributors: Sai Kishor Kothakota, Wiktor Bajor
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 01 Mar 2025 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.26.0-1noble) noble; urgency=high
+
+  * Fix memory leak in the ros2_control (#2033 <https://github.com/ros-controls/ros2_control/issues/2033>)
+  * Semantic components docs (#2032 <https://github.com/ros-controls/ros2_control/issues/2032>)
+  * [Doc] Fix broken link. (#2034 <https://github.com/ros-controls/ros2_control/issues/2034>)
+  * Contributors: Christoph Fröhlich, Dr. Denis, Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 07 Feb 2025 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.25.0-1noble) noble; urgency=high
+
+  * Handle SIGINT properly in the controller manager (#2014 <https://github.com/ros-controls/ros2_control/issues/2014>)
+  * Contributors: Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 29 Jan 2025 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.24.0-1noble) noble; urgency=high
+
+  * Add missing link of mock_components to hardware_interface (#1992 <https://github.com/ros-controls/ros2_control/issues/1992>)
+  * Using urdf/model.hpp for rolling (#1978 <https://github.com/ros-controls/ros2_control/issues/1978>)
+  * Remove visibility include from docs (#1975 <https://github.com/ros-controls/ros2_control/issues/1975>)
+  * Contributors: Christoph Fröhlich, Silvio Traversaro, verma nakul
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 13 Jan 2025 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.23.0-1noble) noble; urgency=high
+
+  * Remove boilerplate visibility macros (#1972 <https://github.com/ros-controls/ros2_control/issues/1972>)
+  * Add asynchronous hardware components documentation (#1961 <https://github.com/ros-controls/ros2_control/issues/1961>)
+  * Reuse TriggerType enum in hardware components (#1962 <https://github.com/ros-controls/ros2_control/issues/1962>)
+  * Fix pre-commit clang changes (#1963 <https://github.com/ros-controls/ros2_control/issues/1963>)
+  * Contributors: Bence Magyar, Sai Kishor Kothakota, Sanjeev
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 29 Dec 2024 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.22.0-1noble) noble; urgency=high
+
+  * Propagate read/write rate to the HardwareInfo properly (#1928 <https://github.com/ros-controls/ros2_control/issues/1928>)
+  * Async Hardware Components (#1567 <https://github.com/ros-controls/ros2_control/issues/1567>)
+  * Add controller node options args to be able to set controller specific node arguments (#1713 <https://github.com/ros-controls/ros2_control/issues/1713>)
+  * Make get_name() return a const reference (#1952 <https://github.com/ros-controls/ros2_control/issues/1952>)
+  * Let sensors also export state interfaces of joints (#1885 <https://github.com/ros-controls/ros2_control/issues/1885>)
+  * [CI] Add clang job, setup concurrency, use rt_tools humble branch (#1910 <https://github.com/ros-controls/ros2_control/issues/1910>)
+  * Contributors: Christoph Fröhlich, Sai Kishor Kothakota, Takashi Sato
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 20 Dec 2024 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.21.0-1noble) noble; urgency=high
+
+  * [Feature] Choose different read and write rate for the hardware components (#1570 <https://github.com/ros-controls/ros2_control/issues/1570>)
+  * add logic for 'params_file' to handle both string and string_array (#1898 <https://github.com/ros-controls/ros2_control/issues/1898>)
+  * [Spawner] Accept parsing multiple --param-file arguments to spawner  (#1805 <https://github.com/ros-controls/ros2_control/issues/1805>)
+  * Fix missing virtual of on_export_[state|command]_interfaces methods (#1888 <https://github.com/ros-controls/ros2_control/issues/1888>)
+  * Refactor: add parse_state_interface_descriptions and parse_command_interface_descriptions to import the components (#1768 <https://github.com/ros-controls/ros2_control/issues/1768>)
+  * Contributors: Sai Kishor Kothakota, Takashi Sato
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 06 Dec 2024 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.20.0-1noble) noble; urgency=high
+
+  * Add Support for SDF (#1763 <https://github.com/ros-controls/ros2_control/issues/1763>)
+  * [HW_IF] Prepare the handles for async operations (#1750 <https://github.com/ros-controls/ros2_control/issues/1750>)
+  * Contributors: Aarav Gupta, Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 08 Nov 2024 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.19.0-1noble) noble; urgency=high
+
+  * [RM/HW] Constify the exported state interfaces using ConstSharedPtr (#1767 <https://github.com/ros-controls/ros2_control/issues/1767>)
+  * Contributors: Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 26 Oct 2024 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.18.0-1noble) noble; urgency=high
+
+  * Adapt controller Reference/StateInterfaces to New Way of Exporting (variant support) (#1689 <https://github.com/ros-controls/ros2_control/issues/1689>)
+  * Automatic Creation of Handles in HW, Adding Getters/Setters (variant support) (#1688 <https://github.com/ros-controls/ros2_control/issues/1688>)
+  * [RM] Execute error callback of component on returning ERROR or with exception (#1730 <https://github.com/ros-controls/ros2_control/issues/1730>)
+  * Contributors: Manuel Muth, Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 07 Oct 2024 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.17.0-1noble) noble; urgency=high
+
+  * Log exception type when catching the exception (#1749 <https://github.com/ros-controls/ros2_control/issues/1749>)
+  * Fix spam of logs on failed hardware component initialization (#1719 <https://github.com/ros-controls/ros2_control/issues/1719>)
+  * [HWItfs] Add key-value-storage to the InterfaceInfo (#1421 <https://github.com/ros-controls/ros2_control/issues/1421>)
+  * Rename get_state and set_state Functions to get/set_lifecylce_state (variant support) (#1683 <https://github.com/ros-controls/ros2_control/issues/1683>)
+  * Contributors: Manuel Muth, Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 11 Sep 2024 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.16.1-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 24 Aug 2024 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.16.0-1noble) noble; urgency=high
+
+  * Use handle_name_ variable instead of allocating for every get_name call (#1706 <https://github.com/ros-controls/ros2_control/issues/1706>)
+  * Introduce Creation of Handles with InterfaceDescription (variant support) (#1679 <https://github.com/ros-controls/ros2_control/issues/1679>)
+  * Preparation of Handles for Variant Support (#1678 <https://github.com/ros-controls/ros2_control/issues/1678>)
+  * [RM] Decouple read/write cycles of each component with mutex to not block other components (#1646 <https://github.com/ros-controls/ros2_control/issues/1646>)
+  * Contributors: Manuel Muth, Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 22 Aug 2024 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.15.0-1noble) noble; urgency=high
+
+  * [RM] Add get_hardware_info method to the Hardware Components (#1643 <https://github.com/ros-controls/ros2_control/issues/1643>)
+  * add missing rclcpp logging include for Humble compatibility build (#1635 <https://github.com/ros-controls/ros2_control/issues/1635>)
+  * Contributors: Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 05 Aug 2024 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.14.0-1noble) noble; urgency=high
+
+  * Unused header cleanup (#1627 <https://github.com/ros-controls/ros2_control/issues/1627>)
+  * [ResourceManager] Make destructor virtual for use in derived classes (#1607 <https://github.com/ros-controls/ros2_control/issues/1607>)
+  * Contributors: Henry Moore, Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 23 Jul 2024 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.13.0-1noble) noble; urgency=high
+
+  * [ResourceManager] Propagate access to logger and clock interfaces to HardwareComponent (#1585 <https://github.com/ros-controls/ros2_control/issues/1585>)
+  * [ControllerChaining] Export state interfaces from chainable controllers (#1021 <https://github.com/ros-controls/ros2_control/issues/1021>)
+  * Remove mimic parameter from ros2_control tag (#1553 <https://github.com/ros-controls/ros2_control/issues/1553>)
+  * Contributors: Christoph Fröhlich, Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 08 Jul 2024 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.12.0-1noble) noble; urgency=high
+
+  * Add resources_lock_ lock_guards to avoid race condition when loading robot_description through topic (#1451 <https://github.com/ros-controls/ros2_control/issues/1451>)
+  * [RM] Rename load_urdf method to load_and_initialize_components and add error handling there to avoid stack crashing when error happens. (#1354 <https://github.com/ros-controls/ros2_control/issues/1354>)
+  * Small improvements to the error output in component parser to make debugging easier. (#1580 <https://github.com/ros-controls/ros2_control/issues/1580>)
+  * Fix link to gazebosim.org (#1563 <https://github.com/ros-controls/ros2_control/issues/1563>)
+  * Add doc page about joint kinematics (#1497 <https://github.com/ros-controls/ros2_control/issues/1497>)
+  * Bump version of pre-commit hooks (#1556 <https://github.com/ros-controls/ros2_control/issues/1556>)
+  * [Feature] Hardware Components Grouping (#1458 <https://github.com/ros-controls/ros2_control/issues/1458>)
+  * Contributors: Christoph Fröhlich, Dr. Denis, Sai Kishor Kothakota, github-actions[bot]
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 01 Jul 2024 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.11.0-1noble) noble; urgency=high
+
+  * Add find_package for ament_cmake_gen_version_h (#1534 <https://github.com/ros-controls/ros2_control/issues/1534>)
+  * Parse URDF soft_limits into the HardwareInfo structure (#1488 <https://github.com/ros-controls/ros2_control/issues/1488>)
+  * Contributors: Christoph Fröhlich, adriaroig
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 14 May 2024 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.10.0-1noble) noble; urgency=high
+
+  * Add hardware components exception handling in resource manager (#1508 <https://github.com/ros-controls/ros2_control/issues/1508>)
+  * Working async controllers and components [not synchronized] (#1041 <https://github.com/ros-controls/ros2_control/issues/1041>)
+  * Parse URDF joint hard limits into the HardwareInfo structure (#1472 <https://github.com/ros-controls/ros2_control/issues/1472>)
+  * Add fallback controllers list to the ControllerInfo (#1503 <https://github.com/ros-controls/ros2_control/issues/1503>)
+  * Add more common hardware interface type constants (#1500 <https://github.com/ros-controls/ros2_control/issues/1500>)
+  * Contributors: Márk Szitanics, Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 08 May 2024 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.9.0-1noble) noble; urgency=high
+
+  * Add missing calculate_dynamics (#1498 <https://github.com/ros-controls/ros2_control/issues/1498>)
+  * Component parser: Get mimic information from URDF (#1256 <https://github.com/ros-controls/ros2_control/issues/1256>)
+  * Contributors: Christoph Fröhlich
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 30 Apr 2024 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.8.0-1noble) noble; urgency=high
+
+  * generate version.h file per package using the ament_generate_version_header  (#1449 <https://github.com/ros-controls/ros2_control/issues/1449>)
+  * Contributors: Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 27 Mar 2024 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.7.0-1noble) noble; urgency=high
+
+  * Codeformat from new pre-commit config (#1433 <https://github.com/ros-controls/ros2_control/issues/1433>)
+  * Contributors: Christoph Fröhlich
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 22 Mar 2024 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.6.0-1noble) noble; urgency=high
+
+  * Add -Werror=missing-braces to compile options (#1423 <https://github.com/ros-controls/ros2_control/issues/1423>)
+  * [CI] Code coverage + pre-commit (#1413 <https://github.com/ros-controls/ros2_control/issues/1413>)
+  * Contributors: Christoph Fröhlich, Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 02 Mar 2024 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.5.0-1noble) noble; urgency=high
+
+  * Add missing export macros in lexical_casts.hpp (#1382 <https://github.com/ros-controls/ros2_control/issues/1382>)
+  * Move hardware interface README content to sphinx documentation (#1342 <https://github.com/ros-controls/ros2_control/issues/1342>)
+  * [Doc] Add documentation about initial_value regarding mock_hw (#1352 <https://github.com/ros-controls/ros2_control/issues/1352>)
+  * Contributors: Felix Exner (fexner), Mateus Menezes, Silvio Traversaro
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 12 Feb 2024 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.4.0-1noble) noble; urgency=high
+
+  * Move test_components to own package (#1325 <https://github.com/ros-controls/ros2_control/issues/1325>)
+  * Fix controller parameter loading issue in different cases (#1293 <https://github.com/ros-controls/ros2_control/issues/1293>)
+  * Contributors: Christoph Fröhlich, Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 31 Jan 2024 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.3.0-1noble) noble; urgency=high
+
+  * [RM] Fix crash for missing urdf in resource manager (#1301 <https://github.com/ros-controls/ros2_control/issues/1301>)
+  * Add additional checks for non existing and not available interfaces. (#1218 <https://github.com/ros-controls/ros2_control/issues/1218>)
+  * Adding backward compatibility for string-to-double conversion (#1284 <https://github.com/ros-controls/ros2_control/issues/1284>)
+  * [Doc] Make interface comments clearer in the doc strings. (#1288 <https://github.com/ros-controls/ros2_control/issues/1288>)
+  * Fix return of ERROR and calls of cleanup when system is unconfigured of finalized (#1279 <https://github.com/ros-controls/ros2_control/issues/1279>)
+  * fix the multiple definitions of lexical casts methods (#1281 <https://github.com/ros-controls/ros2_control/issues/1281>)
+  * [ResourceManager] adds test for uninitialized hardware (#1243 <https://github.com/ros-controls/ros2_control/issues/1243>)
+  * Use portable version for string-to-double conversion (#1257 <https://github.com/ros-controls/ros2_control/issues/1257>)
+  * Fix typo in docs (#1219 <https://github.com/ros-controls/ros2_control/issues/1219>)
+  * Contributors: Christoph Fröhlich, Dr. Denis, Maximilian Schik, Sai Kishor Kothakota, Stephanie Eng, bailaC
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 20 Jan 2024 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.2.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 12 Dec 2023 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.1.0-1noble) noble; urgency=high
+
+  * Add few warning compiler options to error (#1181 <https://github.com/ros-controls/ros2_control/issues/1181>)
+  * Contributors: Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 30 Nov 2023 00:00:00 -0000
+
+ros-jazzy-hardware-interface (4.0.0-1noble) noble; urgency=high
+
+  * [MockHardware] Remove all deprecated options and deprecated plugins from the library. (#1150 <https://github.com/ros-controls/ros2_control/issues/1150>)
+  * Contributors: Dr. Denis
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 21 Nov 2023 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.21.0-1noble) noble; urgency=high
+
+  * [MockHardware] Fix the issues where hardware with multiple interfaces can not be started because of a logical bug added when adding dynamics calculation functionality. (#1151 <https://github.com/ros-controls/ros2_control/issues/1151>)
+  * Fix potential deadlock in ResourceManager (#925 <https://github.com/ros-controls/ros2_control/issues/925>)
+  * Contributors: Christopher Wecht, Dr. Denis
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 06 Nov 2023 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.20.0-1noble) noble; urgency=high
+
+  * [ResourceManager] deactivate hardware from read/write return value (#884 <https://github.com/ros-controls/ros2_control/issues/884>)
+  * Contributors: Felix Exner (fexner)
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 31 Oct 2023 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.19.1-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 04 Oct 2023 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.19.0-1noble) noble; urgency=high
+
+  * [MockHardware] Added dynamic simulation functionality. (#1028 <https://github.com/ros-controls/ros2_control/issues/1028>)
+  * Add GPIO tag description to docs (#1109 <https://github.com/ros-controls/ros2_control/issues/1109>)
+  * Contributors: Christoph Fröhlich, Dr. Denis
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 03 Oct 2023 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.18.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 17 Aug 2023 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.17.0-1noble) noble; urgency=high
+
+  * Add checks if hardware is initialized. (#1054 <https://github.com/ros-controls/ros2_control/issues/1054>)
+  * Contributors: Dr. Denis
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 07 Aug 2023 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.16.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 09 Jul 2023 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.15.0-1noble) noble; urgency=high
+
+  * Enable setting of initial state in HW compoments (#1046 <https://github.com/ros-controls/ros2_control/issues/1046>)
+  * Ensure instantiation of hardware classes work for python bindings (#1058 <https://github.com/ros-controls/ros2_control/issues/1058>)
+  * Contributors: Dr. Denis, Olivier Stasse
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 23 Jun 2023 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.14.0-1noble) noble; urgency=high
+
+  * Add -Wconversion flag to protect future developments (#1053 <https://github.com/ros-controls/ros2_control/issues/1053>)
+  * [CM] Use robot_description topic instead of parameter and don't crash on empty URDF 🦿 (#940 <https://github.com/ros-controls/ros2_control/issues/940>)
+  * [MockHardware] Enable disabling of command to simulate HW failures. (#1027 <https://github.com/ros-controls/ros2_control/issues/1027>)
+  * enable ReflowComments to also use ColumnLimit on comments (#1037 <https://github.com/ros-controls/ros2_control/issues/1037>)
+  * Docs: Use branch name substitution for all links (#1031 <https://github.com/ros-controls/ros2_control/issues/1031>)
+  * [URDF Parser] Allow empty urdf tag, e.g., parameter (#1017 <https://github.com/ros-controls/ros2_control/issues/1017>)
+  * Use consequently 'mock' instead of 'fake'. (#1026 <https://github.com/ros-controls/ros2_control/issues/1026>)
+  * Contributors: Christoph Fröhlich, Dr. Denis, Felix Exner (fexner), Manuel Muth, Sai Kishor Kothakota, gwalck
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 14 Jun 2023 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.13.0-1noble) noble; urgency=high
+
+  * Add class for thread management of async hw interfaces (#981 <https://github.com/ros-controls/ros2_control/issues/981>)
+  * Fix github links on control.ros.org (#1019 <https://github.com/ros-controls/ros2_control/issues/1019>)
+  * Update precommit libraries(#1020 <https://github.com/ros-controls/ros2_control/issues/1020>)
+  * Implement parse_bool and refactor a few (#1014 <https://github.com/ros-controls/ros2_control/issues/1014>)
+  * docs: Fix link to hardware_components (#1009 <https://github.com/ros-controls/ros2_control/issues/1009>)
+  * Contributors: Alejandro Bordallo, Christoph Fröhlich, Felix Exner (fexner), Márk Szitanics, mosfet80
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 18 May 2023 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.12.2-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 29 Apr 2023 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.12.1-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 14 Apr 2023 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.12.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 02 Apr 2023 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.11.0-1noble) noble; urgency=high
+
+  * Check for missing hardware interfaces that use the gpio tag. (#975 <https://github.com/ros-controls/ros2_control/issues/975>)
+  * Contributors: Ryan Sandzimier
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 22 Mar 2023 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.10.0-1noble) noble; urgency=high
+
+  * Split transmission interfaces (#938 <https://github.com/ros-controls/ros2_control/issues/938>)
+  * Contributors: Noel Jiménez García
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 16 Mar 2023 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.9.1-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 09 Mar 2023 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.9.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 28 Feb 2023 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.8.0-1noble) noble; urgency=high
+
+  * Fix CMake install so overriding works (#926 <https://github.com/ros-controls/ros2_control/issues/926>)
+  * Async params (#927 <https://github.com/ros-controls/ros2_control/issues/927>)
+  * Contributors: Márk Szitanics, Tyler Weaver
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 10 Feb 2023 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.7.0-1noble) noble; urgency=high
+
+  * Make double parsing locale independent (#921 <https://github.com/ros-controls/ros2_control/issues/921>)
+  * Contributors: Henning Kayser
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 24 Jan 2023 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.6.0-1noble) noble; urgency=high
+
+  * 🔧 Fixes and updated on pre-commit hooks and their action (#890 <https://github.com/ros-controls/ros2_control/issues/890>)
+  * Contributors: Denis Štogl
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 12 Jan 2023 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.5.1-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 06 Jan 2023 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.5.0-1noble) noble; urgency=high
+
+  * ResourceManager doesn't always log an error on shutdown anymore (#867 <https://github.com/ros-controls/ros2_control/issues/867>)
+  * Rename class type to plugin name #api-breaking #abi-breaking (#780 <https://github.com/ros-controls/ros2_control/issues/780>)
+  * Contributors: Bence Magyar, Christopher Wecht
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 06 Dec 2022 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.4.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 27 Nov 2022 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.3.0-1noble) noble; urgency=high
+
+  * [MockHardware] Enalbe initialization non-joint components(#822 <https://github.com/ros-controls/ros2_control/issues/822>)
+  * Contributors: Felix Exner
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 15 Nov 2022 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.2.0-1noble) noble; urgency=high
+
+  * [MockComponents] Rename 'fake_sensor_commands' to 'mock_sensor_commands' (#782 <https://github.com/ros-controls/ros2_control/issues/782>)
+  * fix broken links (issue #831 <https://github.com/ros-controls/ros2_control/issues/831>) (#833 <https://github.com/ros-controls/ros2_control/issues/833>)
+  * Contributors: Kvk Praneeth, Manuel Muth, Bence Magyar, Denis Štogl
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 15 Oct 2022 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.1.0-1noble) noble; urgency=high
+
+  * Cleanup Resource Manager a bit to increase clarity. (#816 <https://github.com/ros-controls/ros2_control/issues/816>)
+  * Handle hardware errors in Resource Manager (#805 <https://github.com/ros-controls/ros2_control/issues/805>)
+    * Add code for deactivating controller when hardware gets an error on read and write.
+  * Contributors: Denis Štogl
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 05 Oct 2022 00:00:00 -0000
+
+ros-jazzy-hardware-interface (3.0.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 19 Sep 2022 00:00:00 -0000
+
+ros-jazzy-hardware-interface (2.15.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 19 Sep 2022 00:00:00 -0000
+
+ros-jazzy-hardware-interface (2.14.0-1noble) noble; urgency=high
+
+  * Add doxygen comments (#777 <https://github.com/ros-controls/ros2_control/issues/777>)
+  * Contributors: Bence Magyar, Denis Štogl
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 04 Sep 2022 00:00:00 -0000
+
+ros-jazzy-hardware-interface (2.13.0-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 03 Aug 2022 00:00:00 -0000
+
+ros-jazzy-hardware-interface (2.12.1-1noble) noble; urgency=high
+
+  * Fix fake components deprecation and add test for it (#771 <https://github.com/ros-controls/ros2_control/issues/771>)
+  * Contributors: Bence Magyar
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 14 Jul 2022 00:00:00 -0000
+
+ros-jazzy-hardware-interface (2.12.0-1noble) noble; urgency=high
+
+  * Hardware interface specific update rate and best practices about it (#716 <https://github.com/ros-controls/ros2_control/issues/716>)
+  * Deprecate fake components, long live mock components (#762 <https://github.com/ros-controls/ros2_control/issues/762>)
+  * Contributors: Bence Magyar, Lovro Ivanov
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 09 Jul 2022 00:00:00 -0000
+
+ros-jazzy-hardware-interface (2.11.0-1noble) noble; urgency=high
+
+  * [Interfaces] Improved ```get_name()``` method of hardware interfaces #api-breaking (#737 <https://github.com/ros-controls/ros2_control/issues/737>)
+  * Update maintainers of packages (#753 <https://github.com/ros-controls/ros2_control/issues/753>)
+  * Remove ament autolint (#749 <https://github.com/ros-controls/ros2_control/issues/749>)
+  * Full functionality of chainable controllers in controller manager (#667 <https://github.com/ros-controls/ros2_control/issues/667>)
+    * auto-switching of chained mode in controllers
+    * interface-matching approach for managing chaining controllers
+  * Contributors: Bence Magyar, Denis Štogl, Lucas Schulze
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 03 Jul 2022 00:00:00 -0000
+
+ros-jazzy-hardware-interface (2.10.0-1noble) noble; urgency=high
+
+  * Make RHEL CI happy! (#730 <https://github.com/ros-controls/ros2_control/issues/730>)
+  * CMakeLists cleanup (#733 <https://github.com/ros-controls/ros2_control/issues/733>)
+  * Refactored error handling when hardware name is duplicated (#724 <https://github.com/ros-controls/ros2_control/issues/724>)
+  * Update to clang format 12 (#731 <https://github.com/ros-controls/ros2_control/issues/731>)
+  * Contributors: Andy Zelenak, Bence Magyar, Kvk Praneeth, Márk Szitanics
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 18 Jun 2022 00:00:00 -0000
+
+ros-jazzy-hardware-interface (2.9.0-1noble) noble; urgency=high
+
+  * Resource Manager extension to support management of reference interfaces from chained controllers. (#664 <https://github.com/ros-controls/ros2_control/issues/664>)
+    * Extend resource manager to manage reference interfaces from controllers.
+    * Adjust interface between CM and RM for managing controllers' reference interfaces.
+  * Contributors: Denis Štogl
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 19 May 2022 00:00:00 -0000
+
+ros-jazzy-hardware-interface (2.8.0-1noble) noble; urgency=high
+
+  * Pass time and period to read() and write() (#715 <https://github.com/ros-controls/ros2_control/issues/715>)
+  * Contributors: Bence Magyar
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 13 May 2022 00:00:00 -0000
+
+ros-jazzy-hardware-interface (2.7.0-1noble) noble; urgency=high
+
+  * Make URDF available to HW components on initialize (#709 <https://github.com/ros-controls/ros2_control/issues/709>)
+  * Contributors: Bence Magyar
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 29 Apr 2022 00:00:00 -0000
+
+ros-jazzy-hardware-interface (2.6.0-1noble) noble; urgency=high
+
+  * Error if a hardware name is duplicated (#672 <https://github.com/ros-controls/ros2_control/issues/672>)
+  * Port four bar linkage and differential transmission loaders from ROS1 (#656 <https://github.com/ros-controls/ros2_control/issues/656>)
+  * Contributors: Andy Zelenak, Márk Szitanics
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 20 Apr 2022 00:00:00 -0000
+
+ros-jazzy-hardware-interface (2.5.0-1noble) noble; urgency=high
+
+  * Require lifecycle-msgs in hardware_interface package (#675 <https://github.com/ros-controls/ros2_control/issues/675>) (#678 <https://github.com/ros-controls/ros2_control/issues/678>)
+  * Using should be inside namespace and not global scope. (#673 <https://github.com/ros-controls/ros2_control/issues/673>)
+  * Modernize C++: Use for-each loops in Resource Manager. (#659 <https://github.com/ros-controls/ros2_control/issues/659>)
+  * Enable controller manager services to control hardware lifecycle #abi-breaking (#637 <https://github.com/ros-controls/ros2_control/issues/637>)
+    * Implement CM services for hardware lifecycle management.
+    * Added default behavior to activate all controller and added description of CM parameters.
+  * Contributors: Denis Štogl
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 25 Mar 2022 00:00:00 -0000
+
+ros-jazzy-hardware-interface (2.4.0-1noble) noble; urgency=high
+
+  * Fix transmission loader tests (#642 <https://github.com/ros-controls/ros2_control/issues/642>)
+  * Contributors: Bence Magyar, Denis Štogl
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 23 Feb 2022 00:00:00 -0000
+
+ros-jazzy-hardware-interface (2.3.0-1noble) noble; urgency=high
+
+  * Add a warning if an initial_value is not found for any interface (#623 <https://github.com/ros-controls/ros2_control/issues/623>)
+  * Contributors: AndyZe
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 18 Feb 2022 00:00:00 -0000
+
+ros-jazzy-hardware-interface (2.2.0-1noble) noble; urgency=high
+
+  * Resource Manager API changes for hardware lifecycle #api-breaking #abi-breaking (#589 <https://github.com/ros-controls/ros2_control/issues/589>)
+    * Towards selective starting and stoping of hardware components. Cleaning and renaming.
+    * Move Lifecycle of hardware component to the bottom for better overview.
+    * Use the same nomenclature as for controllers. 'start' -> 'activate'; 'stop' -> 'deactivate'
+    * Add selective starting and stopping of hardware resources.
+    Add HardwareComponentInfo structure in resource manager.
+    Use constants for HW parameters in tests of resource_manager.
+    Add list hardware components in CM to get details about them and check their status.
+    Use clear name for 'guard' and move release cmd itfs for better readability.
+    RM: Add lock for accesing maps with stored interfaces.
+    Separate hardware components-related services after controllers-related services.
+    Add service for activate/deactive hardware components.
+    Add activation and deactivation through ResourceStorage. This helps to manage available command interfaces.
+    * Use lifecycle_msgs/State in ListHardwareCompoents for state representation.
+    * Simplify repeatable code in methods.
+    * Add HW shutdown structure into ResouceManager.
+    * Fill out service callback in CM and add parameter for auto-configure.
+    * Move claimed_command_itf_map to ResourceStorage from ResourceManager.
+    * Do not automatically configure hardware in RM.
+    * Lifecycle and claiming in Resource Manager is working.
+    * Extend controller manager to support HW lifecycle.
+    * Add also available and claimed status into list components service output.
+    * Add SetHardwareComponentState service.
+    * Make all output in services debug-output.
+    * Remove specific services for hardware lifecycle management and leave only 'set_hardware_component_state' service.
+    * Make init_resource_manager less stateful.
+    * Keep old api to start/activate all components per default.
+    * Remove 'moving'/'non-moving' interface-handling.
+    * Remove obsolete 'import_components' methods without hardware info and fix post_initialization test.
+    Co-authored-by: Bence Magyar <mailto:bence.magyar.robotics@gmail.com>
+  * Doc 📓: Add detailed explanation about writing new hardware interface.  (#615 <https://github.com/ros-controls/ros2_control/issues/615>)
+  * Contributors: Denis Štogl
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 24 Jan 2022 00:00:00 -0000
+
+ros-jazzy-hardware-interface (2.1.0-1noble) noble; urgency=high
+
+  * Removing 'auto' from function definition to support pre c++ 20 (#608 <https://github.com/ros-controls/ros2_control/issues/608>)
+  * Support of "initial_value" for the 'FakeSystem' (#598 <https://github.com/ros-controls/ros2_control/issues/598>)
+  * Contributors: bailaC, Denis Štogl
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 11 Jan 2022 00:00:00 -0000
+
+ros-jazzy-hardware-interface (2.0.0-1noble) noble; urgency=high
+
+  * Adding support for 'initial_value' parameter. (#593 <https://github.com/ros-controls/ros2_control/issues/593>)
+  * fix copy paste error in documentation (#594 <https://github.com/ros-controls/ros2_control/issues/594>)
+  * Use lambda functions in ros2_control generic_system for repetitive tasks (#579 <https://github.com/ros-controls/ros2_control/issues/579>)
+    Co-authored-by: Denis Štogl <mailto:destogl@users.noreply.github.com>
+  * Extend FakeHardware to support <gpio>-tag (#574 <https://github.com/ros-controls/ros2_control/issues/574>)
+  * Contributors: Michael, bailaC, Denis Štogl
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 29 Dec 2021 00:00:00 -0000
+
+ros-jazzy-hardware-interface (1.2.0-1noble) noble; urgency=high
+
+  * Import and Initialize components (#566 <https://github.com/ros-controls/ros2_control/issues/566>)
+  * Contributors: Alejandro Hernández Cordero
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 05 Nov 2021 00:00:00 -0000
+
+ros-jazzy-hardware-interface (1.1.0-1noble) noble; urgency=high
+
+  * Handle errors of hardware that happen on read and write. (#546 <https://github.com/ros-controls/ros2_control/issues/546>)
+  * Contributors: Denis Štogl, Mathias Aarbo
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 25 Oct 2021 00:00:00 -0000
+
+ros-jazzy-hardware-interface (1.0.0-1noble) noble; urgency=high
+
+  * Hardware components extension for lifecycle support (#503 <https://github.com/ros-controls/ros2_control/issues/503>)
+  * add M_PI macro for windows in test_component_parser.cpp (#502 <https://github.com/ros-controls/ros2_control/issues/502>)
+  * Extend GenericSystem by adding mapping of position with offset to custom interface. (#469 <https://github.com/ros-controls/ros2_control/issues/469>)
+  * Remove BOOST compiler definitions for pluginlib from CMakeLists (#514 <https://github.com/ros-controls/ros2_control/issues/514>)
+  * Do not manually set C++ version to 14 (#516 <https://github.com/ros-controls/ros2_control/issues/516>)
+  * Contributors: Bence Magyar, Denis Štogl, dzyGIT
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 29 Sep 2021 00:00:00 -0000
+
+ros-jazzy-hardware-interface (0.8.0-1noble) noble; urgency=high
+
+  * Use clang format as code formatter (#491 <https://github.com/ros-controls/ros2_control/issues/491>)
+  * Fixup doc typo (#492 <https://github.com/ros-controls/ros2_control/issues/492>)
+  * Add docs for fake components (#466 <https://github.com/ros-controls/ros2_control/issues/466>)
+  * sort interfaces in resource manager (#483 <https://github.com/ros-controls/ros2_control/issues/483>)
+  * fix format (#484 <https://github.com/ros-controls/ros2_control/issues/484>)
+  * Transmission parsing v2 (#471 <https://github.com/ros-controls/ros2_control/issues/471>)
+    * move parsing responsibility to hardware_interface
+    * parse transmission type
+    * Cleanup unused parser
+  * Add pre-commit setup. (#473 <https://github.com/ros-controls/ros2_control/issues/473>)
+  * Extended GenericSystem with state offset options for testing some special control cases. (#350 <https://github.com/ros-controls/ros2_control/issues/350>)
+    * Extended GenericSystem with state offset options for testing some special control cases.
+    * Better parameter name
+    * Apply offset only to position interfaces.
+  * Added GPIO parsing and test (#436 <https://github.com/ros-controls/ros2_control/issues/436>)
+  * Fixes for windows (#443 <https://github.com/ros-controls/ros2_control/issues/443>)
+    * Fix building on windows
+    * Fix MSVC linker error when building tests
+    * Fix hang when loading controller on windows
+    * Use better log for configuring controller
+    * Be consistent with visibility control
+    * Use try_lock throw exception on failure
+  * Contributors: Akash, Bence Magyar, Denis Štogl, Karsten Knese, Mathias Arbo, Jafar Abdi
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 28 Aug 2021 00:00:00 -0000
+
+ros-jazzy-hardware-interface (0.7.1-1noble) noble; urgency=high
+
+  * [FakeSystem] Set default command interface to NaN (#424 <https://github.com/ros-controls/ros2_control/issues/424>)
+  * Contributors: Denis Štogl, Bence Magyar
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 15 Jun 2021 00:00:00 -0000
+
+ros-jazzy-hardware-interface (0.7.0-1noble) noble; urgency=high
+
+  * Add FTS as first semantic components to simplify controllers. (#370 <https://github.com/ros-controls/ros2_control/issues/370>)
+  * Contributors: bailaC, Denis Štogl, Jordan Palacios
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 06 Jun 2021 00:00:00 -0000
+
+ros-jazzy-hardware-interface (0.6.1-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 31 May 2021 00:00:00 -0000
+
+ros-jazzy-hardware-interface (0.6.0-1noble) noble; urgency=high
+
+  * Remove the with_value_ptr and class templatization for ReadOnlyHandle (#379 <https://github.com/ros-controls/ros2_control/issues/379>)
+  * fake_components: Add mimic joint to generic system (#409 <https://github.com/ros-controls/ros2_control/issues/409>)
+  * List controller claimed interfaces (#407 <https://github.com/ros-controls/ros2_control/issues/407>)
+  * Contributors: El Jawad Alaa, Jafar Abdi, Jordan Palacios, Bence Magyar
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 23 May 2021 00:00:00 -0000
+
+ros-jazzy-hardware-interface (0.5.0-1noble) noble; urgency=high
+
+  * Make hardware interface types as const char array rather than const char pointer (#408 <https://github.com/ros-controls/ros2_control/issues/408>)
+  * use auto instead of uint (#398 <https://github.com/ros-controls/ros2_control/issues/398>)
+  * hardware_interface mode switching using prepareSwitch doSwitch approach (#348 <https://github.com/ros-controls/ros2_control/issues/348>)
+  * avoid deprecations (#393 <https://github.com/ros-controls/ros2_control/issues/393>)
+  * move deprecation note before function definition instead of inside (#381 <https://github.com/ros-controls/ros2_control/issues/381>)
+  * Replace standard interfaces' hard-coded strings by constants (#376 <https://github.com/ros-controls/ros2_control/issues/376>)
+  * add deprecation note for with_value_ptr (#378 <https://github.com/ros-controls/ros2_control/issues/378>)
+  * Contributors: El Jawad Alaa, Jafar Abdi, Karsten Knese, Mateus Amarante, Mathias Hauan Arbo, Bence Magyar
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 03 May 2021 00:00:00 -0000
+
+ros-jazzy-hardware-interface (0.4.0-1noble) noble; urgency=high
+
+  * [ros2_control_test_assets] Fix typo (#371 <https://github.com/ros-controls/ros2_control/issues/371>)
+  * uint -> size_t, 0u and auto (#346 <https://github.com/ros-controls/ros2_control/issues/346>)
+  * Contributors: Karsten Knese, Yutaka Kondo
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 07 Apr 2021 00:00:00 -0000
+
+ros-jazzy-hardware-interface (0.3.0-1noble) noble; urgency=high
+
+  * Capatalized error message and put the controllers name and resource name inside quote (#338 <https://github.com/ros-controls/ros2_control/issues/338>)
+  * Parse True and true in fakesystem, touch up variable name
+  * Contributors: Denis Štogl, suab321321
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 21 Mar 2021 00:00:00 -0000
+
+ros-jazzy-hardware-interface (0.2.1-1noble) noble; urgency=high
+
+  * Remove unused include (#336 <https://github.com/ros-controls/ros2_control/issues/336>)
+  * Contributors: Bence Magyar
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 02 Mar 2021 00:00:00 -0000
+
+ros-jazzy-hardware-interface (0.2.0-1noble) noble; urgency=high
+
+  * Add "Fake" components for simple integration of framework (#323 <https://github.com/ros-controls/ros2_control/issues/323>)
+  * Contributors: Denis Štogl
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 26 Feb 2021 00:00:00 -0000
+
+ros-jazzy-hardware-interface (0.1.6-1noble) noble; urgency=high
+
+  * correct hardware interface validation in resource manager. (#317 <https://github.com/ros-controls/ros2_control/issues/317>)
+  * Contributors: Karsten Knese
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 05 Feb 2021 00:00:00 -0000
+
+ros-jazzy-hardware-interface (0.1.5-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 04 Feb 2021 00:00:00 -0000
+
+ros-jazzy-hardware-interface (0.1.4-1noble) noble; urgency=high
+
+  * Add test assets package (#289 <https://github.com/ros-controls/ros2_control/issues/289>)
+  * update doxygen style according to ros2 core standard (#300 <https://github.com/ros-controls/ros2_control/issues/300>)
+  * Move test_components from test_robot_hardware to hardware_interface package (#288 <https://github.com/ros-controls/ros2_control/issues/288>)
+  * Contributors: Denis Štogl, João Victor Torres Borges
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 03 Feb 2021 00:00:00 -0000
+
+ros-jazzy-hardware-interface (0.1.3-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 21 Jan 2021 00:00:00 -0000
+
+ros-jazzy-hardware-interface (0.1.2-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 06 Jan 2021 00:00:00 -0000
+
+ros-jazzy-hardware-interface (0.1.1-1noble) noble; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 23 Dec 2020 00:00:00 -0000
+
+ros-jazzy-hardware-interface (0.1.0-1noble) noble; urgency=high
+
+  * Added starting of resources into CM and RM (#240 <https://github.com/ros-controls/ros2_control/issues/240>)
+  * Use resource manager (#236 <https://github.com/ros-controls/ros2_control/issues/236>)
+  * Use constants instead of strings in tests (#241 <https://github.com/ros-controls/ros2_control/issues/241>)
+  * resource loaning (#224 <https://github.com/ros-controls/ros2_control/issues/224>)
+  * Allocate memory for components and handles (#207 <https://github.com/ros-controls/ros2_control/issues/207>)
+  * rename command/state handles to command/state interfaces (#223 <https://github.com/ros-controls/ros2_control/issues/223>)
+  * Remodel component interfaces (#203 <https://github.com/ros-controls/ros2_control/issues/203>)
+  * adapt component parser to new xml schema (#209 <https://github.com/ros-controls/ros2_control/issues/209>)
+  * remove logical components, move hardware resources (#201 <https://github.com/ros-controls/ros2_control/issues/201>)
+  * Replace rclcpp by rcutils logging tools in hardware_interface pkg (#205 <https://github.com/ros-controls/ros2_control/issues/205>)
+  * Add a struct for Interface information, update the test URDF (#167 <https://github.com/ros-controls/ros2_control/issues/167>)
+  * Add virtual modifier to the functions of Joint and Sensor component (#178 <https://github.com/ros-controls/ros2_control/issues/178>)
+  * Hide component parser api (#157 <https://github.com/ros-controls/ros2_control/issues/157>)
+  * Remove old joint state and joint command handles (#134 <https://github.com/ros-controls/ros2_control/issues/134>)
+  * New version of component parser (#127 <https://github.com/ros-controls/ros2_control/issues/127>)
+  * Dynamic joint handles (#125 <https://github.com/ros-controls/ros2_control/issues/125>)
+  * Hardware component interfaces (#121 <https://github.com/ros-controls/ros2_control/issues/121>)
+  * Add ActuatorHandle and Implement string-based interface handle-handling using DynamicJointState message (#112 <https://github.com/ros-controls/ros2_control/issues/112>)
+  * Change Hardware return type to enum class (#114 <https://github.com/ros-controls/ros2_control/issues/114>)
+  * Replace RCUTILS_ with RCLCPP_ for logging (#62 <https://github.com/ros-controls/ros2_control/issues/62>)
+  * import hardware_interface
+  * Contributors: Andreas Klintberg, Andy Zelenak, Bence Magyar, Colin MacKenzie, Denis Štogl, Jafar Abdi, Jordan Palacios, Karsten Knese, Mateus Amarante, Matthew Reynolds, Victor Lopez, Yutaka Kondo
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 22 Dec 2020 00:00:00 -0000
+
+
