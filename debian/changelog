@@ -1,0 +1,668 @@
+ros-jazzy-ros2-control-test-assets (5.2.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 07 Jun 2025 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (5.1.0-1bookworm) bookworm; urgency=high
+
+  * Read data_type for all types of interfaces (#2235 <https://github.com/ros-controls/ros2_control/issues/2235>)
+  * Contributors: Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 24 May 2025 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (5.0.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 21 May 2025 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.29.0-1bookworm) bookworm; urgency=high
+
+  * [Diagnostics] Add diagnostics of execution time and periodicity of the hardware components (#2086 <https://github.com/ros-controls/ros2_control/issues/2086>)
+  * Contributors: Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 04 May 2025 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.28.1-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 17 Apr 2025 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.28.0-1bookworm) bookworm; urgency=high
+
+  * Integrate joint limit enforcement into ros2_control framework functional with Async controllers and components  (#2047 <https://github.com/ros-controls/ros2_control/issues/2047>)
+  * Improve package descriptions & update maintainers (#2103 <https://github.com/ros-controls/ros2_control/issues/2103>)
+  * Contributors: Bence Magyar, Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 10 Apr 2025 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.27.0-1bookworm) bookworm; urgency=high
+
+  * [CM] Fix the controller deactivation on the control cycles returning ERROR  (#1756 <https://github.com/ros-controls/ros2_control/issues/1756>)
+  * Contributors: Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 01 Mar 2025 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.26.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 07 Feb 2025 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.25.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 29 Jan 2025 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.24.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 13 Jan 2025 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.23.0-1bookworm) bookworm; urgency=high
+
+  * Move test_utils module from demos repo (#1955 <https://github.com/ros-controls/ros2_control/issues/1955>)
+  * Contributors: Christoph Fröhlich
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 29 Dec 2024 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.22.0-1bookworm) bookworm; urgency=high
+
+  * Async Hardware Components (#1567 <https://github.com/ros-controls/ros2_control/issues/1567>)
+  * Let sensors also export state interfaces of joints (#1885 <https://github.com/ros-controls/ros2_control/issues/1885>)
+  * Contributors: Christoph Fröhlich, Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 20 Dec 2024 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.21.0-1bookworm) bookworm; urgency=high
+
+  * [Feature] Choose different read and write rate for the hardware components (#1570 <https://github.com/ros-controls/ros2_control/issues/1570>)
+  * Contributors: Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 06 Dec 2024 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.20.0-1bookworm) bookworm; urgency=high
+
+  * Add Support for SDF (#1763 <https://github.com/ros-controls/ros2_control/issues/1763>)
+  * Contributors: Aarav Gupta
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 08 Nov 2024 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.19.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 26 Oct 2024 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.18.0-1bookworm) bookworm; urgency=high
+
+  * Automatic Creation of Handles in HW, Adding Getters/Setters (variant support) (#1688 <https://github.com/ros-controls/ros2_control/issues/1688>)
+  * Contributors: Manuel Muth
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 07 Oct 2024 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.17.0-1bookworm) bookworm; urgency=high
+
+  * [HWItfs] Add key-value-storage to the InterfaceInfo (#1421 <https://github.com/ros-controls/ros2_control/issues/1421>)
+  * Contributors: Manuel Muth
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 11 Sep 2024 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.16.1-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 24 Aug 2024 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.16.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 22 Aug 2024 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.15.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 05 Aug 2024 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.14.0-1bookworm) bookworm; urgency=high
+
+  * Unused header cleanup (#1627 <https://github.com/ros-controls/ros2_control/issues/1627>)
+  * Contributors: Henry Moore
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 23 Jul 2024 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.13.0-1bookworm) bookworm; urgency=high
+
+  * [ControllerChaining] Export state interfaces from chainable controllers (#1021 <https://github.com/ros-controls/ros2_control/issues/1021>)
+  * Remove mimic parameter from ros2_control tag (#1553 <https://github.com/ros-controls/ros2_control/issues/1553>)
+  * Contributors: Christoph Fröhlich, Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 08 Jul 2024 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.12.0-1bookworm) bookworm; urgency=high
+
+  * [RM] Rename load_urdf method to load_and_initialize_components and add error handling there to avoid stack crashing when error happens. (#1354 <https://github.com/ros-controls/ros2_control/issues/1354>)
+  * [Feature] Hardware Components Grouping (#1458 <https://github.com/ros-controls/ros2_control/issues/1458>)
+  * Contributors: Dr. Denis, Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 01 Jul 2024 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.11.0-1bookworm) bookworm; urgency=high
+
+  * Parse URDF soft_limits into the HardwareInfo structure (#1488 <https://github.com/ros-controls/ros2_control/issues/1488>)
+  * Contributors: adriaroig
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 14 May 2024 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.10.0-1bookworm) bookworm; urgency=high
+
+  * Parse URDF joint hard limits into the HardwareInfo structure (#1472 <https://github.com/ros-controls/ros2_control/issues/1472>)
+  * Contributors: Sai Kishor Kothakota
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 08 May 2024 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.9.0-1bookworm) bookworm; urgency=high
+
+  * Component parser: Get mimic information from URDF (#1256 <https://github.com/ros-controls/ros2_control/issues/1256>)
+  * Contributors: Christoph Fröhlich
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 30 Apr 2024 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.8.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 27 Mar 2024 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.7.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 22 Mar 2024 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.6.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 02 Mar 2024 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.5.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 12 Feb 2024 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.4.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 31 Jan 2024 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.3.0-1bookworm) bookworm; urgency=high
+
+  * [ResourceManager] adds test for uninitialized hardware (#1243 <https://github.com/ros-controls/ros2_control/issues/1243>)
+  * Contributors: Maximilian Schik
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 20 Jan 2024 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.2.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 12 Dec 2023 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.1.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 30 Nov 2023 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (4.0.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 21 Nov 2023 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.21.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 06 Nov 2023 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.20.0-1bookworm) bookworm; urgency=high
+
+  * [ResourceManager] deactivate hardware from read/write return value (#884 <https://github.com/ros-controls/ros2_control/issues/884>)
+  * Contributors: Felix Exner (fexner)
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 31 Oct 2023 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.19.1-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 04 Oct 2023 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.19.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 03 Oct 2023 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.18.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 17 Aug 2023 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.17.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 07 Aug 2023 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.16.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 09 Jul 2023 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.15.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 23 Jun 2023 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.14.0-1bookworm) bookworm; urgency=high
+
+  * [URDF Parser] Allow empty urdf tag, e.g., parameter (#1017 <https://github.com/ros-controls/ros2_control/issues/1017>)
+  * Contributors: Felix Exner (fexner)
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 14 Jun 2023 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.13.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 18 May 2023 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.12.2-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 29 Apr 2023 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.12.1-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 14 Apr 2023 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.12.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 02 Apr 2023 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.11.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 22 Mar 2023 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.10.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 16 Mar 2023 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.9.1-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 09 Mar 2023 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.9.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 28 Feb 2023 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.8.0-1bookworm) bookworm; urgency=high
+
+  * Fix CMake install so overriding works (#926 <https://github.com/ros-controls/ros2_control/issues/926>)
+  * Contributors: Tyler Weaver
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 10 Feb 2023 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.7.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 24 Jan 2023 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.6.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 12 Jan 2023 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.5.1-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 06 Jan 2023 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.5.0-1bookworm) bookworm; urgency=high
+
+  * Rename class type to plugin name #api-breaking #abi-breaking (#780 <https://github.com/ros-controls/ros2_control/issues/780>)
+  * Contributors: Bence Magyar
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 06 Dec 2022 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.4.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 27 Nov 2022 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.3.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 15 Nov 2022 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.2.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 15 Oct 2022 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.1.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 05 Oct 2022 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (3.0.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 19 Sep 2022 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (2.15.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 19 Sep 2022 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (2.14.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 04 Sep 2022 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (2.13.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 03 Aug 2022 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (2.12.1-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 14 Jul 2022 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (2.12.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 09 Jul 2022 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (2.11.0-1bookworm) bookworm; urgency=high
+
+  * Update maintainers of packages (#753 <https://github.com/ros-controls/ros2_control/issues/753>)
+  * Remove ament autolint (#749 <https://github.com/ros-controls/ros2_control/issues/749>)
+  * Contributors: Bence Magyar
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 03 Jul 2022 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (2.10.0-1bookworm) bookworm; urgency=high
+
+  * Make RHEL CI happy! (#730 <https://github.com/ros-controls/ros2_control/issues/730>)
+  * CMakeLists cleanup (#733 <https://github.com/ros-controls/ros2_control/issues/733>)
+  * Contributors: Andy Zelenak, Márk Szitanics
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 18 Jun 2022 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (2.9.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 19 May 2022 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (2.8.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 13 May 2022 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (2.7.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 29 Apr 2022 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (2.6.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 20 Apr 2022 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (2.5.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 25 Mar 2022 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (2.4.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 23 Feb 2022 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (2.3.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 18 Feb 2022 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (2.2.0-1bookworm) bookworm; urgency=high
+
+  * Resource Manager API changes for hardware lifecycle #api-breaking #abi-breaking (#589 <https://github.com/ros-controls/ros2_control/issues/589>)
+    * Towards selective starting and stoping of hardware components. Cleaning and renaming.
+    * Move Lifecycle of hardware component to the bottom for better overview.
+    * Use the same nomenclature as for controllers. 'start' -> 'activate'; 'stop' -> 'deactivate'
+    * Add selective starting and stopping of hardware resources.
+    Add HardwareComponentInfo structure in resource manager.
+    Use constants for HW parameters in tests of resource_manager.
+    Add list hardware components in CM to get details about them and check their status.
+    Use clear name for 'guard' and move release cmd itfs for better readability.
+    RM: Add lock for accesing maps with stored interfaces.
+    Separate hardware components-related services after controllers-related services.
+    Add service for activate/deactive hardware components.
+    Add activation and deactivation through ResourceStorage. This helps to manage available command interfaces.
+    * Use lifecycle_msgs/State in ListHardwareCompoents for state representation.
+    * Simplify repeatable code in methods.
+    * Add HW shutdown structure into ResouceManager.
+    * Fill out service callback in CM and add parameter for auto-configure.
+    * Move claimed_command_itf_map to ResourceStorage from ResourceManager.
+    * Do not automatically configure hardware in RM.
+    * Lifecycle and claiming in Resource Manager is working.
+    * Extend controller manager to support HW lifecycle.
+    * Add also available and claimed status into list components service output.
+    * Add SetHardwareComponentState service.
+    * Make all output in services debug-output.
+    * Remove specific services for hardware lifecycle management and leave only 'set_hardware_component_state' service.
+    * Make init_resource_manager less stateful.
+    * Keep old api to start/activate all components per default.
+    * Remove 'moving'/'non-moving' interface-handling.
+    * Remove obsolete 'import_components' methods without hardware info and fix post_initialization test.
+    Co-authored-by: Bence Magyar <mailto:bence.magyar.robotics@gmail.com>
+  * Contributors: Denis Štogl
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 24 Jan 2022 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (2.1.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 11 Jan 2022 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (2.0.0-1bookworm) bookworm; urgency=high
+
+  * Adding support for 'initial_value' parameter. (#593 <https://github.com/ros-controls/ros2_control/issues/593>)
+  * Contributors: bailaC
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 29 Dec 2021 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (1.2.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 05 Nov 2021 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (1.1.0-1bookworm) bookworm; urgency=high
+
+  * Moving diffbot_urdf to ros2_control_test_assets. (#558 <https://github.com/ros-controls/ros2_control/issues/558>)
+  * Contributors: bailaC
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 25 Oct 2021 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (1.0.0-1bookworm) bookworm; urgency=high
+
+  * Remove unnecessary includes (#518 <https://github.com/ros-controls/ros2_control/issues/518>)
+  * Do not manually set C++ version to 14 (#516 <https://github.com/ros-controls/ros2_control/issues/516>)
+  * Contributors: Bence Magyar, Denis Štogl
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 29 Sep 2021 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (0.8.0-1bookworm) bookworm; urgency=high
+
+  * Use clang format as code formatter (#491 <https://github.com/ros-controls/ros2_control/issues/491>)
+  * Transmission parsing v2 (#471 <https://github.com/ros-controls/ros2_control/issues/471>)
+  * Added GPIO parsing and test (#436 <https://github.com/ros-controls/ros2_control/issues/436>)
+  * Contributors: Bence Magyar, Denis Štogl, Mathias Arbo
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 28 Aug 2021 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (0.7.1-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 15 Jun 2021 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (0.7.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 06 Jun 2021 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (0.6.1-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 31 May 2021 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (0.6.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 23 May 2021 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (0.5.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 03 May 2021 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (0.4.0-1bookworm) bookworm; urgency=high
+
+  * [ros2_control_test_assets] Fix typo (#371 <https://github.com/ros-controls/ros2_control/issues/371>)
+  * Contributors: Yutaka Kondo
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 07 Apr 2021 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (0.3.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sun, 21 Mar 2021 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (0.2.1-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 02 Mar 2021 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (0.2.0-1bookworm) bookworm; urgency=high
+
+  * Add "Fake" components for simple integration of framework (#323 <https://github.com/ros-controls/ros2_control/issues/323>)
+  * Moved example URDFs for parser/scenario tests to assets package (#316 <https://github.com/ros-controls/ros2_control/issues/316>)
+  * Contributors: Denis Štogl
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 26 Feb 2021 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (0.1.6-1bookworm) bookworm; urgency=high
+
+  * correct hardware interface validation in resource manager. (#317 <https://github.com/ros-controls/ros2_control/issues/317>)
+  * Add missing test dep (#321 <https://github.com/ros-controls/ros2_control/issues/321>)
+  * Contributors: Bence Magyar, Karsten Knese
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Fri, 05 Feb 2021 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (0.1.5-1bookworm) bookworm; urgency=high
+
+  * Add missing buildtool dep (#319 <https://github.com/ros-controls/ros2_control/issues/319>)
+  * Contributors: Bence Magyar
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 04 Feb 2021 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (0.1.4-1bookworm) bookworm; urgency=high
+
+  * Add test assets package (#289 <https://github.com/ros-controls/ros2_control/issues/289>)
+  * Contributors: Denis Štogl
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 03 Feb 2021 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (0.1.3-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 21 Jan 2021 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (0.1.2-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 06 Jan 2021 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (0.1.1-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 23 Dec 2020 00:00:00 -0000
+
+ros-jazzy-ros2-control-test-assets (0.1.0-1bookworm) bookworm; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Tue, 22 Dec 2020 00:00:00 -0000
+
+
