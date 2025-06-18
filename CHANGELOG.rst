@@ -2,16 +2,16 @@
 Changelog for package ros2_control_test_assets
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-5.2.0 (2025-06-07)
-------------------
+4.32.0 (2025-06-06)
+-------------------
 
-5.1.0 (2025-05-24)
-------------------
-* Read `data_type` for all types of interfaces (`#2235 <https://github.com/ros-controls/ros2_control/issues/2235>`_)
-* Contributors: Sai Kishor Kothakota
+4.31.0 (2025-05-24)
+-------------------
+* Read `data_type` for all types of interfaces (`#2235 <https://github.com/ros-controls/ros2_control/issues/2235>`_) (`#2261 <https://github.com/ros-controls/ros2_control/issues/2261>`_)
+* Contributors: mergify[bot]
 
-5.0.0 (2025-05-21)
-------------------
+4.30.0 (2025-05-21)
+-------------------
 
 4.29.0 (2025-05-04)
 -------------------
