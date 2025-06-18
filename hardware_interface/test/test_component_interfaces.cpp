@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gmock/gmock.h>
-
 #include <array>
 #include <limits>
 #include <memory>
@@ -22,6 +20,7 @@
 #include <unordered_map>
 #include <vector>
 
+#include "gmock/gmock.h"
 #include "hardware_interface/actuator.hpp"
 #include "hardware_interface/actuator_interface.hpp"
 #include "hardware_interface/hardware_info.hpp"
@@ -83,21 +82,28 @@ class DummyActuator : public hardware_interface::ActuatorInterface
   {
     // We can read a position and a velocity
     std::vector<hardware_interface::StateInterface> state_interfaces;
-    state_interfaces.emplace_back(hardware_interface::StateInterface(
-      "joint1", hardware_interface::HW_IF_POSITION, &position_state_));
-    state_interfaces.emplace_back(hardware_interface::StateInterface(
-      "joint1", hardware_interface::HW_IF_VELOCITY, &velocity_state_));
-
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+    state_interfaces.emplace_back(
+      hardware_interface::StateInterface(
+        "joint1", hardware_interface::HW_IF_POSITION, &position_state_));
+    state_interfaces.emplace_back(
+      hardware_interface::StateInterface(
+        "joint1", hardware_interface::HW_IF_VELOCITY, &velocity_state_));
+#pragma GCC diagnostic pop
     return state_interfaces;
   }
 
   std::vector<hardware_interface::CommandInterface> export_command_interfaces() override
   {
     // We can command in velocity
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     std::vector<hardware_interface::CommandInterface> command_interfaces;
-    command_interfaces.emplace_back(hardware_interface::CommandInterface(
-      "joint1", hardware_interface::HW_IF_VELOCITY, &velocity_command_));
-
+    command_interfaces.emplace_back(
+      hardware_interface::CommandInterface(
+        "joint1", hardware_interface::HW_IF_VELOCITY, &velocity_command_));
+#pragma GCC diagnostic pop
     return command_interfaces;
   }
 
@@ -184,6 +190,11 @@ class DummyActuatorDefault : public hardware_interface::ActuatorInterface
     {
       set_command("joint1/velocity", 0.0);
     }
+    // Should throw as the interface is unknown
+    EXPECT_THROW(get_state("joint1/nonexisting/interface"), std::runtime_error);
+    EXPECT_THROW(get_command("joint1/nonexisting/interface"), std::runtime_error);
+    EXPECT_THROW(set_state("joint1/nonexisting/interface", 0.0), std::runtime_error);
+    EXPECT_THROW(set_command("joint1/nonexisting/interface", 0.0), std::runtime_error);
 
     read_calls_ = 0;
     write_calls_ = 0;
@@ -266,9 +277,11 @@ class DummySensor : public hardware_interface::SensorInterface
   {
     // We can read some voltage level
     std::vector<hardware_interface::StateInterface> state_interfaces;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     state_interfaces.emplace_back(
       hardware_interface::StateInterface("sens1", "voltage", &voltage_level_));
-
+#pragma GCC diagnostic pop
     return state_interfaces;
   }
 
@@ -327,6 +340,10 @@ class DummySensorDefault : public hardware_interface::SensorInterface
   CallbackReturn on_configure(const rclcpp_lifecycle::State & /*previous_state*/) override
   {
     set_state("sens1/voltage", 0.0);
+    // Should throw as the interface is unknown
+    EXPECT_THROW(get_state("joint1/nonexisting/interface"), std::runtime_error);
+    EXPECT_THROW(set_state("joint1/nonexisting/interface", 0.0), std::runtime_error);
+
     read_calls_ = 0;
     return CallbackReturn::SUCCESS;
   }
@@ -462,19 +479,27 @@ class DummySystem : public hardware_interface::SystemInterface
   {
     // We can read a position and a velocity
     std::vector<hardware_interface::StateInterface> state_interfaces;
-    state_interfaces.emplace_back(hardware_interface::StateInterface(
-      "joint1", hardware_interface::HW_IF_POSITION, &position_state_[0]));
-    state_interfaces.emplace_back(hardware_interface::StateInterface(
-      "joint1", hardware_interface::HW_IF_VELOCITY, &velocity_state_[0]));
-    state_interfaces.emplace_back(hardware_interface::StateInterface(
-      "joint2", hardware_interface::HW_IF_POSITION, &position_state_[1]));
-    state_interfaces.emplace_back(hardware_interface::StateInterface(
-      "joint2", hardware_interface::HW_IF_VELOCITY, &velocity_state_[1]));
-    state_interfaces.emplace_back(hardware_interface::StateInterface(
-      "joint3", hardware_interface::HW_IF_POSITION, &position_state_[2]));
-    state_interfaces.emplace_back(hardware_interface::StateInterface(
-      "joint3", hardware_interface::HW_IF_VELOCITY, &velocity_state_[2]));
-
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+    state_interfaces.emplace_back(
+      hardware_interface::StateInterface(
+        "joint1", hardware_interface::HW_IF_POSITION, &position_state_[0]));
+    state_interfaces.emplace_back(
+      hardware_interface::StateInterface(
+        "joint1", hardware_interface::HW_IF_VELOCITY, &velocity_state_[0]));
+    state_interfaces.emplace_back(
+      hardware_interface::StateInterface(
+        "joint2", hardware_interface::HW_IF_POSITION, &position_state_[1]));
+    state_interfaces.emplace_back(
+      hardware_interface::StateInterface(
+        "joint2", hardware_interface::HW_IF_VELOCITY, &velocity_state_[1]));
+    state_interfaces.emplace_back(
+      hardware_interface::StateInterface(
+        "joint3", hardware_interface::HW_IF_POSITION, &position_state_[2]));
+    state_interfaces.emplace_back(
+      hardware_interface::StateInterface(
+        "joint3", hardware_interface::HW_IF_VELOCITY, &velocity_state_[2]));
+#pragma GCC diagnostic pop
     return state_interfaces;
   }
 
@@ -482,13 +507,18 @@ class DummySystem : public hardware_interface::SystemInterface
   {
     // We can command in velocity
     std::vector<hardware_interface::CommandInterface> command_interfaces;
-    command_interfaces.emplace_back(hardware_interface::CommandInterface(
-      "joint1", hardware_interface::HW_IF_VELOCITY, &velocity_command_[0]));
-    command_interfaces.emplace_back(hardware_interface::CommandInterface(
-      "joint2", hardware_interface::HW_IF_VELOCITY, &velocity_command_[1]));
-    command_interfaces.emplace_back(hardware_interface::CommandInterface(
-      "joint3", hardware_interface::HW_IF_VELOCITY, &velocity_command_[2]));
-
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+    command_interfaces.emplace_back(
+      hardware_interface::CommandInterface(
+        "joint1", hardware_interface::HW_IF_VELOCITY, &velocity_command_[0]));
+    command_interfaces.emplace_back(
+      hardware_interface::CommandInterface(
+        "joint2", hardware_interface::HW_IF_VELOCITY, &velocity_command_[1]));
+    command_interfaces.emplace_back(
+      hardware_interface::CommandInterface(
+        "joint3", hardware_interface::HW_IF_VELOCITY, &velocity_command_[2]));
+#pragma GCC diagnostic pop
     return command_interfaces;
   }
 
@@ -589,6 +619,11 @@ class DummySystemDefault : public hardware_interface::SystemInterface
         set_command(velocity_commands_[i], 0.0);
       }
     }
+    // Should throw as the interface is unknown
+    EXPECT_THROW(get_state("joint1/nonexisting/interface"), std::runtime_error);
+    EXPECT_THROW(get_command("joint1/nonexisting/interface"), std::runtime_error);
+    EXPECT_THROW(set_state("joint1/nonexisting/interface", 0.0), std::runtime_error);
+    EXPECT_THROW(set_command("joint1/nonexisting/interface", 0.0), std::runtime_error);
 
     read_calls_ = 0;
     write_calls_ = 0;
@@ -2149,6 +2184,6 @@ TEST(TestComponentInterfaces, dummy_system_default_write_error_behavior)
 int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
-  testing::InitGoogleTest(&argc, argv);
+  testing::InitGoogleMock(&argc, argv);
   return RUN_ALL_TESTS();
 }

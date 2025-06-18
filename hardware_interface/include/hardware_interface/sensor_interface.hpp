@@ -15,6 +15,8 @@
 #ifndef HARDWARE_INTERFACE__SENSOR_INTERFACE_HPP_
 #define HARDWARE_INTERFACE__SENSOR_INTERFACE_HPP_
 
+#include <fmt/compile.h>
+
 #include <limits>
 #include <memory>
 #include <string>
@@ -39,6 +41,9 @@
 
 namespace hardware_interface
 {
+
+using CallbackReturn = rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn;
+
 /// Virtual Class to implement when integrating a stand-alone sensor into ros2_control.
 /**
  * The typical examples are Force-Torque Sensor (FTS), Interial Measurement Unit (IMU).
@@ -60,28 +65,22 @@ namespace hardware_interface
  *
  * INACTIVE (on_configure, on_deactivate):
  *   Communication with the hardware is started and it is configured.
- *   States can be read and non-movement hardware interfaces commanded.
- *   Hardware interfaces for movement will NOT be available.
- *   Those interfaces are: HW_IF_POSITION, HW_IF_VELOCITY, HW_IF_ACCELERATION, and HW_IF_EFFORT.
+ *   States can be read.
  *
  * FINALIZED (on_shutdown):
  *   Hardware interface is ready for unloading/destruction.
  *   Allocated memory is cleaned up.
  *
  * ACTIVE (on_activate):
- *   Power circuits of hardware are active and hardware can be moved, e.g., brakes are disabled.
- *   Command interfaces for movement are available and have to be accepted.
- *   Those interfaces are: HW_IF_POSITION, HW_IF_VELOCITY, HW_IF_ACCELERATION, and HW_IF_EFFORT.
+ *   States can be read.
  */
-
-using CallbackReturn = rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn;
-
 class SensorInterface : public rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface
 {
 public:
   SensorInterface()
-  : lifecycle_state_(rclcpp_lifecycle::State(
-      lifecycle_msgs::msg::State::PRIMARY_STATE_UNKNOWN, lifecycle_state_names::UNKNOWN)),
+  : lifecycle_state_(
+      rclcpp_lifecycle::State(
+        lifecycle_msgs::msg::State::PRIMARY_STATE_UNKNOWN, lifecycle_state_names::UNKNOWN)),
     sensor_logger_(rclcpp::get_logger("sensor_interface"))
   {
   }
@@ -101,16 +100,15 @@ public:
   /// clock and logger interfaces.
   /**
    * \param[in] hardware_info structure with data from URDF.
-   * \param[in] clock_interface pointer to the clock interface.
-   * \param[in] logger_interface pointer to the logger interface.
+   * \param[in] clock pointer to the resource manager clock.
+   * \param[in] logger Logger for the hardware component.
    * \returns CallbackReturn::SUCCESS if required data are provided and can be parsed.
    * \returns CallbackReturn::ERROR if any error happens or data are missing.
    */
   CallbackReturn init(
-    const HardwareInfo & hardware_info, rclcpp::Logger logger,
-    rclcpp::node_interfaces::NodeClockInterface::SharedPtr clock_interface)
+    const HardwareInfo & hardware_info, rclcpp::Logger logger, rclcpp::Clock::SharedPtr clock)
   {
-    clock_interface_ = clock_interface;
+    sensor_clock_ = clock;
     sensor_logger_ = logger.get_child("hardware_component.sensor." + hardware_info.name);
     info_ = hardware_info;
     if (info_.is_async)
@@ -312,14 +310,50 @@ public:
     lifecycle_state_ = new_state;
   }
 
-  void set_state(const std::string & interface_name, const double & value)
+  template <typename T>
+  void set_state(const std::string & interface_name, const T & value)
   {
-    sensor_states_map_.at(interface_name)->set_value(value);
+    auto it = sensor_states_map_.find(interface_name);
+    if (it == sensor_states_map_.end())
+    {
+      throw std::runtime_error(
+        fmt::format(
+          FMT_COMPILE(
+            "State interface not found: {} in sensor hardware component: {}. "
+            "This should not happen."),
+          interface_name, info_.name));
+    }
+    auto & handle = it->second;
+    std::unique_lock<std::shared_mutex> lock(handle->get_mutex());
+    std::ignore = handle->set_value(lock, value);
   }
 
-  double get_state(const std::string & interface_name) const
+  template <typename T = double>
+  T get_state(const std::string & interface_name) const
   {
-    return sensor_states_map_.at(interface_name)->get_value();
+    auto it = sensor_states_map_.find(interface_name);
+    if (it == sensor_states_map_.end())
+    {
+      throw std::runtime_error(
+        fmt::format(
+          FMT_COMPILE(
+            "State interface not found: {} in sensor hardware component: {}. "
+            "This should not happen."),
+          interface_name, info_.name));
+    }
+    auto & handle = it->second;
+    std::shared_lock<std::shared_mutex> lock(handle->get_mutex());
+    const auto opt_value = handle->get_optional<T>(lock);
+    if (!opt_value)
+    {
+      throw std::runtime_error(
+        fmt::format(
+          FMT_COMPILE(
+            "Failed to get state value from interface: {}. "
+            "This should not happen."),
+          interface_name));
+    }
+    return opt_value.value();
   }
 
   /// Get the logger of the SensorInterface.
@@ -332,7 +366,7 @@ public:
   /**
    * \return clock of the SensorInterface.
    */
-  rclcpp::Clock::SharedPtr get_clock() const { return clock_interface_->get_clock(); }
+  rclcpp::Clock::SharedPtr get_clock() const { return sensor_clock_; }
 
   /// Get the hardware info of the SensorInterface.
   /**
@@ -372,7 +406,7 @@ protected:
   std::unique_ptr<realtime_tools::AsyncFunctionHandler<return_type>> read_async_handler_;
 
 private:
-  rclcpp::node_interfaces::NodeClockInterface::SharedPtr clock_interface_;
+  rclcpp::Clock::SharedPtr sensor_clock_;
   rclcpp::Logger sensor_logger_;
   // interface names to Handle accessed through getters/setters
   std::unordered_map<std::string, StateInterface::SharedPtr> sensor_states_map_;
