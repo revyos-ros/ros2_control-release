@@ -2,29 +2,29 @@
 Changelog for package controller_manager
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-5.2.0 (2025-06-07)
-------------------
-* Move `enforce_command_limits` parameter to GPL parameters (`#2305 <https://github.com/ros-controls/ros2_control/issues/2305>`_)
-* Cleanup test name (`#2295 <https://github.com/ros-controls/ros2_control/issues/2295>`_)
-* check_controllers_running: Make timeout a parameter  (`#2278 <https://github.com/ros-controls/ros2_control/issues/2278>`_)
-* Contributors: Christoph Fröhlich, Sai Kishor Kothakota
+4.32.0 (2025-06-06)
+-------------------
+* Move `enforce_command_limits` parameter to GPL parameters (backport `#2305 <https://github.com/ros-controls/ros2_control/issues/2305>`_) (`#2316 <https://github.com/ros-controls/ros2_control/issues/2316>`_)
+* Cleanup test name (`#2295 <https://github.com/ros-controls/ros2_control/issues/2295>`_) (`#2298 <https://github.com/ros-controls/ros2_control/issues/2298>`_)
+* check_controllers_running: Make timeout a parameter  (`#2278 <https://github.com/ros-controls/ros2_control/issues/2278>`_) (`#2281 <https://github.com/ros-controls/ros2_control/issues/2281>`_)
+* Contributors: mergify[bot]
 
-5.1.0 (2025-05-24)
-------------------
-* Use target_link_libraries instead of ament_target_dependencies (`#2266 <https://github.com/ros-controls/ros2_control/issues/2266>`_)
-* Cleanup deprecations in `ros_control`  (`#2258 <https://github.com/ros-controls/ros2_control/issues/2258>`_)
-* Contributors: Sai Kishor Kothakota
+4.31.0 (2025-05-24)
+-------------------
+* Add `data_type` field to the HardwareInterfaces message (backport `#2204 <https://github.com/ros-controls/ros2_control/issues/2204>`_) (`#2232 <https://github.com/ros-controls/ros2_control/issues/2232>`_)
+* Use target_link_libraries instead of ament_target_dependencies (`#2266 <https://github.com/ros-controls/ros2_control/issues/2266>`_) (`#2271 <https://github.com/ros-controls/ros2_control/issues/2271>`_)
+* Add new strictness modes to SwitchController service (`#2224 <https://github.com/ros-controls/ros2_control/issues/2224>`_) (`#2231 <https://github.com/ros-controls/ros2_control/issues/2231>`_)
+* Contributors: mergify[bot]
 
-5.0.0 (2025-05-21)
-------------------
-* [CM] Add option to avoid shutting down on hardware initial state failure (`#2230 <https://github.com/ros-controls/ros2_control/issues/2230>`_)
-* Statically allocate string concatenations using FMT formatting (`#2205 <https://github.com/ros-controls/ros2_control/issues/2205>`_)
-* Suppress the deprecation warnings of the hardware_interface API (`#2223 <https://github.com/ros-controls/ros2_control/issues/2223>`_)
-* Use `warning` attribute of RcutilsLogger (`#2244 <https://github.com/ros-controls/ros2_control/issues/2244>`_)
-* [CM] Set default strictness of switch_controllers using parameters (`#2168 <https://github.com/ros-controls/ros2_control/issues/2168>`_)
-* Add `data_type` field to the HardwareInterfaces message (`#2204 <https://github.com/ros-controls/ros2_control/issues/2204>`_)
-* Add new strictness modes to SwitchController service (`#2224 <https://github.com/ros-controls/ros2_control/issues/2224>`_)
-* Contributors: Marq Rasmussen, Sai Kishor Kothakota, mini-1235
+4.30.0 (2025-05-21)
+-------------------
+* Keep current shutdown behaviour in Jazzy (`#2254 <https://github.com/ros-controls/ros2_control/issues/2254>`_)
+* [CM] Add option to avoid shutting down on hardware initial state failure (`#2230 <https://github.com/ros-controls/ros2_control/issues/2230>`_) (`#2251 <https://github.com/ros-controls/ros2_control/issues/2251>`_)
+* Statically allocate string concatenations using FMT formatting (`#2205 <https://github.com/ros-controls/ros2_control/issues/2205>`_) (`#2249 <https://github.com/ros-controls/ros2_control/issues/2249>`_)
+* Suppress the deprecation warnings of the hardware_interface API (`#2223 <https://github.com/ros-controls/ros2_control/issues/2223>`_) (`#2247 <https://github.com/ros-controls/ros2_control/issues/2247>`_)
+* Use `warning` attribute of RcutilsLogger (`#2244 <https://github.com/ros-controls/ros2_control/issues/2244>`_) (`#2245 <https://github.com/ros-controls/ros2_control/issues/2245>`_)
+* [CM] Set default strictness of switch_controllers using parameters (`#2168 <https://github.com/ros-controls/ros2_control/issues/2168>`_) (`#2233 <https://github.com/ros-controls/ros2_control/issues/2233>`_)
+* Contributors: Bence Magyar, mergify[bot]
 
 4.29.0 (2025-05-04)
 -------------------
